@@ -25,7 +25,7 @@ main {
 }
 
 .background-gb {
-  background-image: url("../../../public/gameboy.svg");
+  background-image: url("/gameboy.svg");
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
