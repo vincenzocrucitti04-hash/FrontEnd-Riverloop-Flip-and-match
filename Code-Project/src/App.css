@@ -1,0 +1,49 @@
+body.light {
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  color: #2d3748;
+  min-height: 100vh;
+  margin: 0;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+body.dark {
+  background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
+  color: #e2e8f0;
+  min-height: 100vh;
+  margin: 0;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+body.light * {
+  color: #2d3748;
+}
+
+body.dark * {
+  color: #e2e8f0;
+}
+
+body.light,
+body.dark {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+body {
+  margin: 0;
+  padding-bottom: 40px;
+}
+
+main {
+  min-height: 100vh;
+  padding-bottom: 20px;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0.8;
+  }
+  to {
+    opacity: 1;
+  }
+}

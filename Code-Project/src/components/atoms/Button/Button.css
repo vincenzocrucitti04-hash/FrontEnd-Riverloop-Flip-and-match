@@ -1,0 +1,52 @@
+/* bottoni griglie */
+.btn-grid-border {
+  border: 4px solid #ffae70;
+  outline: 2px solid;
+  border-radius: 50px;
+}
+
+.btn-grid-base {
+  background-color: #75221c;
+  outline: 1px solid black;
+  position: relative;
+  border-radius: 50px;
+}
+
+.btn-grid {
+  border-radius: 50px;
+  font-family: "Bungee", cursive;
+  font-size: 16px;
+  outline: 1px solid black;
+  border: 2px solid;
+  border-left-color: #e7b8b4;
+  border-top-color: #f8c9c5;
+  border-bottom-color: #4e1814;
+  border-right-color: #79241e;
+  background-color: #e64539;
+  cursor: pointer;
+  color: #ffee83;
+  padding: 10px 15px;
+  transform: translateY(-10%);
+}
+
+.btn-grid:hover {
+  transform: translateY(-5%);
+}
+
+.btn-grid:active {
+  transform: translateY(0);
+}
+
+/* bottoni icona (theme toggle) */
+.theme-toggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  position: absolute;
+  left: 3rem;
+}
+
+.theme-toggle img {
+  width: 30px;
+  height: 50px;
+}
