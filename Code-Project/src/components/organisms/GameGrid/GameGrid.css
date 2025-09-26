@@ -78,8 +78,8 @@
   .card {
     width: 14vw;
     height: 14vw;
-    max-width: 80px;
-    max-height: 80px;
+    max-width: 100px;
+    max-height: 100px;
   }
 }
 
@@ -112,8 +112,8 @@
   .card {
     width: 22vw;
     height: 22vw;
-    max-width: 65px;
-    max-height: 65px;
+    max-width: 50px;
+    max-height: 50px;
   }
 
   .card-back {
