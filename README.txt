@@ -7,7 +7,7 @@ Creare un gioco di memory interattivo sviluppato con React, in cui l’utente de
 
 Immagini dinamiche → le carte vengono caricate in modo dinamico tramite una chiamata API (Pokémon API).
 
-Dimensione della griglia → l’utente può scegliere tra 4x4, 6x6 o 8x8.
+Dimensione della griglia → l’utente può scegliere tra 4x4, 6x6.
 
 Contatore mosse → registra il numero di tentativi effettuati.
 
