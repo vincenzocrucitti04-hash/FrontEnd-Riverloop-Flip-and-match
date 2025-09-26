@@ -4,7 +4,6 @@
   justify-content: center;
   align-items: center;
   position: fixed;
-  bottom: -150px;
   background: rgba(120, 0, 0, 0.9);
   backdrop-filter: blur(12px);
   height: auto;
@@ -166,7 +165,7 @@ body.dark .social-icons-footer a:focus {
   @media (max-width: 480px) {
     .app-footer {
       padding: 1rem;
-      bottom: -120px;
+      bottom: -200px;
     }
 
     .footer-title {
