@@ -15,7 +15,7 @@ function App() {
   return (
     <div className="App">
       <Header theme={theme} setTheme={setTheme} moves={moves} />
-      <GameBoard setMoves={setMoves} />
+      <GameBoard setMoves={setMoves} moves={moves} />
       <Footer />
     </div>
   );

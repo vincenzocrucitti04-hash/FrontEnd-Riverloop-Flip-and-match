@@ -5,15 +5,28 @@ export default function useGameLogic(setMoves) {
   const [cards, setCards] = useState([]);
   const [flippedCards, setFlippedCards] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [isGameComplete, setIsGameComplete] = useState(false);
 
   useEffect(() => {
     generateCards();
   }, [gridSize]);
 
+  useEffect(() => {
+    if (cards.length > 0) {
+      const allMatched = cards.every((card) => card.matched);
+      if (allMatched && !isGameComplete) {
+        setTimeout(() => {
+          setIsGameComplete(true);
+        }, 500);
+      }
+    }
+  }, [cards, isGameComplete]);
+
   const generateCards = async () => {
     setLoading(true);
     setCards([]);
     setFlippedCards([]);
+    setIsGameComplete(false);
 
     const totalCells = gridSize === "4x4" ? 16 : 36;
     const numPairs = totalCells / 2;
@@ -55,6 +68,7 @@ export default function useGameLogic(setMoves) {
 
   const handleRestart = () => {
     setFlippedCards([]);
+    setIsGameComplete(false);
     if (typeof setMoves === "function") {
       setMoves(0);
     }
@@ -108,12 +122,19 @@ export default function useGameLogic(setMoves) {
     }
   };
 
+  const closeModal = () => {
+    setIsGameComplete(false);
+    handleRestart();
+  };
+
   return {
     cards,
     gridSize,
     loading,
+    isGameComplete,
     setGridSize,
     handleFlip,
     handleRestart,
+    closeModal,
   };
 }

@@ -8,7 +8,7 @@ const Footer = () => {
     const handleScroll = () => {
       const scrollTop =
         window.pageYOffset || document.documentElement.scrollTop;
-      const scrollThreshold = 100; // Pixel di scroll prima che compaia
+      const scrollThreshold = 100;
       const isMobile = window.innerWidth < 768;
 
       if (isMobile) {
@@ -22,7 +22,6 @@ const Footer = () => {
       }
     };
 
-    // Debounce per ottimizzare le performance
     let scrollTimeout;
     const debouncedScroll = () => {
       clearTimeout(scrollTimeout);
