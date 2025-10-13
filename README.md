@@ -1,40 +1,43 @@
-🧩 Memory Game in React
-🎯 Obiettivo
+# 🧩 FrontEnd Riverloop - Flip and Match
 
-Creare un gioco di memory interattivo sviluppato con React, in cui l’utente deve accoppiare le carte identiche.
+Un gioco "memory" realizzato in JavaScript, dove l’obiettivo è abbinare le carte uguali nel minor tempo possibile.  
+Progetto sviluppato per esercitare logica, manipolazione del DOM e styling dinamico.
 
-⚙️ Funzionalità principali
+## 🚀 Tecnologie utilizzate
+- **HTML5**
+- **CSS3**
+- **JavaScript (Vanilla JS)**
 
-Immagini dinamiche → le carte vengono caricate in modo dinamico tramite una chiamata API (Pokémon API).
+## 🕹️ Funzionalità principali
+- Sistema di gioco “flip and match”
+- Conteggio dei tentativi
+- Timer di gioco
+- Animazioni fluide e design responsive
 
-Dimensione della griglia → l’utente può scegliere tra 4x4, 6x6.
+## 🛠️ Installazione ed esecuzione
+1. Clona la repository:
+   ```bash
+   git clone https://github.com/vincenzocrucitti04-hash/FrontEnd-Riverloop-Flip-and-match.git
+   ```
+2. Entra nella cartella del progetto:
+   ```bash
+   cd FrontEnd-Riverloop-Flip-and-match
+   ```
+3. Apri `index.html` nel browser per giocare.
 
-Contatore mosse → registra il numero di tentativi effettuati.
+## 📁 Struttura del progetto
+```
+FrontEnd-Riverloop-Flip-and-match/
+├── index.html
+├── css/
+│   └── style.css
+├── js/
+│   └── game.js
+└── assets/
+    └── images/
+```
 
-Pulsante Restart → consente di ricominciare la partita in qualsiasi momento.
 
-Tema Dark/Light → possibilità di passare dalla modalità scura a quella chiara tramite un toggle (sole/luna).
-
-🏗️ Struttura del progetto
-
-App.js → gestisce lo stato globale (tema e dimensione griglia).
-
-GameBoard.js → logica principale del gioco, gestione stato e popolamento griglia tramite API Pokémon.
-
-GameGrid.jsx → renderizza la griglia di carte.
-
-Header.js → contiene il titolo e il toggle per il tema.
-
-🔑 Logica di gioco
-
-All’avvio, le immagini vengono scaricate dall’API.
-
-Le immagini vengono duplicate e mescolate casualmente.
-
-L’utente seleziona due carte:
-
-se coincidono, rimangono scoperte;
-
-altrimenti si rigirano automaticamente.
-
-La partita termina quando tutte le coppie sono state trovate.
+## 👤 Autore
+**Vincenzo Crucitti**  
+[GitHub](https://github.com/vincenzocrucitti04-hash)
