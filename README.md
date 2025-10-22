@@ -25,18 +25,6 @@ Progetto sviluppato per esercitare logica, manipolazione del DOM e styling dinam
    ```
 3. Apri `index.html` nel browser per giocare.
 
-## 📁 Struttura del progetto
-```
-FrontEnd-Riverloop-Flip-and-match/
-├── index.html
-├── css/
-│   └── style.css
-├── js/
-│   └── game.js
-└── assets/
-    └── images/
-```
-
 
 ## 👤 Autore
 **Vincenzo Crucitti**  
