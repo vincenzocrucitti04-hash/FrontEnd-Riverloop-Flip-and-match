@@ -54,23 +54,22 @@ function GameBoard({
   } = useGameLogic(setMoves, moves, initialOptions, onProfileUpdate);
 
   return (
-    <main className="game-board">
-      <div className="game-board__stage">
-        <div className="background-gb" aria-hidden="true" />
-        <div className="container-game">
-          <GameToolbar
-            contextLabel={`${gridSize} · ${DECK_CATALOG[deckId].label}`}
-            onHome={onHome}
-            onRestart={handleRestart}
-            disabled={loading}
-          />
-          <GameStats
-            elapsedMs={elapsedMs}
-            minimumMoves={minimumMoves}
-            bestRecord={bestRecord}
-            combo={combo}
-            moves={moves}
-          />
+    <main className="scan-console">
+      <section className="scan-console__frame" aria-label="Console di gioco">
+        <GameToolbar
+          contextLabel={`${gridSize} · ${DECK_CATALOG[deckId].label}`}
+          onHome={onHome}
+          onRestart={handleRestart}
+          disabled={loading}
+        />
+        <GameStats
+          elapsedMs={elapsedMs}
+          minimumMoves={minimumMoves}
+          bestRecord={bestRecord}
+          combo={combo}
+          moves={moves}
+        />
+        <div className="scan-console__viewport">
           {loading ? (
             <GameSkeleton gridSize={gridSize} />
           ) : error ? (
@@ -92,6 +91,8 @@ function GameBoard({
               feedbackCardIds={feedbackCardIds}
             />
           )}
+        </div>
+        <div className="scan-console__feedback">
           <GameStatus message={announcement} feedback={feedback} />
           {trainingInfo ? (
             <TrainingInfo
@@ -100,24 +101,24 @@ function GameBoard({
               onDismiss={dismissTrainingInfo}
             />
           ) : null}
-          <details className="game-settings">
-            <summary>Impostazioni partita</summary>
-            <div className="game-settings__panel">
-              <GridControls
-                gridSize={gridSize}
-                previewMs={previewMs}
-                disabled={loading}
-                onGridSizeChange={setGridSize}
-                onPreviewChange={setPreviewMs}
-                trainingMode={trainingMode}
-                onTrainingModeChange={setTrainingMode}
-                deckId={deckId}
-                onDeckChange={setDeckId}
-              />
-            </div>
-          </details>
         </div>
-      </div>
+        <details className="scan-console__settings">
+          <summary>Parametri partita</summary>
+          <div className="scan-console__settings-panel">
+            <GridControls
+              gridSize={gridSize}
+              previewMs={previewMs}
+              disabled={loading}
+              onGridSizeChange={setGridSize}
+              onPreviewChange={setPreviewMs}
+              trainingMode={trainingMode}
+              onTrainingModeChange={setTrainingMode}
+              deckId={deckId}
+              onDeckChange={setDeckId}
+            />
+          </div>
+        </details>
+      </section>
 
       <VictoryModal
         isOpen={isGameComplete}

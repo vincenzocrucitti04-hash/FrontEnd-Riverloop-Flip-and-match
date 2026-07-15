@@ -3,13 +3,13 @@ import "./GameToolbar.css";
 
 function GameToolbar({ contextLabel, onHome, onRestart, disabled = false }) {
   return (
-    <nav className="game-toolbar" aria-label="Azioni della spedizione">
+    <nav className="game-toolbar" aria-label="Comandi partita">
       <Button type="button" className="game-toolbar__home" onClick={onHome}>
         <span aria-hidden="true">←</span>
-        Torna alla base
+        Centro di controllo
       </Button>
       <div className="game-toolbar__context">
-        <span className="game-toolbar__eyebrow">Spedizione in corso</span>
+        <span className="game-toolbar__eyebrow">Scansione attiva</span>
         <strong>{contextLabel}</strong>
       </div>
       <Button
@@ -19,7 +19,7 @@ function GameToolbar({ contextLabel, onHome, onRestart, disabled = false }) {
         disabled={disabled}
       >
         <span aria-hidden="true">↻</span>
-        Ricomincia spedizione
+        Riavvia partita
       </Button>
     </nav>
   );

@@ -3,7 +3,7 @@ import { expect, test, vi } from "vitest";
 
 import GameToolbar from "./GameToolbar";
 
-test("exposes expedition context, home, and restart actions", () => {
+test("exposes game context, control center, and restart actions", () => {
   const onHome = vi.fn();
   const onRestart = vi.fn();
   render(
@@ -15,10 +15,8 @@ test("exposes expedition context, home, and restart actions", () => {
   );
 
   expect(screen.getByText("4x4 · Kanto")).toBeInTheDocument();
-  fireEvent.click(screen.getByRole("button", { name: "Torna alla base" }));
-  fireEvent.click(
-    screen.getByRole("button", { name: "Ricomincia spedizione" }),
-  );
+  fireEvent.click(screen.getByRole("button", { name: "Centro di controllo" }));
+  fireEvent.click(screen.getByRole("button", { name: "Riavvia partita" }));
   expect(onHome).toHaveBeenCalledOnce();
   expect(onRestart).toHaveBeenCalledOnce();
 });
@@ -33,8 +31,8 @@ test("can lock restart while keeping navigation available", () => {
     />,
   );
 
-  expect(screen.getByRole("button", { name: "Torna alla base" })).toBeEnabled();
   expect(
-    screen.getByRole("button", { name: "Ricomincia spedizione" }),
-  ).toBeDisabled();
+    screen.getByRole("button", { name: "Centro di controllo" }),
+  ).toBeEnabled();
+  expect(screen.getByRole("button", { name: "Riavvia partita" })).toBeDisabled();
 });

@@ -1,34 +1,43 @@
 .game-error {
   display: grid;
   justify-items: center;
-  gap: 1rem;
-  width: min(100%, 32rem);
-  border: 1px solid var(--border-subtle);
-  border-radius: 1.2rem;
+  gap: 0.65rem;
+  width: min(100%, 34rem);
+  border: 2px solid var(--ink);
+  border-radius: 0.9rem;
   padding: clamp(1rem, 4vw, 1.5rem);
-  background:
-    linear-gradient(135deg, rgba(217, 95, 79, 0.1), transparent 45%),
-    var(--surface);
+  background: var(--surface);
+  color: var(--text);
   text-align: center;
-  box-shadow: 0 0.7rem 1.5rem rgba(24, 51, 43, 0.1);
+  box-shadow: inset 0 -0.25rem 0 var(--border-subtle);
+}
+
+.game-error__signal {
+  position: relative;
+  display: grid;
+  place-items: center;
+}
+
+.game-error__signal::after {
+  content: "";
+  position: absolute;
+  width: 120%;
+  height: 0.2rem;
+  border: 1px solid var(--surface);
+  border-radius: 999px;
+  background: var(--danger-text);
+  transform: rotate(-45deg);
+}
+
+.game-error__title {
+  color: var(--danger-text);
+  font-size: clamp(1.05rem, 3vw, 1.35rem);
 }
 
 .game-error__message {
-  color: var(--text-primary);
+  color: var(--text);
   line-height: 1.55;
   overflow-wrap: anywhere;
-}
-
-.game-error__retry {
-  min-width: 44px;
-  min-height: 44px;
-  border: 2px solid var(--action-primary);
-  border-radius: 50px;
-  background-color: var(--action-primary);
-  color: var(--on-primary);
-  cursor: pointer;
-  font: inherit;
-  padding: 0.625rem 1rem;
 }
 
 .game-error__actions {
@@ -38,19 +47,27 @@
   gap: 0.65rem;
 }
 
+.game-error__retry,
 .game-error__offline {
   min-height: 44px;
-  border: 2px solid var(--action-primary);
-  border-radius: 50px;
+  border-radius: 0.65rem;
   padding: 0.625rem 1rem;
-  background: var(--color-surface);
-  color: var(--action-primary);
-  cursor: pointer;
-  font: inherit;
+}
+
+.game-error__retry {
+  border-color: var(--action-primary);
+  background: var(--action-primary);
+  color: var(--on-primary);
+}
+
+.game-error__offline {
+  border-color: var(--action-primary);
+  background: var(--surface);
+  color: var(--data-text);
 }
 
 .game-error__retry:focus-visible,
 .game-error__offline:focus-visible {
-  outline: 3px solid var(--color-focus);
-  outline-offset: 3px;
+  outline-color: var(--focus-ring);
+  box-shadow: none;
 }

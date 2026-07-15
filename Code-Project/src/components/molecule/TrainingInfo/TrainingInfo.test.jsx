@@ -3,7 +3,7 @@ import { expect, test, vi } from "vitest";
 
 import TrainingInfo from "./TrainingInfo";
 
-test("announces a non-blocking fact and can be dismissed", () => {
+test("presents a dismissible Pokedex information region", () => {
   const onDismiss = vi.fn();
   render(
     <TrainingInfo
@@ -13,11 +13,14 @@ test("announces a non-blocking fact and can be dismissed", () => {
     />,
   );
 
-  expect(screen.getByRole("status")).toHaveTextContent("Bulbasaur");
-  expect(screen.getByRole("status")).toHaveTextContent(
+  const entry = screen.getByRole("region", { name: "Scheda Pokédex" });
+
+  expect(entry).toHaveTextContent("ID Pokémon");
+  expect(entry).toHaveTextContent("Bulbasaur");
+  expect(entry).toHaveTextContent(
     "Un seme cresce sul suo dorso.",
   );
-  fireEvent.click(screen.getByRole("button", { name: "Chiudi curiosità" }));
+  fireEvent.click(screen.getByRole("button", { name: "Chiudi scheda" }));
   expect(onDismiss).toHaveBeenCalledOnce();
 });
 
