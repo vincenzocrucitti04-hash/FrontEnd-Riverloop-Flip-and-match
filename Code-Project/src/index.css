@@ -11,5 +11,17 @@ body {
 }
 
 body {
-  font-family: "Bungee", "Epunda Slab", "Story Script", sans-serif;
+  font-family:
+    Inter,
+    ui-rounded,
+    "Segoe UI",
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    sans-serif;
+}
+
+button,
+select {
+  font: inherit;
 }

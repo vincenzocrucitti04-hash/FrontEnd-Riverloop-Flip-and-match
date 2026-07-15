@@ -1,0 +1,22 @@
+.game-status {
+  display: grid;
+  place-items: center;
+  width: min(100%, 36rem);
+  min-height: 2.75rem;
+  border: 2px solid transparent;
+  border-radius: 0.7rem;
+  padding: 0.4rem 0.7rem;
+  color: var(--color-text);
+  font-weight: 650;
+  text-align: center;
+}
+
+.game-status--match {
+  border-color: #16803c;
+  background: color-mix(in srgb, #16803c 12%, var(--color-surface));
+}
+
+.game-status--mismatch {
+  border-color: #b42318;
+  background: color-mix(in srgb, #b42318 12%, var(--color-surface));
+}

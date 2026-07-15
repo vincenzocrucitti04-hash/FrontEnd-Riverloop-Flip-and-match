@@ -1,52 +1,40 @@
-/* bottoni griglie */
-.btn-grid-border {
-  border: 4px solid #ffae70;
-  outline: 2px solid;
-  border-radius: 50px;
-}
-
-.btn-grid-base {
-  background-color: #75221c;
-  outline: 1px solid black;
-  position: relative;
-  border-radius: 50px;
-}
-
 .btn-grid {
-  border-radius: 50px;
-  font-family: "Bungee", cursive;
-  font-size: 16px;
-  outline: 1px solid black;
-  border: 2px solid;
-  border-left-color: #e7b8b4;
-  border-top-color: #f8c9c5;
-  border-bottom-color: #4e1814;
-  border-right-color: #79241e;
-  background-color: #e64539;
+  min-height: 44px;
+  border: 2px solid color-mix(in srgb, var(--text-primary) 22%, transparent);
+  border-radius: 999px;
+  padding: 0.55rem 0.85rem;
+  background: var(--surface-card);
+  color: var(--text-primary);
   cursor: pointer;
-  color: #ffee83;
-  padding: 10px 15px;
-  transform: translateY(-10%);
+  font-size: 0.88rem;
+  font-weight: 750;
+  box-shadow: 0 0.2rem 0.45rem rgba(28, 42, 57, 0.08);
+  transition:
+    border-color 0.18s ease,
+    box-shadow 0.18s ease,
+    transform 0.18s ease;
 }
 
-.btn-grid:hover {
-  transform: translateY(-5%);
+.btn-grid:hover:not(:disabled) {
+  border-color: var(--accent-primary);
+  box-shadow: 0 0.4rem 0.7rem rgba(28, 42, 57, 0.12);
+  transform: translateY(-1px);
 }
 
-.btn-grid:active {
+.btn-grid:active:not(:disabled) {
   transform: translateY(0);
 }
 
-/* bottoni icona (theme toggle) */
-.theme-toggle {
-  background: none;
-  border: none;
-  cursor: pointer;
-  position: absolute;
-  left: 3rem;
+.btn-grid:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 2px;
 }
 
-.theme-toggle img {
-  width: 30px;
-  height: 50px;
+@media (prefers-reduced-motion: reduce) {
+  .btn-grid,
+  .btn-grid:hover:not(:disabled),
+  .btn-grid:active:not(:disabled) {
+    transition: none;
+    transform: none;
+  }
 }

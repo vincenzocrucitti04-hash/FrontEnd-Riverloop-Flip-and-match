@@ -1,49 +1,81 @@
-body.light {
-  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-  color: #2d3748;
-  min-height: 100vh;
-  margin: 0;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-body.dark {
-  background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
-  color: #e2e8f0;
-  min-height: 100vh;
-  margin: 0;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-body.light * {
-  color: #2d3748;
-}
-
-body.dark * {
-  color: #e2e8f0;
-}
-
-body.light,
-body.dark {
-  animation: fadeIn 0.5s ease-in-out;
-}
-
 body {
-  margin: 0;
-  padding-bottom: 40px;
-}
+  --surface-page: #fff8ea;
+  --surface-card: #fffdf7;
+  --surface-muted: #f4ead5;
+  --accent-primary: #d64a4a;
+  --accent-primary-strong: #c43b3b;
+  --accent-discovery: #c98a18;
+  --accent-nature: #3c8d64;
+  --text-primary: #1c2a39;
+  --color-focus: #8b4d00;
+  --on-primary: #ffffff;
+  --color-text: var(--text-primary);
+  --color-surface: var(--surface-card);
+  --color-surface-muted: var(--surface-muted);
+  --color-primary: var(--accent-primary-strong);
+  --color-primary-hover: #aa3030;
+  --background-color: var(--color-surface);
+  --text-color: var(--color-text);
+  --card-background: var(--color-surface-muted);
+  --primary-color: var(--color-primary);
+  --primary-hover: var(--color-primary-hover);
 
-main {
   min-height: 100vh;
-  padding-bottom: 20px;
+  margin: 0;
+  background:
+    radial-gradient(
+      circle at 12% 12%,
+      rgba(201, 138, 24, 0.14),
+      transparent 24rem
+    ),
+    radial-gradient(
+      circle at 88% 24%,
+      rgba(60, 141, 100, 0.14),
+      transparent 22rem
+    ),
+    var(--surface-page);
+  color: var(--color-text);
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  transition:
+    background-color 0.4s ease,
+    color 0.4s ease;
 }
 
-@keyframes fadeIn {
-  from {
-    opacity: 0.8;
-  }
-  to {
-    opacity: 1;
+body[data-theme="dark"] {
+  --surface-page: #122032;
+  --surface-card: #1d3147;
+  --surface-muted: #294159;
+  --accent-primary: #ff7b72;
+  --accent-primary-strong: #ff7b72;
+  --accent-discovery: #f4c95d;
+  --accent-nature: #83d6a6;
+  --text-primary: #f6f3ec;
+  --color-focus: #f4c95d;
+  --on-primary: #122032;
+  --color-primary-hover: #ff9c94;
+
+  background:
+    radial-gradient(
+      circle at 12% 12%,
+      rgba(244, 201, 93, 0.09),
+      transparent 24rem
+    ),
+    radial-gradient(
+      circle at 88% 24%,
+      rgba(131, 214, 166, 0.1),
+      transparent 22rem
+    ),
+    var(--surface-page);
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body {
+    transition: none;
   }
 }

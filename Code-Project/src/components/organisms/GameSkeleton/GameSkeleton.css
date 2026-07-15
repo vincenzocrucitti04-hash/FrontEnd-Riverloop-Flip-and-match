@@ -1,0 +1,44 @@
+.game-skeleton {
+  display: grid;
+  justify-items: center;
+  gap: 0.6rem;
+}
+
+.game-skeleton__label {
+  color: var(--color-text);
+  font-size: 0.9rem;
+}
+
+.game-skeleton__grid {
+  display: grid;
+  grid-template-columns: repeat(
+    var(--skeleton-columns),
+    minmax(36px, clamp(36px, 8vw, 76px))
+  );
+  gap: clamp(4px, 1vw, 8px);
+}
+
+.game-skeleton__grid span {
+  aspect-ratio: 1;
+  border-radius: 0.6rem;
+  background: linear-gradient(
+    100deg,
+    var(--color-surface-muted) 30%,
+    var(--color-surface) 50%,
+    var(--color-surface-muted) 70%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.2s linear infinite;
+}
+
+@keyframes skeleton-shimmer {
+  to {
+    background-position-x: -200%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .game-skeleton__grid span {
+    animation: none;
+  }
+}

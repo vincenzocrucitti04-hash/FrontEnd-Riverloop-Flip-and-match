@@ -1,0 +1,35 @@
+.training-info {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.75rem;
+  width: min(100%, 36rem);
+  border: 2px solid var(--color-primary);
+  border-radius: 0.75rem;
+  padding: 0.75rem;
+  background: var(--color-surface-muted);
+  color: var(--color-text);
+}
+
+.training-info p {
+  margin: 0.25rem 0 0;
+  font-size: 0.85rem;
+  line-height: 1.4;
+}
+
+.training-info__close {
+  flex: 0 0 44px;
+  min-width: 44px;
+  min-height: 44px;
+  border: 2px solid currentColor;
+  border-radius: 50%;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  font-size: 1.25rem;
+}
+
+.training-info__close:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 2px;
+}
