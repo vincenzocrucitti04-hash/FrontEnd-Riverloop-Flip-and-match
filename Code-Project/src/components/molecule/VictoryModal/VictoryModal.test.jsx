@@ -22,6 +22,7 @@ test("manages dialog semantics, focus, Escape, and focus restoration", () => {
       onClose={onClose}
       onHome={onHome}
       moves={12}
+      elapsedMs={42000}
       maxCombo={4}
       difficulty="4x4"
       scoreResult={{ score: 1040, stars: 2 }}
@@ -30,8 +31,8 @@ test("manages dialog semantics, focus, Escape, and focus restoration", () => {
   );
 
   const dialog = screen.getByRole("dialog", {
-    name: "🎉 Complimenti!",
-    description: "Bravo! Hai completato il gioco!",
+    name: "Spedizione completata",
+    description: "Hai ritrovato tutte le coppie e completato il percorso.",
   });
   const closeButton = screen.getByRole("button", {
     name: "Nuova avventura",
@@ -39,8 +40,10 @@ test("manages dialog semantics, focus, Escape, and focus restoration", () => {
   expect(dialog).toHaveAttribute("aria-modal", "true");
   expect(closeButton).toHaveFocus();
   expect(screen.getByText("1040 punti")).toBeInTheDocument();
+  expect(screen.getByText("00:42")).toBeInTheDocument();
   expect(screen.getByLabelText("2 stelle su 3")).toBeInTheDocument();
-  expect(screen.getByText(/Combo massima: ×4/)).toBeInTheDocument();
+  expect(screen.getByText("Combo massima")).toBeInTheDocument();
+  expect(screen.getByText("×4")).toBeInTheDocument();
   expect(screen.getByText(/Formula v1:/)).toBeInTheDocument();
   expect(screen.getByAltText("Pikachu scoperto")).toBeInTheDocument();
   expect(
@@ -62,6 +65,7 @@ test("manages dialog semantics, focus, Escape, and focus restoration", () => {
       onClose={onClose}
       onHome={onHome}
       moves={12}
+      elapsedMs={42000}
       maxCombo={4}
       difficulty="4x4"
       scoreResult={{ score: 1040, stars: 2 }}

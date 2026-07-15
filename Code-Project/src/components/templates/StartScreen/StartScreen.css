@@ -179,6 +179,10 @@
   letter-spacing: -0.025em;
 }
 
+.start-screen__expedition h2 {
+  padding-right: 4.5rem;
+}
+
 .start-screen__summary {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -220,7 +224,7 @@
   border-radius: 999px;
   padding: 0.75rem 0.8rem 0.75rem 1.25rem;
   background: var(--expedition-leaf-strong);
-  color: #fffdf6;
+  color: var(--on-primary);
   cursor: pointer;
   font: inherit;
   font-weight: 850;
@@ -402,6 +406,22 @@
 
   .start-screen__instructions ol {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 420px) {
+  .start-screen__postmark {
+    position: static;
+    width: fit-content;
+    aspect-ratio: auto;
+    margin: 0 0 0.75rem auto;
+    border-radius: 999px;
+    padding: 0.25rem 0.5rem;
+    transform: none;
+  }
+
+  .start-screen__expedition h2 {
+    padding-right: 0;
   }
 }
 

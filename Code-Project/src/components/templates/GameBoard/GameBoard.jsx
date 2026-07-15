@@ -122,6 +122,7 @@ function GameBoard({
         isOpen={isGameComplete}
         onClose={closeModal}
         moves={moves}
+        elapsedMs={elapsedMs}
         maxCombo={maxCombo}
         difficulty={gridSize}
         scoreResult={scoreResult}

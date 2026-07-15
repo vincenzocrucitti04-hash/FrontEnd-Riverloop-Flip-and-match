@@ -4,11 +4,6 @@
   box-sizing: border-box;
 }
 
-html,
-body {
-  overflow-x: clip;
-}
-
 html {
   scroll-padding-top: 6rem;
 }

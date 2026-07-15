@@ -154,9 +154,13 @@
 }
 
 .card-back::before,
+.card-back::after {
+  content: "";
+}
+
+.card-back::before,
 .card-back::after,
 .card-back__mark {
-  content: "";
   position: absolute;
   border-radius: 50%;
 }

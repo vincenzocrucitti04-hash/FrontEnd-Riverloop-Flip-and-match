@@ -3,10 +3,18 @@ import "./VictoryModal.css";
 import Button from "../../atoms/Button/Button";
 import { GAME_CONFIG } from "../../../config/gameConfig";
 
+function formatTime(timeMs) {
+  const totalSeconds = Math.floor(timeMs / 1000);
+  const minutes = Math.floor(totalSeconds / 60);
+  const seconds = totalSeconds % 60;
+  return `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
+}
+
 function VictoryModal({
   isOpen,
   onClose,
   moves,
+  elapsedMs = 0,
   maxCombo,
   difficulty,
   scoreResult,
@@ -86,13 +94,28 @@ function VictoryModal({
         aria-describedby="victory-description"
         onKeyDown={handleKeyDown}
       >
+        <span className="victory-postmark" aria-hidden="true">
+          Percorso completo
+        </span>
         <div className="modal-header">
-          <h2 id="victory-title">🎉 Complimenti!</h2>
+          <p className="victory-kicker">Cartolina dal campo</p>
+          <h2 id="victory-title">Spedizione completata</h2>
         </div>
         <div className="modal-body">
           <p id="victory-description" className="victory-message">
-            Bravo! Hai completato il gioco!
+            Hai ritrovato tutte le coppie e completato il percorso.
           </p>
+          <div className="victory-result">
+            <p className="victory-score">{scoreResult.score} punti</p>
+            <p
+              className="victory-stars"
+              aria-label={`${scoreResult.stars} stelle su 3`}
+            >
+              {Array.from({ length: 3 }, (_, index) =>
+                index < scoreResult.stars ? "★" : "☆",
+              ).join(" ")}
+            </p>
+          </div>
           {discoveredPokemon.length > 0 ? (
             <div className="victory-discoveries" aria-label="Pokémon scoperti">
               {discoveredPokemon.map((pokemon) => (
@@ -104,20 +127,21 @@ function VictoryModal({
               ))}
             </div>
           ) : null}
-          <div className="stats">
-            <p className="victory-score">{scoreResult.score} punti</p>
-            <p
-              className="victory-stars"
-              aria-label={`${scoreResult.stars} stelle su 3`}
-            >
-              {Array.from({ length: 3 }, (_, index) =>
-                index < scoreResult.stars ? "★" : "☆",
-              ).join(" ")}
+          <div className="victory-stats">
+            <p className="victory-metric">
+              <span>Tempo</span>
+              <strong>{formatTime(elapsedMs)}</strong>
             </p>
-            <p className="moves-info">
-              Hai completato il gioco in <strong>{moves}</strong> mosse
+            <p className="victory-metric moves-info">
+              <span>Mosse</span>
+              <strong>{moves}</strong>
             </p>
-            <p>Combo massima: ×{maxCombo}</p>
+            <p className="victory-metric">
+              <span>Combo massima</span>
+              <strong>×{maxCombo}</strong>
+            </p>
+          </div>
+          <div className="victory-notes">
             <p className="victory-formula">
               Formula v{scoreResult.version ?? GAME_CONFIG.scoring.version}: +
               {GAME_CONFIG.scoring.pointsPerPair} per coppia, bonus combo +
