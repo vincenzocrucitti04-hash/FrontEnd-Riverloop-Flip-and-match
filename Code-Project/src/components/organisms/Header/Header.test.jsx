@@ -3,7 +3,7 @@ import { expect, test, vi } from "vitest";
 
 import Header from "./Header";
 
-test("offers light, dark, and system theme preferences", () => {
+test("renders the control-center brand and accessible controls", () => {
   const onThemeChange = vi.fn();
   const onProfileToggle = vi.fn();
   render(
@@ -15,10 +15,18 @@ test("offers light, dark, and system theme preferences", () => {
     />,
   );
 
-  expect(screen.queryByRole("heading", { level: 1 })).not.toBeInTheDocument();
+  expect(screen.getByRole("banner")).toBeInTheDocument();
   expect(screen.getByText("Flip & Match")).toBeInTheDocument();
+  expect(screen.getByText("Pokédex Memory System")).toBeInTheDocument();
 
-  const selector = screen.getByLabelText("Tema");
+  const profileButton = screen.getByRole("button", {
+    name: /archivio allenatore/i,
+  });
+  expect(profileButton).toHaveAttribute("aria-expanded", "false");
+
+  const selector = screen.getByRole("combobox", {
+    name: /tema interfaccia/i,
+  });
   expect(selector).toHaveValue("system");
   expect(screen.getAllByRole("option").map((option) => option.value)).toEqual([
     "light",
@@ -28,7 +36,7 @@ test("offers light, dark, and system theme preferences", () => {
 
   fireEvent.change(selector, { target: { value: "dark" } });
   expect(onThemeChange).toHaveBeenCalledWith("dark");
-  fireEvent.click(screen.getByRole("button", { name: "Profilo locale" }));
+  fireEvent.click(profileButton);
   expect(onProfileToggle).toHaveBeenCalledOnce();
 });
 
@@ -43,6 +51,8 @@ test("turns the brand into a home action during a game", () => {
     />,
   );
 
-  fireEvent.click(screen.getByRole("button", { name: "Torna alla home" }));
+  fireEvent.click(
+    screen.getByRole("button", { name: "Torna al centro di controllo" }),
+  );
   expect(onHome).toHaveBeenCalledOnce();
 });

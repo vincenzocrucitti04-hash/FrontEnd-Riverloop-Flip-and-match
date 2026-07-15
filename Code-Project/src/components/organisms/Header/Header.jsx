@@ -1,3 +1,4 @@
+import PokeBall from "../../atoms/PokeBall/PokeBall";
 import "./Header.css";
 
 function Header({
@@ -9,37 +10,48 @@ function Header({
   onProfileToggle = () => {},
 }) {
   return (
-    <header className="header">
-      <div className="header-content">
+    <header className="system-header">
+      <div className="system-header__content">
         {isGameActive ? (
           <button
             type="button"
-            className="header-title header-title--button"
+            className="system-header__brand system-header__brand--button"
             onClick={onHome}
-            aria-label="Torna alla home"
+            aria-label="Torna al centro di controllo"
           >
-            <span className="header-title__brand">Flip &amp; Match</span>
-            <span className="subtitle">Memory Game</span>
+            <PokeBall size="small" />
+            <span className="system-header__brand-copy">
+              <strong>Flip &amp; Match</strong>
+              <span>Pokédex Memory System</span>
+            </span>
           </button>
         ) : (
-          <div className="header-title">
-            <span className="header-title__brand">Flip &amp; Match</span>
-            <span className="subtitle">Memory Game</span>
+          <div className="system-header__brand">
+            <PokeBall size="small" />
+            <span className="system-header__brand-copy">
+              <strong>Flip &amp; Match</strong>
+              <span>Pokédex Memory System</span>
+            </span>
           </div>
         )}
 
-        <div className="header-controls">
+        <div className="system-header__indicators" aria-hidden="true">
+          <span className="system-header__indicator system-header__indicator--blue" />
+          <span className="system-header__indicator system-header__indicator--yellow" />
+        </div>
+
+        <div className="system-header__controls">
           <button
             type="button"
-            className="profile-toggle"
+            className="system-header__archive-toggle"
             onClick={onProfileToggle}
             aria-expanded={profileOpen}
           >
-            <span className="profile-toggle__icon" aria-hidden="true" />
-            <span className="profile-toggle__label">Profilo locale</span>
+            <span className="system-header__archive-icon" aria-hidden="true" />
+            <span>Archivio Allenatore</span>
           </button>
-          <label className="theme-selector">
-            <span className="theme-selector__label">Tema</span>
+          <label className="system-header__theme">
+            <span>Tema interfaccia</span>
             <select
               value={theme}
               onChange={(event) => onThemeChange(event.target.value)}

@@ -4,7 +4,17 @@ import { beforeEach, expect, test, vi } from "vitest";
 import App from "./App";
 
 vi.mock("./components/organisms/Header/Header", () => ({
-  default: () => <header>Header</header>,
+  default: ({ profileOpen, onProfileToggle }) => (
+    <header>
+      <button
+        type="button"
+        aria-expanded={profileOpen}
+        onClick={onProfileToggle}
+      >
+        Archivio Allenatore
+      </button>
+    </header>
+  ),
 }));
 vi.mock("./components/organisms/Footer/Footer", () => ({
   default: () => <footer>Footer</footer>,
@@ -64,6 +74,24 @@ test("does not mount the game before confirming persisted selections", () => {
   expect(screen.getByTestId("game-board")).toHaveTextContent(
     '"deck":"offline"',
   );
+});
+
+test("opens and closes the trainer archive from the same header toggle", () => {
+  render(<App />);
+
+  const toggle = screen.getByRole("button", { name: "Archivio Allenatore" });
+  expect(toggle).toHaveAttribute("aria-expanded", "false");
+
+  fireEvent.click(toggle);
+  expect(
+    screen.getByRole("complementary", { name: "Archivio Allenatore" }),
+  ).toBeInTheDocument();
+  expect(toggle).toHaveAttribute("aria-expanded", "true");
+
+  fireEvent.click(toggle);
+  expect(
+    screen.queryByRole("complementary", { name: "Archivio Allenatore" }),
+  ).not.toBeInTheDocument();
 });
 
 test("returns home immediately when the expedition has no moves", () => {

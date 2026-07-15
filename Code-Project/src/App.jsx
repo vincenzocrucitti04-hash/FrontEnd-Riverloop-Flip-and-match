@@ -72,7 +72,7 @@ function App() {
   };
 
   return (
-    <div className="App">
+    <div className={`App${gameStarted ? " App--game-active" : ""}`}>
       <Header
         theme={theme}
         onThemeChange={handleThemeChange}
@@ -82,10 +82,12 @@ function App() {
         onProfileToggle={() => setProfileOpen((isOpen) => !isOpen)}
       />
       {profileOpen ? (
-        <ProfilePanel
-          profile={profile}
-          onReset={() => setProfile(resetProfile())}
-        />
+        <section className="App__archive" aria-label="Pannello archivio">
+          <ProfilePanel
+            profile={profile}
+            onReset={() => setProfile(resetProfile())}
+          />
+        </section>
       ) : null}
       {gameStarted ? (
         <GameBoard

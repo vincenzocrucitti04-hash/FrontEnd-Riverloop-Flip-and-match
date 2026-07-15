@@ -9,6 +9,12 @@ test("renders in document flow without scroll or resize listeners", () => {
   render(<Footer />);
 
   expect(screen.getByRole("contentinfo")).toBeInTheDocument();
+  expect(
+    screen.getByText("Dati Pokémon forniti da PokéAPI"),
+  ).toBeInTheDocument();
+  expect(
+    screen.getByRole("navigation", { name: "Collegamenti sociali" }),
+  ).toBeInTheDocument();
   expect(addEventListener).not.toHaveBeenCalledWith(
     "scroll",
     expect.any(Function),

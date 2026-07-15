@@ -22,34 +22,61 @@ function ProfilePanel({
   };
 
   return (
-    <aside className="profile-panel" aria-labelledby="profile-title">
-      <h2 id="profile-title">Profilo locale</h2>
-      <p className="profile-panel__privacy">
+    <aside
+      className="trainer-archive"
+      aria-labelledby="trainer-archive-title"
+    >
+      <header className="trainer-archive__header">
+        <p>Database locale</p>
+        <h2 id="trainer-archive-title">Archivio Allenatore</h2>
+      </header>
+      <p className="trainer-archive__privacy">
         Questi dati restano soltanto in questo browser.
       </p>
-      <div className="profile-panel__metrics">
-        <p>Partite concluse: {profile.gamesCompleted}</p>
-        <p>Accuratezza: {accuracy}%</p>
-        <p>Serie attuale: {profile.currentWinStreak}</p>
-        <p>Serie migliore: {profile.bestWinStreak}</p>
-      </div>
-      <p className="profile-panel__formula">
+      <dl className="trainer-archive__metrics">
+        <div>
+          <dt>Partite concluse</dt>
+          <dd>{profile.gamesCompleted}</dd>
+        </div>
+        <div>
+          <dt>Accuratezza</dt>
+          <dd>{accuracy}%</dd>
+        </div>
+        <div>
+          <dt>Serie attuale</dt>
+          <dd>{profile.currentWinStreak}</dd>
+        </div>
+        <div>
+          <dt>Serie migliore</dt>
+          <dd>{profile.bestWinStreak}</dd>
+        </div>
+      </dl>
+      <p className="trainer-archive__formula">
         Accuratezza = coppie corrette ÷ tentativi.
       </p>
-      <div>
-        <h3>Pokémon scoperti: {profile.discoveredPokemon.length}</h3>
-        <p>
-          {profile.discoveredPokemon.length > 0
-            ? profile.discoveredPokemon.map(({ name }) => name).join(", ")
-            : "Nessuno per ora."}
-        </p>
-      </div>
+      <section
+        className="trainer-archive__discoveries"
+        aria-labelledby="discoveries-title"
+      >
+        <h3 id="discoveries-title">
+          Pokémon scoperti: {profile.discoveredPokemon.length}
+        </h3>
+        {profile.discoveredPokemon.length > 0 ? (
+          <ul>
+            {profile.discoveredPokemon.map(({ id, name }) => (
+              <li key={id}>{name}</li>
+            ))}
+          </ul>
+        ) : (
+          <p>Nessuno per ora.</p>
+        )}
+      </section>
       <Button
         type="button"
-        className="profile-panel__reset"
+        className="trainer-archive__reset"
         onClick={handleReset}
       >
-        Azzera statistiche
+        Azzera archivio
       </Button>
     </aside>
   );
