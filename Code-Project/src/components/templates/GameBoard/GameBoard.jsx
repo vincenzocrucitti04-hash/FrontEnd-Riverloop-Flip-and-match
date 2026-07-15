@@ -17,6 +17,7 @@ function GameBoard({
   initialOptions = null,
   onProfileUpdate = null,
   onHome = () => {},
+  onCompletedHome = () => {},
 }) {
   const {
     cards,
@@ -127,7 +128,7 @@ function GameBoard({
         difficulty={gridSize}
         scoreResult={scoreResult}
         discoveredPokemon={discoveredPokemon}
-        onHome={onHome}
+        onHome={onCompletedHome}
       />
     </main>
   );

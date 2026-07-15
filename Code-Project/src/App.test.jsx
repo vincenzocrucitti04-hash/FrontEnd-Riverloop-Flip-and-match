@@ -10,7 +10,7 @@ vi.mock("./components/organisms/Footer/Footer", () => ({
   default: () => <footer>Footer</footer>,
 }));
 vi.mock("./components/templates/GameBoard/GameBoard", () => ({
-  default: ({ initialOptions, onHome, setMoves }) => (
+  default: ({ initialOptions, onHome, onCompletedHome, setMoves }) => (
     <div data-testid="game-board">
       {JSON.stringify(initialOptions)}
       <button type="button" onClick={onHome}>
@@ -18,6 +18,9 @@ vi.mock("./components/templates/GameBoard/GameBoard", () => ({
       </button>
       <button type="button" onClick={() => setMoves(1)}>
         Registra una mossa
+      </button>
+      <button type="button" onClick={onCompletedHome}>
+        Torna dopo la vittoria
       </button>
     </div>
   ),
@@ -94,5 +97,20 @@ test("asks for confirmation before abandoning an expedition with moves", () => {
     screen.getByRole("button", { name: "Conferma ritorno alla base" }),
   );
 
+  expect(screen.queryByTestId("game-board")).not.toBeInTheDocument();
+});
+
+test("returns home without an abandonment prompt after victory", () => {
+  render(<App />);
+
+  fireEvent.click(screen.getByRole("button", { name: "Inizia avventura" }));
+  fireEvent.click(screen.getByRole("button", { name: "Registra una mossa" }));
+  fireEvent.click(
+    screen.getByRole("button", { name: "Torna dopo la vittoria" }),
+  );
+
+  expect(
+    screen.queryByRole("dialog", { name: "Abbandonare la spedizione?" }),
+  ).not.toBeInTheDocument();
   expect(screen.queryByTestId("game-board")).not.toBeInTheDocument();
 });

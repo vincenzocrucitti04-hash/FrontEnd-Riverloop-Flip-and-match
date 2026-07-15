@@ -94,6 +94,7 @@ function App() {
           initialOptions={gameOptions}
           onProfileUpdate={setProfile}
           onHome={requestHome}
+          onCompletedHome={returnHome}
         />
       ) : (
         <StartScreen
