@@ -15,7 +15,7 @@
   width: min(100%, 38rem);
   max-height: calc(100dvh - 2rem);
   overflow-y: auto;
-  border: 0.55rem solid var(--expedition-paper);
+  border: 0.55rem solid var(--surface);
   border-radius: clamp(1.25rem, 4vw, 2rem);
   padding: clamp(1.25rem, 4vw, 2.25rem);
   background:
@@ -25,8 +25,8 @@
       rgba(62, 118, 88, 0.2),
       transparent 13rem
     ),
-    var(--expedition-paper);
-  color: var(--expedition-ink);
+    var(--surface);
+  color: var(--text);
   box-shadow: 0 1.5rem 4.5rem rgba(8, 24, 18, 0.38);
   text-align: center;
   animation: postcard-enter 220ms ease-out;
@@ -36,7 +36,7 @@
   content: "";
   position: absolute;
   inset: 0.35rem;
-  border: 1px dashed var(--expedition-line);
+  border: 1px dashed var(--border-subtle);
   border-radius: calc(clamp(1.25rem, 4vw, 2rem) - 0.4rem);
   pointer-events: none;
 }
@@ -49,9 +49,9 @@
   place-items: center;
   width: 4.2rem;
   aspect-ratio: 1;
-  border: 2px solid var(--expedition-coral);
+  border: 2px solid var(--poke-red);
   border-radius: 50%;
-  color: var(--expedition-coral-text);
+  color: var(--danger-text);
   font-size: 0.53rem;
   font-weight: 900;
   letter-spacing: 0.06em;
@@ -68,7 +68,7 @@
 
 .victory-kicker {
   margin: 0 0 0.45rem;
-  color: var(--expedition-coral-text);
+  color: var(--danger-text);
   font-size: 0.68rem;
   font-weight: 880;
   letter-spacing: 0.13em;
@@ -78,7 +78,7 @@
 .modal-header h2 {
   max-width: 12ch;
   margin: 0 auto;
-  color: var(--expedition-ink);
+  color: var(--text);
   font-size: clamp(2rem, 7vw, 3.2rem);
   line-height: 0.98;
   letter-spacing: -0.045em;
@@ -92,7 +92,7 @@
 .victory-message {
   max-width: 31rem;
   margin: 0.8rem auto 1rem;
-  color: var(--expedition-ink-muted);
+  color: var(--text-muted);
   font-size: 1rem;
   line-height: 1.55;
 }
@@ -105,7 +105,7 @@
 
 .victory-score {
   margin: 0;
-  color: var(--expedition-leaf-strong);
+  color: var(--success-strong);
   font-size: clamp(1.7rem, 5vw, 2.4rem);
   font-weight: 900;
   letter-spacing: -0.03em;
@@ -113,7 +113,7 @@
 
 .victory-stars {
   margin: 0.2rem 0 0;
-  color: var(--expedition-gold-text);
+  color: var(--warning-text);
   font-size: clamp(1.55rem, 5vw, 2rem);
   letter-spacing: 0.12rem;
 }
@@ -129,9 +129,9 @@
 .victory-discoveries img {
   width: clamp(38px, 9vw, 56px);
   aspect-ratio: 1;
-  border: 2px solid var(--expedition-gold);
+  border: 2px solid var(--poke-yellow);
   border-radius: 50%;
-  background: var(--expedition-paper);
+  background: var(--surface);
   object-fit: contain;
   box-shadow: 0 0.25rem 0.6rem rgba(24, 51, 43, 0.12);
 }
@@ -141,10 +141,10 @@
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 0.5rem;
   margin: 1rem 0;
-  border: 1px solid var(--expedition-line);
+  border: 1px solid var(--border-subtle);
   border-radius: 1rem;
   padding: 0.5rem;
-  background: var(--expedition-paper-soft);
+  background: var(--surface-raised);
 }
 
 .victory-metric {
@@ -155,11 +155,11 @@
   margin: 0;
   border-radius: 0.7rem;
   padding: 0.6rem 0.35rem;
-  background: color-mix(in srgb, var(--expedition-paper) 72%, transparent);
+  background: color-mix(in srgb, var(--surface) 72%, transparent);
 }
 
 .victory-metric span {
-  color: var(--expedition-ink-muted);
+  color: var(--text-muted);
   font-size: 0.65rem;
   font-weight: 780;
   letter-spacing: 0.05em;
@@ -167,21 +167,21 @@
 }
 
 .victory-metric strong {
-  color: var(--expedition-ink);
+  color: var(--text);
   font-size: clamp(1rem, 3vw, 1.25rem);
   font-variant-numeric: tabular-nums;
   overflow-wrap: anywhere;
 }
 
 .victory-notes {
-  border-top: 1px dashed var(--expedition-line);
+  border-top: 1px dashed var(--border-subtle);
   padding-top: 0.7rem;
 }
 
 .victory-formula,
 .victory-thresholds {
   margin: 0;
-  color: var(--expedition-ink-muted);
+  color: var(--text-muted);
   font-size: 0.72rem;
   line-height: 1.45;
 }
@@ -201,7 +201,7 @@
 .btn-close,
 .btn-home {
   min-height: 46px;
-  border: 2px solid var(--expedition-leaf-strong);
+  border: 2px solid var(--action-primary);
   border-radius: 999px;
   padding: 0.7rem 1.2rem;
   cursor: pointer;
@@ -213,13 +213,13 @@
 }
 
 .btn-close {
-  background: var(--expedition-leaf-strong);
+  background: var(--action-primary);
   color: var(--on-primary);
 }
 
 .btn-home {
-  background: var(--expedition-paper);
-  color: var(--expedition-leaf-strong);
+  background: var(--surface);
+  color: var(--action-primary);
 }
 
 .btn-close:hover,

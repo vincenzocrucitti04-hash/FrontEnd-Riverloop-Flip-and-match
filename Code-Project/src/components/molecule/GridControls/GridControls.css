@@ -9,17 +9,17 @@
   display: grid;
   gap: 0.5rem;
   min-width: 0;
-  border: 1px solid var(--expedition-line, rgba(28, 42, 57, 0.14));
+  border: 1px solid var(--border-subtle, rgba(28, 42, 57, 0.14));
   border-radius: 1rem;
   padding: 0.75rem;
-  background: var(--expedition-paper-soft, var(--surface-muted));
+  background: var(--surface-raised, var(--surface-muted));
   color: var(--text-primary);
   font-size: 0.78rem;
   font-weight: 780;
 }
 
 .grid-controls__label {
-  color: var(--expedition-ink-muted, var(--text-primary));
+  color: var(--text-muted, var(--text-primary));
 }
 
 .grid-controls__group {
@@ -35,13 +35,13 @@
 }
 
 .btn-grid--active {
-  border-color: var(--expedition-leaf, var(--accent-nature));
+  border-color: var(--poke-blue, var(--accent-nature));
   background: color-mix(
     in srgb,
-    var(--expedition-leaf, var(--accent-nature)) 14%,
+    var(--poke-blue, var(--accent-nature)) 14%,
     var(--surface-card)
   );
-  box-shadow: 0 0 0 2px var(--expedition-leaf, var(--accent-nature));
+  box-shadow: 0 0 0 2px var(--poke-blue, var(--accent-nature));
 }
 
 .btn-grid:disabled,
@@ -54,7 +54,7 @@
   min-width: 0;
   min-height: 44px;
   width: 100%;
-  border: 1px solid var(--expedition-line, rgba(28, 42, 57, 0.25));
+  border: 1px solid var(--border-subtle, rgba(28, 42, 57, 0.25));
   border-radius: 0.7rem;
   padding-inline: 0.65rem;
   background: var(--surface-card);

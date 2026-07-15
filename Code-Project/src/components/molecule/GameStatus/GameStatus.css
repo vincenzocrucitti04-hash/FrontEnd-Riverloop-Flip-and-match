@@ -3,11 +3,11 @@
   place-items: center;
   width: min(100%, 42rem);
   min-height: 3.25rem;
-  border: 1px solid var(--expedition-line);
+  border: 1px solid var(--border-subtle);
   border-radius: 1rem;
   padding: 0.55rem 0.85rem;
-  background: color-mix(in srgb, var(--expedition-paper) 88%, transparent);
-  color: var(--expedition-ink);
+  background: color-mix(in srgb, var(--surface) 88%, transparent);
+  color: var(--text);
   font-weight: 720;
   line-height: 1.45;
   text-align: center;
@@ -15,26 +15,18 @@
 
 .game-status:empty::before {
   content: "Il sentiero è pronto: scegli due carte.";
-  color: var(--expedition-ink-muted);
+  color: var(--text-muted);
   font-weight: 600;
 }
 
 .game-status--match {
-  border-color: var(--expedition-leaf);
-  background: color-mix(
-    in srgb,
-    var(--expedition-leaf) 13%,
-    var(--expedition-paper)
-  );
-  color: var(--expedition-leaf-strong);
+  border-color: var(--success-strong);
+  background: color-mix(in srgb, var(--success-strong) 13%, var(--surface));
+  color: var(--success-strong);
 }
 
 .game-status--mismatch {
-  border-color: var(--expedition-coral);
-  background: color-mix(
-    in srgb,
-    var(--expedition-coral) 12%,
-    var(--expedition-paper)
-  );
-  color: color-mix(in srgb, var(--expedition-coral) 72%, var(--expedition-ink));
+  border-color: var(--poke-red);
+  background: color-mix(in srgb, var(--poke-red) 12%, var(--surface));
+  color: color-mix(in srgb, var(--poke-red) 72%, var(--text));
 }

@@ -36,6 +36,11 @@ body.light {
   --text: #17191f;
   --text-muted: #596372;
   --border: #17191f;
+  --border-subtle: #b9c4cf;
+  --action-primary: #245f9e;
+  --success-strong: #146c43;
+  --danger-text: #a81820;
+  --warning-text: #6d5100;
   --on-primary: #ffffff;
 }
 
@@ -46,6 +51,11 @@ body.dark {
   --text: #f8fafc;
   --text-muted: #bac4d0;
   --border: #080a0d;
+  --border-subtle: #526071;
+  --action-primary: #65aaf2;
+  --success-strong: #63d6a2;
+  --danger-text: #ff8f8a;
+  --warning-text: #ffe27a;
   --on-primary: #10141b;
 }
 

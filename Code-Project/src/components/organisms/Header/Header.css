@@ -2,9 +2,9 @@
   position: sticky;
   top: 0;
   z-index: 1000;
-  border-bottom: 1px solid var(--expedition-line);
+  border-bottom: 1px solid var(--border-subtle);
   padding: 0.65rem clamp(0.75rem, 4vw, 2rem);
-  background: color-mix(in srgb, var(--expedition-paper) 88%, transparent);
+  background: color-mix(in srgb, var(--surface) 88%, transparent);
   box-shadow: 0 0.45rem 1.6rem rgba(24, 51, 43, 0.08);
   backdrop-filter: blur(16px) saturate(1.1);
   transition:
@@ -42,12 +42,12 @@
   width: 0.72em;
   aspect-ratio: 1;
   margin-right: 0.4rem;
-  border: 0.16em solid var(--expedition-coral);
+  border: 0.16em solid var(--poke-red);
   border-radius: 50%;
   background: linear-gradient(
-    var(--expedition-coral) 0 42%,
-    var(--expedition-paper) 42% 58%,
-    var(--expedition-ink) 58%
+    var(--poke-red) 0 42%,
+    var(--surface) 42% 58%,
+    var(--text) 58%
   );
   vertical-align: -0.05em;
 }
@@ -72,7 +72,7 @@
 }
 
 .subtitle {
-  color: var(--expedition-leaf);
+  color: var(--poke-blue);
   font-size: 0.7rem;
   font-weight: 750;
   letter-spacing: 0.05em;
@@ -89,10 +89,10 @@
 .profile-toggle,
 .theme-selector {
   min-height: 44px;
-  border: 1px solid var(--expedition-line);
+  border: 1px solid var(--border-subtle);
   border-radius: 999px;
-  background: var(--expedition-paper);
-  color: var(--expedition-ink);
+  background: var(--surface);
+  color: var(--text);
 }
 
 .profile-toggle {
@@ -110,20 +110,16 @@
   display: block;
   width: 1.8rem;
   aspect-ratio: 1;
-  border: 1px solid var(--expedition-line);
+  border: 1px solid var(--border-subtle);
   border-radius: 50%;
   background:
     radial-gradient(
       circle at 50% 35%,
-      var(--expedition-gold) 0 18%,
+      var(--poke-yellow) 0 18%,
       transparent 20%
     ),
-    radial-gradient(
-      circle at 50% 92%,
-      var(--expedition-leaf) 0 34%,
-      transparent 36%
-    ),
-    var(--expedition-paper-soft);
+    radial-gradient(circle at 50% 92%, var(--poke-blue) 0 34%, transparent 36%),
+    var(--surface-raised);
 }
 
 .theme-selector {
@@ -131,7 +127,7 @@
   align-items: center;
   gap: 0.4rem;
   padding-left: 0.75rem;
-  color: var(--expedition-ink-muted);
+  color: var(--text-muted);
   font-size: 0.8rem;
   font-weight: 700;
 }
@@ -141,12 +137,12 @@
   border: 0;
   border-radius: 999px;
   padding-inline: 0.45rem;
-  background: var(--expedition-paper);
-  color: var(--expedition-ink);
+  background: var(--surface);
+  color: var(--text);
 }
 
 .profile-toggle:hover {
-  border-color: var(--expedition-leaf);
+  border-color: var(--poke-blue);
   box-shadow: 0 0.3rem 0.8rem rgba(24, 51, 43, 0.12);
 }
 

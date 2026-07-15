@@ -29,9 +29,9 @@
   width: 100%;
   aspect-ratio: 1;
   padding: 0;
-  border: 1px solid color-mix(in srgb, var(--expedition-ink) 30%, transparent);
+  border: 1px solid color-mix(in srgb, var(--text) 30%, transparent);
   border-radius: clamp(0.7rem, 2vw, 1rem);
-  background: var(--expedition-paper);
+  background: var(--surface);
   box-shadow:
     0 0.42rem 0.85rem rgba(24, 51, 43, 0.13),
     inset 0 1px rgba(255, 255, 255, 0.52);
@@ -56,19 +56,19 @@
 
 @media (hover: hover) and (pointer: fine) {
   .card:hover:not(:disabled) {
-    border-color: var(--expedition-gold);
+    border-color: var(--poke-yellow);
     box-shadow:
       0 0.75rem 1.15rem rgba(24, 51, 43, 0.2),
-      0 0 0 2px color-mix(in srgb, var(--expedition-gold) 72%, transparent);
+      0 0 0 2px color-mix(in srgb, var(--poke-yellow) 72%, transparent);
     transform: translateY(-3px) rotate(0.4deg);
   }
 }
 
 .card--match,
 .card--matched {
-  border-color: var(--expedition-leaf);
+  border-color: var(--success-strong);
   box-shadow:
-    0 0 0 3px color-mix(in srgb, var(--expedition-leaf) 72%, transparent),
+    0 0 0 3px color-mix(in srgb, var(--success-strong) 72%, transparent),
     0 0.65rem 1.3rem rgba(40, 90, 65, 0.2);
 }
 
@@ -77,10 +77,10 @@
 }
 
 .card--mismatch {
-  border-color: var(--expedition-coral);
+  border-color: var(--poke-red);
   box-shadow:
-    0 0 0 3px color-mix(in srgb, var(--expedition-coral) 78%, transparent),
-    inset 0 0 0 2px var(--expedition-paper);
+    0 0 0 3px color-mix(in srgb, var(--poke-red) 78%, transparent),
+    inset 0 0 0 2px var(--surface);
   filter: saturate(0.76);
 }
 
@@ -104,7 +104,7 @@
   display: grid;
   place-items: center;
   overflow: hidden;
-  border: 3px solid var(--expedition-paper);
+  border: 3px solid var(--surface);
   border-radius: inherit;
   backface-visibility: hidden;
 }
@@ -116,11 +116,7 @@
       rgba(255, 255, 255, 0.94),
       transparent 48%
     ),
-    linear-gradient(
-      150deg,
-      var(--expedition-paper),
-      var(--expedition-paper-soft)
-    );
+    linear-gradient(150deg, var(--surface), var(--surface-raised));
   transform: rotateY(180deg);
 }
 
@@ -150,7 +146,7 @@
       transparent 0 8px,
       rgba(255, 255, 255, 0.045) 8px 10px
     ),
-    linear-gradient(145deg, var(--expedition-leaf-strong), #174936);
+    linear-gradient(145deg, var(--action-primary), #174936);
 }
 
 .card-back::before,
@@ -175,7 +171,7 @@
   width: 28%;
   aspect-ratio: 1;
   border: 2px solid rgba(255, 253, 246, 0.82);
-  background: var(--expedition-coral);
+  background: var(--poke-red);
   box-shadow: 0 0 0 4px rgba(24, 51, 43, 0.25);
 }
 
@@ -195,8 +191,8 @@
   border: 1px solid currentColor;
   border-radius: 999px;
   padding: 0.16rem 0.28rem;
-  background: color-mix(in srgb, var(--expedition-paper) 90%, transparent);
-  color: var(--expedition-leaf-strong);
+  background: color-mix(in srgb, var(--surface) 90%, transparent);
+  color: var(--success-strong);
   font-size: clamp(0.42rem, 1.2vw, 0.58rem);
   font-weight: 900;
   letter-spacing: 0.06em;

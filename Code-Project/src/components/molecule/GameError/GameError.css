@@ -3,12 +3,12 @@
   justify-items: center;
   gap: 1rem;
   width: min(100%, 32rem);
-  border: 1px solid var(--expedition-line);
+  border: 1px solid var(--border-subtle);
   border-radius: 1.2rem;
   padding: clamp(1rem, 4vw, 1.5rem);
   background:
     linear-gradient(135deg, rgba(217, 95, 79, 0.1), transparent 45%),
-    var(--expedition-paper);
+    var(--surface);
   text-align: center;
   box-shadow: 0 0.7rem 1.5rem rgba(24, 51, 43, 0.1);
 }

@@ -9,7 +9,7 @@
   gap: 1.5rem;
   width: min(calc(100% - 2rem), 76rem);
   margin: clamp(1.5rem, 4vw, 3rem) auto 1rem;
-  border: 1px solid var(--expedition-line);
+  border: 1px solid var(--border-subtle);
   border-radius: 1.4rem;
   padding: clamp(1rem, 3vw, 1.5rem);
   background:
@@ -27,7 +27,7 @@
   width: 3.5rem;
   height: 0.75rem;
   border-radius: 999px;
-  background: var(--expedition-gold);
+  background: var(--poke-yellow);
   transform: rotate(-2deg);
 }
 
@@ -47,7 +47,7 @@
 
 .footer-title,
 .title-contacts {
-  color: var(--expedition-gold);
+  color: var(--poke-yellow);
   font-weight: 820;
 }
 
@@ -95,13 +95,13 @@
 
 .social-icons-footer a:hover,
 .social-icons-footer a:focus-visible {
-  border-color: var(--expedition-gold);
-  background: color-mix(in srgb, var(--expedition-gold) 24%, transparent);
+  border-color: var(--poke-yellow);
+  background: color-mix(in srgb, var(--poke-yellow) 24%, transparent);
   transform: translateY(-2px);
 }
 
 .social-icons-footer a:focus-visible {
-  outline: 3px solid var(--expedition-gold);
+  outline: 3px solid var(--poke-yellow);
   outline-offset: 3px;
 }
 
