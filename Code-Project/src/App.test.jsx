@@ -1,7 +1,11 @@
 import { fireEvent, render, screen } from "@testing-library/react";
+import { readFileSync } from "node:fs";
+import { resolve } from "node:path";
 import { beforeEach, expect, test, vi } from "vitest";
 
 import App from "./App";
+
+const appStyles = readFileSync(resolve("src/App.css"), "utf8");
 
 vi.mock("./components/organisms/Header/Header", () => ({
   default: ({ profileOpen, onProfileToggle }) => (
@@ -95,6 +99,15 @@ test("opens and closes the trainer archive from the same header toggle", () => {
   expect(
     screen.queryByRole("complementary", { name: "Archivio Allenatore" }),
   ).not.toBeInTheDocument();
+});
+
+test("bounds the desktop archive to the viewport and restores mobile flow", () => {
+  expect(appStyles).toMatch(
+    /\.App__archive\s*{[^}]*max-block-size:\s*calc\(100dvh\s*-\s*4\.95rem\);[^}]*overflow-y:\s*auto;/s,
+  );
+  expect(appStyles).toMatch(
+    /@media \(max-width:\s*48rem\)[\s\S]*\.App__archive\s*{[^}]*max-block-size:\s*none;[^}]*overflow-y:\s*visible;/s,
+  );
 });
 
 test("returns home immediately when the expedition has no moves", () => {

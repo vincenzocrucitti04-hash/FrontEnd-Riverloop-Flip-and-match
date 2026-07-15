@@ -34,6 +34,9 @@
   top: 100%;
   right: max(1rem, calc((100% - 90rem) / 2));
   z-index: 900;
+  max-block-size: calc(100dvh - 4.95rem);
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 @media (max-width: 48rem) {
@@ -49,7 +52,10 @@
     right: auto;
     z-index: auto;
     width: min(100% - 1.5rem, 42rem);
+    max-block-size: none;
     margin: 1rem auto 0;
+    overflow-x: visible;
+    overflow-y: visible;
   }
 }
 
