@@ -45,7 +45,7 @@
 }
 
 .game-stats__combo--active {
-  color: var(--color-primary);
+  color: var(--success-strong);
   font-weight: 700;
 }
 

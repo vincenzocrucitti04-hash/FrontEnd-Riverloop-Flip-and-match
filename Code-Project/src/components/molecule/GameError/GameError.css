@@ -22,9 +22,9 @@
 .game-error__retry {
   min-width: 44px;
   min-height: 44px;
-  border: 2px solid var(--accent-primary-strong);
+  border: 2px solid var(--action-primary);
   border-radius: 50px;
-  background-color: var(--accent-primary-strong);
+  background-color: var(--action-primary);
   color: var(--on-primary);
   cursor: pointer;
   font: inherit;
@@ -40,11 +40,11 @@
 
 .game-error__offline {
   min-height: 44px;
-  border: 2px solid var(--color-primary);
+  border: 2px solid var(--action-primary);
   border-radius: 50px;
   padding: 0.625rem 1rem;
   background: var(--color-surface);
-  color: var(--color-primary);
+  color: var(--action-primary);
   cursor: pointer;
   font: inherit;
 }
