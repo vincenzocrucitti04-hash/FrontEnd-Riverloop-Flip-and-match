@@ -3,7 +3,6 @@ import "./Header.css";
 function Header({
   theme,
   onThemeChange,
-  moves,
   isGameActive = false,
   onHome = () => {},
   profileOpen = false,
@@ -50,13 +49,6 @@ function Header({
               <option value="system">Sistema</option>
             </select>
           </label>
-
-          <div className="moves-counter">
-            <div className="moves-badge">
-              <span className="moves-label">Mosse</span>
-              <span className="moves-number">{moves}</span>
-            </div>
-          </div>
         </div>
       </div>
     </header>

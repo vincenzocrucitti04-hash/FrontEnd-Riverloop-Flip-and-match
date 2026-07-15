@@ -29,14 +29,17 @@
   min-width: 0;
 }
 
-.header-title h1 {
+.header-title h1,
+.header-title__brand {
   margin: 0;
   color: var(--text-primary);
   font-size: clamp(1.2rem, 4vw, 1.8rem);
+  font-weight: 850;
   letter-spacing: -0.035em;
 }
 
-.header-title h1::before {
+.header-title h1::before,
+.header-title__brand::before {
   content: "";
   display: inline-block;
   width: 0.72em;
@@ -50,6 +53,25 @@
     var(--text-primary) 58%
   );
   vertical-align: -0.05em;
+}
+
+.header-title--button {
+  min-height: 44px;
+  border: 0;
+  border-radius: 0.75rem;
+  padding: 0.2rem 0.35rem;
+  background: transparent;
+  cursor: pointer;
+  text-align: left;
+}
+
+.header-title--button:hover {
+  background: color-mix(in srgb, var(--accent-nature) 10%, transparent);
+}
+
+.header-title--button:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 2px;
 }
 
 .subtitle {
@@ -68,8 +90,7 @@
 }
 
 .profile-toggle,
-.theme-selector,
-.moves-badge {
+.theme-selector {
   min-height: 44px;
   border: 1px solid color-mix(in srgb, var(--text-primary) 18%, transparent);
   border-radius: 999px;
@@ -106,25 +127,6 @@
   color: var(--text-primary);
 }
 
-.moves-badge {
-  display: flex;
-  align-items: center;
-  gap: 0.35rem;
-  padding: 0.55rem 0.8rem;
-}
-
-.moves-label {
-  color: var(--text-primary);
-  font-size: 0.72rem;
-  font-weight: 700;
-}
-
-.moves-number {
-  color: var(--accent-primary-strong);
-  font-size: 1.05rem;
-  font-weight: 850;
-}
-
 .profile-toggle:hover {
   border-color: var(--accent-primary);
   box-shadow: 0 0.25rem 0.7rem rgba(28, 42, 57, 0.12);
@@ -143,8 +145,7 @@
   }
 
   .subtitle,
-  .theme-selector__label,
-  .moves-label {
+  .theme-selector__label {
     display: none;
   }
 
@@ -175,16 +176,11 @@
     width: 52px;
     font-size: 0.7rem;
   }
-
-  .moves-badge {
-    min-width: 44px;
-    justify-content: center;
-    padding-inline: 0.55rem;
-  }
 }
 
 @media (max-width: 380px) {
-  .header-title h1 {
+  .header-title h1,
+  .header-title__brand {
     font-size: 1.05rem;
   }
 }

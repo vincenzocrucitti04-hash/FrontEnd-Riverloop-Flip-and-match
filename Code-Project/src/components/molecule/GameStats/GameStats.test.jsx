@@ -15,14 +15,16 @@ test("shows elapsed time, theoretical minimum, and best result", () => {
     />,
   );
 
-  expect(screen.getByText("Tempo: 01:05")).toBeInTheDocument();
-  expect(screen.getByText("Minimo: 8")).toBeInTheDocument();
-  expect(screen.getByText("Record: 00:59 · 10 mosse")).toBeInTheDocument();
-  expect(screen.getByText("Combo: ×3")).toBeInTheDocument();
-  expect(screen.getByText("Mosse: 10")).toBeInTheDocument();
-  expect(screen.getByText("4x4 · Kanto")).toBeInTheDocument();
-  expect(screen.getByRole("group", { name: "Statistiche partita" })).toBe(
-    screen.getByText("Mosse: 10").parentElement,
+  expect(screen.getByText("01:05")).toHaveClass("game-stats__value");
+  expect(screen.getByText("8")).toHaveClass("game-stats__value");
+  expect(screen.getByText("00:59 · 10 mosse")).toHaveClass("game-stats__value");
+  expect(screen.getByText("×3")).toHaveClass(
+    "game-stats__value",
+    "game-stats__combo--active",
   );
+  expect(screen.getByText("10")).toHaveClass("game-stats__value");
+  expect(
+    screen.getByRole("group", { name: "Statistiche partita" }),
+  ).toContainElement(screen.getByText("Mosse"));
   expect(screen.getByRole("status")).toHaveTextContent("10 mosse. Combo 3.");
 });

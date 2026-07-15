@@ -1,32 +1,52 @@
 .game-stats {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 0.35rem 0.8rem;
-  width: min(100%, 36rem);
-  min-height: 44px;
-  padding: 0.5rem 0.75rem;
+  position: static;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 0.45rem;
+  width: 100%;
+  padding: 0.45rem;
   border: 1px solid color-mix(in srgb, var(--text-primary) 12%, transparent);
-  border-radius: 999px;
-  background: color-mix(in srgb, var(--surface-card) 92%, transparent);
+  border-radius: 1.15rem;
+  background: color-mix(in srgb, var(--surface-card) 96%, transparent);
   color: var(--color-text);
-  font-size: clamp(0.72rem, 2vw, 0.9rem);
   text-align: center;
-  position: sticky;
-  top: 6.5rem;
-  z-index: 20;
   box-shadow: 0 0.2rem 0.6rem rgba(28, 42, 57, 0.1);
-  backdrop-filter: blur(10px);
+}
+
+.game-stats__item {
+  display: grid;
+  align-content: center;
+  gap: 0.12rem;
+  min-width: 0;
+  min-height: 3.5rem;
+  border-radius: 0.8rem;
+  padding: 0.45rem 0.35rem;
+  background: var(--surface-muted);
+}
+
+.game-stats__label {
+  color: color-mix(in srgb, var(--text-primary) 72%, transparent);
+  font-size: clamp(0.65rem, 1.5vw, 0.75rem);
+  font-weight: 760;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.game-stats__value {
+  min-width: 0;
+  color: var(--text-primary);
+  font-size: clamp(0.82rem, 2vw, 1rem);
+  font-weight: 850;
+  overflow-wrap: anywhere;
+}
+
+.game-stats__value--time {
+  font-variant-numeric: tabular-nums;
 }
 
 .game-stats__combo--active {
   color: var(--color-primary);
   font-weight: 700;
-}
-
-.game-stats__context {
-  color: var(--accent-nature);
-  font-weight: 750;
 }
 
 .game-stats__announcer {
@@ -40,7 +60,20 @@
 
 @media (max-width: 640px) {
   .game-stats {
-    top: 4.75rem;
-    gap: 0.25rem 0.55rem;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .game-stats__item--record {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 360px) {
+  .game-stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .game-stats__item--record {
+    grid-column: 1 / -1;
   }
 }

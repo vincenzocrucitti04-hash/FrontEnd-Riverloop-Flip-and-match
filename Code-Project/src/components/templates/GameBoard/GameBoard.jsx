@@ -2,7 +2,7 @@ import GridControls from "../../molecule/GridControls/GridControls";
 import GameError from "../../molecule/GameError/GameError";
 import GameStatus from "../../molecule/GameStatus/GameStatus";
 import GameStats from "../../molecule/GameStats/GameStats";
-import RestartButton from "../../molecule/RestartButton/RestartButton";
+import GameToolbar from "../../molecule/GameToolbar/GameToolbar";
 import GameGrid from "../../organisms/GameGrid/GameGrid";
 import VictoryModal from "../../molecule/VictoryModal/VictoryModal";
 import TrainingInfo from "../../molecule/TrainingInfo/TrainingInfo";
@@ -57,13 +57,18 @@ function GameBoard({
       <div className="game-board__stage">
         <div className="background-gb" aria-hidden="true" />
         <div className="container-game">
+          <GameToolbar
+            contextLabel={`${gridSize} · ${DECK_CATALOG[deckId].label}`}
+            onHome={onHome}
+            onRestart={handleRestart}
+            disabled={loading}
+          />
           <GameStats
             elapsedMs={elapsedMs}
             minimumMoves={minimumMoves}
             bestRecord={bestRecord}
             combo={combo}
             moves={moves}
-            contextLabel={`${gridSize} · ${DECK_CATALOG[deckId].label}`}
           />
           {loading ? (
             <GameSkeleton gridSize={gridSize} />
@@ -108,7 +113,6 @@ function GameBoard({
                 deckId={deckId}
                 onDeckChange={setDeckId}
               />
-              <RestartButton onRestart={handleRestart} />
             </div>
           </details>
         </div>

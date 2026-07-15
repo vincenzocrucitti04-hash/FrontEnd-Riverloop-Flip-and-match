@@ -76,7 +76,6 @@ function App() {
       <Header
         theme={theme}
         onThemeChange={handleThemeChange}
-        moves={moves}
         isGameActive={gameStarted}
         onHome={requestHome}
         profileOpen={profileOpen}

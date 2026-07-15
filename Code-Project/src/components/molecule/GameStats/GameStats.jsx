@@ -13,23 +13,38 @@ function GameStats({
   bestRecord,
   combo = 0,
   moves = 0,
-  contextLabel = "",
 }) {
   return (
     <div className="game-stats" role="group" aria-label="Statistiche partita">
-      <span>Tempo: {formatTime(elapsedMs)}</span>
-      {contextLabel ? (
-        <span className="game-stats__context">{contextLabel}</span>
-      ) : null}
-      <span>Mosse: {moves}</span>
-      <span>Minimo: {minimumMoves}</span>
-      <span className={combo > 1 ? "game-stats__combo--active" : undefined}>
-        Combo: ×{combo}
+      <span className="game-stats__item">
+        <span className="game-stats__label">Tempo</span>
+        <span className="game-stats__value game-stats__value--time">
+          {formatTime(elapsedMs)}
+        </span>
       </span>
-      <span>
-        {bestRecord
-          ? `Record: ${formatTime(bestRecord.timeMs)} · ${bestRecord.moves} mosse`
-          : "Record: —"}
+      <span className="game-stats__item">
+        <span className="game-stats__label">Mosse</span>
+        <span className="game-stats__value">{moves}</span>
+      </span>
+      <span className="game-stats__item">
+        <span className="game-stats__label">Minimo</span>
+        <span className="game-stats__value">{minimumMoves}</span>
+      </span>
+      <span className="game-stats__item">
+        <span className="game-stats__label">Combo</span>
+        <span
+          className={`game-stats__value ${combo > 1 ? "game-stats__combo--active" : ""}`}
+        >
+          ×{combo}
+        </span>
+      </span>
+      <span className="game-stats__item game-stats__item--record">
+        <span className="game-stats__label">Record</span>
+        <span className="game-stats__value">
+          {bestRecord
+            ? `${formatTime(bestRecord.timeMs)} · ${bestRecord.moves} mosse`
+            : "—"}
+        </span>
       </span>
       <span
         className="game-stats__announcer"
