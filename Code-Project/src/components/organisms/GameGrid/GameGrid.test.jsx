@@ -79,3 +79,25 @@ test("exposes visual and textual feedback on both cards from the last attempt", 
     expect(button).toHaveAccessibleName(/ultimo tentativo non corretto/i);
   });
 });
+
+test("marks collected cards with a decorative discovery stamp", () => {
+  render(
+    <GameGrid
+      cards={cards.map((card) => ({
+        ...card,
+        flipped: false,
+        matched: true,
+      }))}
+      onFlip={() => {}}
+      gridSize="4x4"
+    />,
+  );
+
+  expect(
+    screen.getAllByText("Trovato", { selector: ".card__stamp" }),
+  ).toHaveLength(2);
+  expect(screen.getAllByText("Trovato")[0]).toHaveAttribute(
+    "aria-hidden",
+    "true",
+  );
+});

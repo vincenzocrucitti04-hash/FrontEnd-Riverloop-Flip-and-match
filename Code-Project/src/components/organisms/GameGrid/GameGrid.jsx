@@ -38,7 +38,7 @@ function GameGrid({
           <button
             type="button"
             key={card.id}
-            className={`card ${isRevealed ? "flipped" : ""} ${cardFeedback ? `card--${cardFeedback}` : ""}`}
+            className={`card ${isRevealed ? "flipped" : ""} ${card.matched ? "card--matched" : ""} ${cardFeedback ? `card--${cardFeedback}` : ""}`}
             onClick={() => onFlip(card.id)}
             disabled={isInputLocked || isRevealed}
             aria-label={getCardLabel(
@@ -57,9 +57,14 @@ function GameGrid({
                 />
               </span>
               <span className="card-back" aria-hidden="true">
-                ❓
+                <span className="card-back__mark" />
               </span>
             </span>
+            {card.matched ? (
+              <span className="card__stamp" aria-hidden="true">
+                Trovato
+              </span>
+            ) : null}
           </button>
         );
       })}

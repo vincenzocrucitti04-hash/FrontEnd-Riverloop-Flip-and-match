@@ -2,6 +2,7 @@
   display: grid;
   justify-items: center;
   gap: 0.6rem;
+  width: min(100%, 31rem);
 }
 
 .game-skeleton__label {
@@ -11,21 +12,20 @@
 
 .game-skeleton__grid {
   display: grid;
-  grid-template-columns: repeat(
-    var(--skeleton-columns),
-    minmax(36px, clamp(36px, 8vw, 76px))
-  );
+  grid-template-columns: repeat(var(--skeleton-columns), minmax(0, 1fr));
+  width: 100%;
   gap: clamp(4px, 1vw, 8px);
 }
 
 .game-skeleton__grid span {
   aspect-ratio: 1;
-  border-radius: 0.6rem;
+  border: 1px solid var(--expedition-line);
+  border-radius: 0.8rem;
   background: linear-gradient(
     100deg,
-    var(--color-surface-muted) 30%,
-    var(--color-surface) 50%,
-    var(--color-surface-muted) 70%
+    var(--expedition-paper-soft) 30%,
+    var(--expedition-paper) 50%,
+    var(--expedition-paper-soft) 70%
   );
   background-size: 200% 100%;
   animation: skeleton-shimmer 1.2s linear infinite;

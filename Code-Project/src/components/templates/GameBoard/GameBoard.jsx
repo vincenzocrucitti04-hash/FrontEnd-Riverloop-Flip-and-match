@@ -53,7 +53,7 @@ function GameBoard({
   } = useGameLogic(setMoves, moves, initialOptions, onProfileUpdate);
 
   return (
-    <main>
+    <main className="game-board">
       <div className="game-board__stage">
         <div className="background-gb" aria-hidden="true" />
         <div className="container-game">

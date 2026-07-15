@@ -3,18 +3,21 @@
   align-items: flex-start;
   justify-content: space-between;
   gap: 0.75rem;
-  width: min(100%, 36rem);
-  border: 2px solid var(--color-primary);
-  border-radius: 0.75rem;
-  padding: 0.75rem;
-  background: var(--color-surface-muted);
+  width: min(100%, 42rem);
+  border: 1px solid var(--expedition-gold);
+  border-radius: 1rem;
+  padding: 0.9rem;
+  background:
+    linear-gradient(135deg, rgba(200, 139, 42, 0.12), transparent 48%),
+    var(--expedition-paper-soft);
   color: var(--color-text);
 }
 
 .training-info p {
   margin: 0.25rem 0 0;
   font-size: 0.85rem;
-  line-height: 1.4;
+  line-height: 1.55;
+  overflow-wrap: anywhere;
 }
 
 .training-info__close {

@@ -2,13 +2,21 @@
   display: grid;
   justify-items: center;
   gap: 1rem;
-  max-width: 28rem;
-  padding: 1rem;
+  width: min(100%, 32rem);
+  border: 1px solid var(--expedition-line);
+  border-radius: 1.2rem;
+  padding: clamp(1rem, 4vw, 1.5rem);
+  background:
+    linear-gradient(135deg, rgba(217, 95, 79, 0.1), transparent 45%),
+    var(--expedition-paper);
   text-align: center;
+  box-shadow: 0 0.7rem 1.5rem rgba(24, 51, 43, 0.1);
 }
 
 .game-error__message {
   color: var(--text-primary);
+  line-height: 1.55;
+  overflow-wrap: anywhere;
 }
 
 .game-error__retry {
