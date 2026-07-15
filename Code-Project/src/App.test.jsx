@@ -66,12 +66,12 @@ test("does not mount the game before confirming persisted selections", () => {
   render(<App />);
 
   expect(screen.queryByTestId("game-board")).not.toBeInTheDocument();
-  const summary = screen.getByLabelText("Riepilogo partita");
+  const summary = screen.getByLabelText("Riepilogo configurazione");
   expect(summary).toHaveTextContent("2x2");
   expect(summary).toHaveTextContent("Locale offline");
   expect(summary).toHaveTextContent("Nessuna");
 
-  fireEvent.click(screen.getByRole("button", { name: "Inizia avventura" }));
+  fireEvent.click(screen.getByRole("button", { name: "Avvia sfida" }));
   expect(screen.getByTestId("game-board")).toHaveTextContent(
     '"difficulty":"2x2"',
   );
@@ -113,19 +113,19 @@ test("bounds the desktop archive to the viewport and restores mobile flow", () =
 test("returns home immediately when the expedition has no moves", () => {
   render(<App />);
 
-  fireEvent.click(screen.getByRole("button", { name: "Inizia avventura" }));
+  fireEvent.click(screen.getByRole("button", { name: "Avvia sfida" }));
   fireEvent.click(screen.getByRole("button", { name: "Torna alla base" }));
 
   expect(screen.queryByTestId("game-board")).not.toBeInTheDocument();
   expect(
-    screen.getByRole("button", { name: "Inizia avventura" }),
+    screen.getByRole("button", { name: "Avvia sfida" }),
   ).toBeInTheDocument();
 });
 
 test("asks for confirmation before abandoning an expedition with moves", () => {
   render(<App />);
 
-  fireEvent.click(screen.getByRole("button", { name: "Inizia avventura" }));
+  fireEvent.click(screen.getByRole("button", { name: "Avvia sfida" }));
   fireEvent.click(screen.getByRole("button", { name: "Registra una mossa" }));
   fireEvent.click(screen.getByRole("button", { name: "Torna alla base" }));
 
@@ -147,7 +147,7 @@ test("asks for confirmation before abandoning an expedition with moves", () => {
 test("returns home without an abandonment prompt after victory", () => {
   render(<App />);
 
-  fireEvent.click(screen.getByRole("button", { name: "Inizia avventura" }));
+  fireEvent.click(screen.getByRole("button", { name: "Avvia sfida" }));
   fireEvent.click(screen.getByRole("button", { name: "Registra una mossa" }));
   fireEvent.click(
     screen.getByRole("button", { name: "Torna dopo la vittoria" }),

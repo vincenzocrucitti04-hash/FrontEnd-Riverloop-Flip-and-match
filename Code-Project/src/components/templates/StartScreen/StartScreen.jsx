@@ -1,4 +1,5 @@
 import Button from "../../atoms/Button/Button";
+import PokeBall from "../../atoms/PokeBall/PokeBall";
 import GridControls from "../../molecule/GridControls/GridControls";
 import { DECK_CATALOG, isDeckCompatible } from "../../../config/deckCatalog";
 import { GAME_CONFIG } from "../../../config/gameConfig";
@@ -10,81 +11,43 @@ function StartScreen({ options, profile = null, onOptionsChange, onStart }) {
   )?.label;
 
   return (
-    <main className="start-screen">
-      <div className="start-screen__route" aria-hidden="true">
-        <span />
-        <span />
-        <span />
-      </div>
-
-      <section className="start-screen__hero" aria-labelledby="start-title">
-        <p className="start-screen__eyebrow">Diario di esplorazione · 01</p>
-        <h1 id="start-title">La tua prossima scoperta ti aspetta</h1>
-        <p className="start-screen__lead">
-          Trova tutte le coppie Pokémon, costruisci la combo e conquista tre
-          stelle.
-        </p>
-        <Button type="button" className="start-screen__cta" onClick={onStart}>
-          <span>Inizia avventura</span>
-          <span aria-hidden="true">→</span>
-        </Button>
-        <div className="start-screen__field-note" aria-hidden="true">
-          <span className="start-screen__compass">N</span>
-          <span>Segui le tracce</span>
+    <main className="control-center">
+      <section
+        className="control-center__hero"
+        aria-labelledby="control-center-title"
+      >
+        <div className="control-center__hero-copy">
+          <p className="control-center__system-label">Sistema memory Pokémon</p>
+          <h1 id="control-center-title">Centro di controllo</h1>
+          <p className="control-center__lead">
+            Sincronizza il tuo mazzo, calibra la memoria e trova ogni coppia.
+          </p>
+          <Button
+            type="button"
+            className="control-center__start"
+            onClick={onStart}
+          >
+            Avvia sfida
+            <span aria-hidden="true">→</span>
+          </Button>
+        </div>
+        <div className="control-center__scanner" aria-hidden="true">
+          <span className="control-center__scanner-ring" />
+          <PokeBall size="large" />
+          <span className="control-center__scanner-status">Sistema pronto</span>
         </div>
       </section>
 
       <section
-        className="start-screen__expedition"
-        aria-labelledby="expedition-title"
+        className="control-center__setup"
+        aria-labelledby="challenge-setup-title"
       >
-        <span className="start-screen__postmark" aria-hidden="true">
-          Pronta
-        </span>
-        <p className="start-screen__section-kicker">Cartolina di viaggio</p>
-        <h2 id="expedition-title">La prossima spedizione</h2>
-        <p className="start-screen__summary" aria-label="Riepilogo partita">
-          <span>
-            <small>Campo</small>
-            <strong>{options.difficulty}</strong>
-          </span>
-          <span>
-            <small>Percorso</small>
-            <strong>{DECK_CATALOG[options.deck].label}</strong>
-          </span>
-          <span>
-            <small>Osservazione</small>
-            <strong>{previewLabel}</strong>
-          </span>
-          <span>
-            <small>Allenamento</small>
-            <strong>{options.trainingMode ? "Attivo" : "Disattivo"}</strong>
-          </span>
-        </p>
-
-        {profile ? (
-          <div className="start-screen__snapshot" aria-label="Progressi locali">
-            <span>
-              <strong>{profile.gamesCompleted}</strong> partite
-            </span>
-            <span>
-              <strong>{profile.discoveredPokemon.length}</strong> scoperte
-            </span>
-            <span>
-              Serie <strong>{profile.bestWinStreak}</strong>
-            </span>
+        <div className="control-center__panel-heading">
+          <span aria-hidden="true">01</span>
+          <div>
+            <p>Console primaria</p>
+            <h2 id="challenge-setup-title">Configurazione sfida</h2>
           </div>
-        ) : null}
-      </section>
-
-      <section
-        className="start-screen__settings"
-        aria-labelledby="settings-title"
-      >
-        <div className="start-screen__section-heading">
-          <p className="start-screen__section-kicker">Taccuino da campo</p>
-          <h2 id="settings-title">Configura il percorso</h2>
-          <p>Adatta la spedizione al tempo e alla memoria che hai oggi.</p>
         </div>
         <GridControls
           gridSize={options.difficulty}
@@ -111,26 +74,86 @@ function StartScreen({ options, profile = null, onOptionsChange, onStart }) {
         />
       </section>
 
-      <section
-        className="start-screen__instructions"
-        aria-labelledby="how-title"
+      <aside
+        className="control-center__summary"
+        aria-label="Riepilogo configurazione"
       >
-        <div className="start-screen__section-heading">
-          <p className="start-screen__section-kicker">Tre tappe</p>
-          <h2 id="how-title">Come si esplora</h2>
+        <p className="control-center__summary-label">Sessione corrente</p>
+        <dl>
+          <div>
+            <dt>Livello</dt>
+            <dd>{options.difficulty}</dd>
+          </div>
+          <div>
+            <dt>Mazzo</dt>
+            <dd>{DECK_CATALOG[options.deck].label}</dd>
+          </div>
+          <div>
+            <dt>Anteprima</dt>
+            <dd>{previewLabel}</dd>
+          </div>
+          <div>
+            <dt>Allenamento</dt>
+            <dd>{options.trainingMode ? "Attivo" : "Disattivo"}</dd>
+          </div>
+        </dl>
+      </aside>
+
+      {profile ? (
+        <section
+          className="control-center__register"
+          aria-labelledby="local-register-title"
+        >
+          <div className="control-center__panel-heading">
+            <PokeBall size="small" />
+            <div>
+              <p>Memoria allenatore</p>
+              <h2 id="local-register-title">Registro locale</h2>
+            </div>
+          </div>
+          <dl>
+            <div>
+              <dt>Partite</dt>
+              <dd>{profile.gamesCompleted}</dd>
+            </div>
+            <div>
+              <dt>Scoperte</dt>
+              <dd>{profile.discoveredPokemon.length}</dd>
+            </div>
+            <div>
+              <dt>Serie migliore</dt>
+              <dd>{profile.bestWinStreak}</dd>
+            </div>
+          </dl>
+        </section>
+      ) : null}
+
+      <section
+        className="control-center__protocol"
+        aria-labelledby="protocol-title"
+      >
+        <div className="control-center__panel-heading">
+          <span aria-hidden="true">02</span>
+          <div>
+            <p>Sequenza operativa</p>
+            <h2 id="protocol-title">Protocollo di memoria</h2>
+          </div>
         </div>
         <ol>
           <li>
             <span aria-hidden="true">01</span>
-            Scegli difficoltà, mazzo e anteprima.
+            <strong>Osserva</strong>
+            <p>Studia la scansione iniziale e memorizza le posizioni.</p>
           </li>
           <li>
             <span aria-hidden="true">02</span>
-            Memorizza le carte e scopri due Pokémon alla volta.
+            <strong>Abbina</strong>
+            <p>Rivela due carte e collega ogni Pokémon alla sua coppia.</p>
           </li>
           <li>
             <span aria-hidden="true">03</span>
-            Completa le coppie con meno mosse e tempo possibile.
+            <strong>Completa</strong>
+            <p>Chiudi la griglia con precisione, combo e rapidità.</p>
           </li>
         </ol>
       </section>
