@@ -4,16 +4,30 @@ function Header({
   theme,
   onThemeChange,
   moves,
+  isGameActive = false,
+  onHome = () => {},
   profileOpen = false,
   onProfileToggle = () => {},
 }) {
   return (
     <header className="header">
       <div className="header-content">
-        <div className="header-title">
-          <h1>Flip & Match</h1>
-          <span className="subtitle">Memory Game</span>
-        </div>
+        {isGameActive ? (
+          <button
+            type="button"
+            className="header-title header-title--button"
+            onClick={onHome}
+            aria-label="Torna alla home"
+          >
+            <span className="header-title__brand">Flip &amp; Match</span>
+            <span className="subtitle">Memory Game</span>
+          </button>
+        ) : (
+          <div className="header-title">
+            <h1>Flip &amp; Match</h1>
+            <span className="subtitle">Memory Game</span>
+          </div>
+        )}
 
         <div className="header-controls">
           <button

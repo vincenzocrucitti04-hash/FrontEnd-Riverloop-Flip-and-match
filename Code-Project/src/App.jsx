@@ -4,6 +4,7 @@ import GameBoard from "./components/templates/GameBoard/GameBoard";
 import Footer from "./components/organisms/Footer/Footer";
 import StartScreen from "./components/templates/StartScreen/StartScreen";
 import ProfilePanel from "./components/organisms/ProfilePanel/ProfilePanel";
+import ConfirmHomeDialog from "./components/molecule/ConfirmHomeDialog/ConfirmHomeDialog";
 import {
   loadUserData,
   resetProfile,
@@ -17,6 +18,7 @@ function App() {
   const [moves, setMoves] = useState(0);
   const [gameStarted, setGameStarted] = useState(false);
   const [profileOpen, setProfileOpen] = useState(false);
+  const [confirmHomeOpen, setConfirmHomeOpen] = useState(false);
   const [profile, setProfile] = useState(() => loadUserData().profile);
   const [gameOptions, setGameOptions] = useState(() => {
     const { difficulty, deck, previewMs } = loadUserData().preferences;
@@ -54,12 +56,29 @@ function App() {
     });
   };
 
+  const returnHome = () => {
+    setConfirmHomeOpen(false);
+    setGameStarted(false);
+    setMoves(0);
+  };
+
+  const requestHome = () => {
+    if (moves > 0) {
+      setConfirmHomeOpen(true);
+      return;
+    }
+
+    returnHome();
+  };
+
   return (
     <div className="App">
       <Header
         theme={theme}
         onThemeChange={handleThemeChange}
         moves={moves}
+        isGameActive={gameStarted}
+        onHome={requestHome}
         profileOpen={profileOpen}
         onProfileToggle={() => setProfileOpen((isOpen) => !isOpen)}
       />
@@ -75,6 +94,7 @@ function App() {
           moves={moves}
           initialOptions={gameOptions}
           onProfileUpdate={setProfile}
+          onHome={requestHome}
         />
       ) : (
         <StartScreen
@@ -84,6 +104,11 @@ function App() {
           onStart={() => setGameStarted(true)}
         />
       )}
+      <ConfirmHomeDialog
+        isOpen={confirmHomeOpen}
+        onCancel={() => setConfirmHomeOpen(false)}
+        onConfirm={returnHome}
+      />
       <Footer />
     </div>
   );

@@ -11,6 +11,7 @@ function VictoryModal({
   difficulty,
   scoreResult,
   discoveredPokemon = [],
+  onHome = () => {},
 }) {
   const dialogRef = useRef(null);
   const closeButtonRef = useRef(null);
@@ -133,6 +134,9 @@ function VictoryModal({
         <div className="modal-footer">
           <Button ref={closeButtonRef} className="btn-close" onClick={onClose}>
             Nuova avventura
+          </Button>
+          <Button className="btn-home" onClick={onHome}>
+            Torna alla base
           </Button>
         </div>
       </div>

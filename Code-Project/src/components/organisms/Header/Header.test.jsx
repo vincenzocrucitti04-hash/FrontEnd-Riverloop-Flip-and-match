@@ -28,3 +28,18 @@ test("offers light, dark, and system theme preferences", () => {
   fireEvent.click(screen.getByRole("button", { name: "Profilo locale" }));
   expect(onProfileToggle).toHaveBeenCalledOnce();
 });
+
+test("turns the brand into a home action during a game", () => {
+  const onHome = vi.fn();
+  render(
+    <Header
+      theme="light"
+      onThemeChange={vi.fn()}
+      isGameActive
+      onHome={onHome}
+    />,
+  );
+
+  fireEvent.click(screen.getByRole("button", { name: "Torna alla home" }));
+  expect(onHome).toHaveBeenCalledOnce();
+});

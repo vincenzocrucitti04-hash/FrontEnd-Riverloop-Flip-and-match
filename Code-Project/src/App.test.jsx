@@ -10,8 +10,16 @@ vi.mock("./components/organisms/Footer/Footer", () => ({
   default: () => <footer>Footer</footer>,
 }));
 vi.mock("./components/templates/GameBoard/GameBoard", () => ({
-  default: ({ initialOptions }) => (
-    <div data-testid="game-board">{JSON.stringify(initialOptions)}</div>
+  default: ({ initialOptions, onHome, setMoves }) => (
+    <div data-testid="game-board">
+      {JSON.stringify(initialOptions)}
+      <button type="button" onClick={onHome}>
+        Torna alla base
+      </button>
+      <button type="button" onClick={() => setMoves(1)}>
+        Registra una mossa
+      </button>
+    </div>
   ),
 }));
 
@@ -52,4 +60,38 @@ test("does not mount the game before confirming persisted selections", () => {
   expect(screen.getByTestId("game-board")).toHaveTextContent(
     '"deck":"offline"',
   );
+});
+
+test("returns home immediately when the expedition has no moves", () => {
+  render(<App />);
+
+  fireEvent.click(screen.getByRole("button", { name: "Inizia avventura" }));
+  fireEvent.click(screen.getByRole("button", { name: "Torna alla base" }));
+
+  expect(screen.queryByTestId("game-board")).not.toBeInTheDocument();
+  expect(
+    screen.getByRole("button", { name: "Inizia avventura" }),
+  ).toBeInTheDocument();
+});
+
+test("asks for confirmation before abandoning an expedition with moves", () => {
+  render(<App />);
+
+  fireEvent.click(screen.getByRole("button", { name: "Inizia avventura" }));
+  fireEvent.click(screen.getByRole("button", { name: "Registra una mossa" }));
+  fireEvent.click(screen.getByRole("button", { name: "Torna alla base" }));
+
+  expect(
+    screen.getByRole("dialog", { name: "Abbandonare la spedizione?" }),
+  ).toBeInTheDocument();
+
+  fireEvent.click(screen.getByRole("button", { name: "Continua a giocare" }));
+  expect(screen.getByTestId("game-board")).toBeInTheDocument();
+
+  fireEvent.click(screen.getByRole("button", { name: "Torna alla base" }));
+  fireEvent.click(
+    screen.getByRole("button", { name: "Conferma ritorno alla base" }),
+  );
+
+  expect(screen.queryByTestId("game-board")).not.toBeInTheDocument();
 });

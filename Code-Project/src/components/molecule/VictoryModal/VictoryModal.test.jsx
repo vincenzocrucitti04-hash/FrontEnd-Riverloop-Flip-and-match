@@ -5,6 +5,7 @@ import VictoryModal from "./VictoryModal";
 
 test("manages dialog semantics, focus, Escape, and focus restoration", () => {
   const onClose = vi.fn();
+  const onHome = vi.fn();
   const trigger = document.createElement("button");
   trigger.textContent = "Carta finale";
   const header = document.createElement("header");
@@ -19,6 +20,7 @@ test("manages dialog semantics, focus, Escape, and focus restoration", () => {
     <VictoryModal
       isOpen
       onClose={onClose}
+      onHome={onHome}
       moves={12}
       maxCombo={4}
       difficulty="4x4"
@@ -45,6 +47,9 @@ test("manages dialog semantics, focus, Escape, and focus restoration", () => {
     screen.getByText("Soglie 4x4: 2 stelle da 800, 3 stelle da 1200."),
   ).toBeInTheDocument();
 
+  fireEvent.click(screen.getByRole("button", { name: "Torna alla base" }));
+  expect(onHome).toHaveBeenCalledOnce();
+
   fireEvent.keyDown(dialog, { key: "Tab" });
   expect(closeButton).toHaveFocus();
   fireEvent.keyDown(dialog, { key: "Escape" });
@@ -55,6 +60,7 @@ test("manages dialog semantics, focus, Escape, and focus restoration", () => {
     <VictoryModal
       isOpen={false}
       onClose={onClose}
+      onHome={onHome}
       moves={12}
       maxCombo={4}
       difficulty="4x4"
