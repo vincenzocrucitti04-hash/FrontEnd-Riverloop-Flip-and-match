@@ -24,6 +24,10 @@ function StartScreen({ options, profile = null, onOptionsChange, onStart }) {
           Trova tutte le coppie Pokémon, costruisci la combo e conquista tre
           stelle.
         </p>
+        <Button type="button" className="start-screen__cta" onClick={onStart}>
+          <span>Inizia avventura</span>
+          <span aria-hidden="true">→</span>
+        </Button>
         <div className="start-screen__field-note" aria-hidden="true">
           <span className="start-screen__compass">N</span>
           <span>Segui le tracce</span>
@@ -57,11 +61,6 @@ function StartScreen({ options, profile = null, onOptionsChange, onStart }) {
             <strong>{options.trainingMode ? "Attivo" : "Disattivo"}</strong>
           </span>
         </p>
-
-        <Button type="button" className="start-screen__cta" onClick={onStart}>
-          <span>Inizia avventura</span>
-          <span aria-hidden="true">→</span>
-        </Button>
 
         {profile ? (
           <div className="start-screen__snapshot" aria-label="Progressi locali">

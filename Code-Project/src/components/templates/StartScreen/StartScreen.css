@@ -93,7 +93,7 @@
 .start-screen__eyebrow,
 .start-screen__section-kicker {
   margin: 0 0 0.55rem;
-  color: var(--expedition-coral);
+  color: var(--expedition-coral-text);
   font-size: 0.72rem;
   font-weight: 880;
   letter-spacing: 0.13em;
@@ -162,7 +162,7 @@
   aspect-ratio: 1;
   border: 2px solid var(--expedition-coral);
   border-radius: 50%;
-  color: var(--expedition-coral);
+  color: var(--expedition-coral-text);
   font-size: 0.62rem;
   font-weight: 850;
   letter-spacing: 0.08em;
@@ -245,6 +245,11 @@
   font-size: 1.15rem;
 }
 
+.start-screen__hero .start-screen__cta {
+  width: min(100%, 22rem);
+  margin-top: 1.5rem;
+}
+
 .start-screen__cta:hover {
   background: color-mix(in srgb, var(--expedition-leaf-strong) 88%, black);
   box-shadow: 0 0.8rem 1.5rem rgba(40, 90, 65, 0.26);
@@ -314,7 +319,7 @@
 }
 
 .start-screen__instructions li > span {
-  color: var(--expedition-gold);
+  color: var(--expedition-gold-text);
   font-size: 0.72rem;
   font-weight: 900;
   letter-spacing: 0.1em;

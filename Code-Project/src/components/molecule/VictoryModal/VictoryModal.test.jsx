@@ -35,7 +35,7 @@ test("manages dialog semantics, focus, Escape, and focus restoration", () => {
     description: "Hai ritrovato tutte le coppie e completato il percorso.",
   });
   const closeButton = screen.getByRole("button", {
-    name: "Nuova avventura",
+    name: "Nuova spedizione",
   });
   expect(dialog).toHaveAttribute("aria-modal", "true");
   expect(closeButton).toHaveFocus();

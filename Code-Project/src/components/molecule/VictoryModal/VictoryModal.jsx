@@ -157,7 +157,7 @@ function VictoryModal({
         </div>
         <div className="modal-footer">
           <Button ref={closeButtonRef} className="btn-close" onClick={onClose}>
-            Nuova avventura
+            Nuova spedizione
           </Button>
           <Button className="btn-home" onClick={onHome}>
             Torna alla base

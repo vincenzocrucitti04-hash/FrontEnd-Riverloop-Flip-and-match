@@ -43,7 +43,7 @@
 .confirm-home__stamp {
   display: inline-block;
   margin-bottom: 0.75rem;
-  color: var(--expedition-coral);
+  color: var(--expedition-coral-text);
   font-size: 0.7rem;
   font-weight: 880;
   letter-spacing: 0.13em;
@@ -96,7 +96,7 @@
 .confirm-home__leave {
   border-color: var(--expedition-coral);
   background: transparent;
-  color: var(--expedition-coral);
+  color: var(--expedition-coral-text);
 }
 
 .confirm-home__continue:hover,

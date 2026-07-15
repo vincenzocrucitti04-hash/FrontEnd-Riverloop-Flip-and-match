@@ -15,6 +15,9 @@ test("offers light, dark, and system theme preferences", () => {
     />,
   );
 
+  expect(screen.queryByRole("heading", { level: 1 })).not.toBeInTheDocument();
+  expect(screen.getByText("Flip & Match")).toBeInTheDocument();
+
   const selector = screen.getByLabelText("Tema");
   expect(selector).toHaveValue("system");
   expect(screen.getAllByRole("option").map((option) => option.value)).toEqual([

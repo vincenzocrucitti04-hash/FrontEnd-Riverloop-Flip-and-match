@@ -28,7 +28,6 @@
   min-width: 0;
 }
 
-.header-title h1,
 .header-title__brand {
   margin: 0;
   color: var(--text-primary);
@@ -37,7 +36,6 @@
   letter-spacing: -0.035em;
 }
 
-.header-title h1::before,
 .header-title__brand::before {
   content: "";
   display: inline-block;
@@ -199,7 +197,6 @@
 }
 
 @media (max-width: 380px) {
-  .header-title h1,
   .header-title__brand {
     font-size: 1.05rem;
   }

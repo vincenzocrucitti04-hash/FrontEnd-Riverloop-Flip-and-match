@@ -7,7 +7,9 @@ body {
   --expedition-leaf: #3e7658;
   --expedition-leaf-strong: #285a41;
   --expedition-coral: #d95f4f;
+  --expedition-coral-text: #b9473a;
   --expedition-gold: #c88b2a;
+  --expedition-gold-text: #9b6818;
   --expedition-sky: #bfd9d0;
   --expedition-line: #d8cdb6;
   --surface-page: var(--expedition-canvas);
@@ -68,7 +70,9 @@ body[data-theme="dark"] {
   --expedition-leaf: #84c59c;
   --expedition-leaf-strong: #69b587;
   --expedition-coral: #ff8a78;
+  --expedition-coral-text: #ff8a78;
   --expedition-gold: #f2c56b;
+  --expedition-gold-text: #f2c56b;
   --expedition-sky: #4b7869;
   --expedition-line: #476258;
   --accent-primary-strong: #ff8a78;

@@ -51,7 +51,7 @@
   aspect-ratio: 1;
   border: 2px solid var(--expedition-coral);
   border-radius: 50%;
-  color: var(--expedition-coral);
+  color: var(--expedition-coral-text);
   font-size: 0.53rem;
   font-weight: 900;
   letter-spacing: 0.06em;
@@ -68,7 +68,7 @@
 
 .victory-kicker {
   margin: 0 0 0.45rem;
-  color: var(--expedition-coral);
+  color: var(--expedition-coral-text);
   font-size: 0.68rem;
   font-weight: 880;
   letter-spacing: 0.13em;
@@ -113,7 +113,7 @@
 
 .victory-stars {
   margin: 0.2rem 0 0;
-  color: var(--expedition-gold);
+  color: var(--expedition-gold-text);
   font-size: clamp(1.55rem, 5vw, 2rem);
   letter-spacing: 0.12rem;
 }

@@ -44,6 +44,7 @@ test("presents instructions, persisted selections, and a native start CTA", () =
   const startButton = screen.getByRole("button", {
     name: "Inizia avventura",
   });
+  expect(startButton.closest(".start-screen__hero")).not.toBeNull();
   startButton.focus();
   expect(startButton).toHaveFocus();
   fireEvent.click(startButton);

@@ -23,7 +23,7 @@ function Header({
           </button>
         ) : (
           <div className="header-title">
-            <h1>Flip &amp; Match</h1>
+            <span className="header-title__brand">Flip &amp; Match</span>
             <span className="subtitle">Memory Game</span>
           </div>
         )}
