@@ -11,32 +11,82 @@ function StartScreen({ options, profile = null, onOptionsChange, onStart }) {
 
   return (
     <main className="start-screen">
+      <div className="start-screen__route" aria-hidden="true">
+        <span />
+        <span />
+        <span />
+      </div>
+
       <section className="start-screen__hero" aria-labelledby="start-title">
-        <p className="start-screen__eyebrow">Flip &amp; Match</p>
+        <p className="start-screen__eyebrow">Diario di esplorazione · 01</p>
         <h1 id="start-title">La tua prossima scoperta ti aspetta</h1>
-        <p>
+        <p className="start-screen__lead">
           Trova tutte le coppie Pokémon, costruisci la combo e conquista tre
           stelle.
         </p>
+        <div className="start-screen__field-note" aria-hidden="true">
+          <span className="start-screen__compass">N</span>
+          <span>Segui le tracce</span>
+        </div>
       </section>
 
       <section
-        className="start-screen__instructions"
-        aria-labelledby="how-title"
+        className="start-screen__expedition"
+        aria-labelledby="expedition-title"
       >
-        <h2 id="how-title">Come si gioca</h2>
-        <ol>
-          <li>Scegli difficoltà, mazzo e anteprima.</li>
-          <li>Memorizza le carte e scopri due Pokémon alla volta.</li>
-          <li>Completa le coppie con meno mosse e tempo possibile.</li>
-        </ol>
+        <span className="start-screen__postmark" aria-hidden="true">
+          Pronta
+        </span>
+        <p className="start-screen__section-kicker">Cartolina di viaggio</p>
+        <h2 id="expedition-title">La prossima spedizione</h2>
+        <p className="start-screen__summary" aria-label="Riepilogo partita">
+          <span>
+            <small>Campo</small>
+            <strong>{options.difficulty}</strong>
+          </span>
+          <span>
+            <small>Percorso</small>
+            <strong>{DECK_CATALOG[options.deck].label}</strong>
+          </span>
+          <span>
+            <small>Osservazione</small>
+            <strong>{previewLabel}</strong>
+          </span>
+          <span>
+            <small>Allenamento</small>
+            <strong>{options.trainingMode ? "Attivo" : "Disattivo"}</strong>
+          </span>
+        </p>
+
+        <Button type="button" className="start-screen__cta" onClick={onStart}>
+          <span>Inizia avventura</span>
+          <span aria-hidden="true">→</span>
+        </Button>
+
+        {profile ? (
+          <div className="start-screen__snapshot" aria-label="Progressi locali">
+            <span>
+              <strong>{profile.gamesCompleted}</strong> partite
+            </span>
+            <span>
+              <strong>{profile.discoveredPokemon.length}</strong> scoperte
+            </span>
+            <span>
+              Serie <strong>{profile.bestWinStreak}</strong>
+            </span>
+          </div>
+        ) : null}
       </section>
 
       <section
         className="start-screen__settings"
         aria-labelledby="settings-title"
       >
-        <h2 id="settings-title">Prepara la partita</h2>
+        <div className="start-screen__section-heading">
+          <p className="start-screen__section-kicker">Taccuino da campo</p>
+          <h2 id="settings-title">Configura il percorso</h2>
+          <p>Adatta la spedizione al tempo e alla memoria che hai oggi.</p>
+        </div>
         <GridControls
           gridSize={options.difficulty}
           previewMs={options.previewMs}
@@ -60,23 +110,30 @@ function StartScreen({ options, profile = null, onOptionsChange, onStart }) {
             onOptionsChange({ ...options, trainingMode })
           }
         />
+      </section>
 
-        <p className="start-screen__summary" aria-label="Riepilogo partita">
-          {options.difficulty} · {DECK_CATALOG[options.deck].label} · Anteprima{" "}
-          {previewLabel.toLowerCase()} · Allenamento{" "}
-          {options.trainingMode ? "attivo" : "disattivo"}
-        </p>
-
-        <Button type="button" className="start-screen__cta" onClick={onStart}>
-          Inizia avventura
-        </Button>
-        {profile ? (
-          <div className="start-screen__snapshot" aria-label="Progressi locali">
-            <span>{profile.gamesCompleted} partite</span>
-            <span>{profile.discoveredPokemon.length} Pokémon scoperti</span>
-            <span>Serie migliore: {profile.bestWinStreak}</span>
-          </div>
-        ) : null}
+      <section
+        className="start-screen__instructions"
+        aria-labelledby="how-title"
+      >
+        <div className="start-screen__section-heading">
+          <p className="start-screen__section-kicker">Tre tappe</p>
+          <h2 id="how-title">Come si esplora</h2>
+        </div>
+        <ol>
+          <li>
+            <span aria-hidden="true">01</span>
+            Scegli difficoltà, mazzo e anteprima.
+          </li>
+          <li>
+            <span aria-hidden="true">02</span>
+            Memorizza le carte e scopri due Pokémon alla volta.
+          </li>
+          <li>
+            <span aria-hidden="true">03</span>
+            Completa le coppie con meno mosse e tempo possibile.
+          </li>
+        </ol>
       </section>
     </main>
   );

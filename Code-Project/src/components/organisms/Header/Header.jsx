@@ -35,7 +35,7 @@ function Header({
             onClick={onProfileToggle}
             aria-expanded={profileOpen}
           >
-            <span aria-hidden="true">👤</span>
+            <span className="profile-toggle__icon" aria-hidden="true" />
             <span className="profile-toggle__label">Profilo locale</span>
           </button>
           <label className="theme-selector">

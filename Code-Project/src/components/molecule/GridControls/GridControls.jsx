@@ -16,58 +16,63 @@ function GridControls({
 }) {
   return (
     <div className="grid-controls">
-      <div className="grid-controls__group" aria-label="Difficoltà">
-        {Object.values(GAME_CONFIG.difficulties).map((difficulty) => {
-          const isSelected = difficulty.id === gridSize;
+      <div className="grid-controls__field">
+        <span className="grid-controls__label">Difficoltà</span>
+        <div className="grid-controls__group" aria-label="Difficoltà">
+          {Object.values(GAME_CONFIG.difficulties).map((difficulty) => {
+            const isSelected = difficulty.id === gridSize;
 
-          return (
-            <Button
-              key={difficulty.id}
-              className={`btn-grid ${isSelected ? "btn-grid--active" : ""}`}
-              onClick={() => onGridSizeChange(difficulty.id)}
-              aria-pressed={isSelected}
-              disabled={disabled}
-            >
-              {difficulty.label}
-              {isSelected ? <span aria-hidden="true"> ✓</span> : null}
-            </Button>
-          );
-        })}
+            return (
+              <Button
+                key={difficulty.id}
+                className={`btn-grid ${isSelected ? "btn-grid--active" : ""}`}
+                onClick={() => onGridSizeChange(difficulty.id)}
+                aria-pressed={isSelected}
+                disabled={disabled}
+              >
+                {difficulty.label}
+                {isSelected ? <span aria-hidden="true"> ✓</span> : null}
+              </Button>
+            );
+          })}
+        </div>
       </div>
 
-      <label className="grid-controls__preview">
-        Durata anteprima
-        <select
-          value={previewMs}
-          onChange={(event) => onPreviewChange(Number(event.target.value))}
-          disabled={disabled}
-        >
-          {GAME_CONFIG.previewOptions.map((option) => (
-            <option key={option.value} value={option.value}>
-              {option.label}
-            </option>
-          ))}
-        </select>
-      </label>
+      <div className="grid-controls__selects">
+        <label className="grid-controls__preview">
+          Durata anteprima
+          <select
+            value={previewMs}
+            onChange={(event) => onPreviewChange(Number(event.target.value))}
+            disabled={disabled}
+          >
+            {GAME_CONFIG.previewOptions.map((option) => (
+              <option key={option.value} value={option.value}>
+                {option.label}
+              </option>
+            ))}
+          </select>
+        </label>
 
-      <label className="grid-controls__preview">
-        Mazzo Pokémon
-        <select
-          value={deckId}
-          onChange={(event) => onDeckChange(event.target.value)}
-          disabled={disabled}
-        >
-          {Object.values(DECK_CATALOG).map((deck) => (
-            <option
-              key={deck.id}
-              value={deck.id}
-              disabled={!isDeckCompatible(deck.id, gridSize)}
-            >
-              {deck.label}
-            </option>
-          ))}
-        </select>
-      </label>
+        <label className="grid-controls__preview">
+          Mazzo Pokémon
+          <select
+            value={deckId}
+            onChange={(event) => onDeckChange(event.target.value)}
+            disabled={disabled}
+          >
+            {Object.values(DECK_CATALOG).map((deck) => (
+              <option
+                key={deck.id}
+                value={deck.id}
+                disabled={!isDeckCompatible(deck.id, gridSize)}
+              >
+                {deck.label}
+              </option>
+            ))}
+          </select>
+        </label>
+      </div>
 
       <Button
         type="button"

@@ -12,7 +12,7 @@ const options = {
 
 test("presents instructions, persisted selections, and a native start CTA", () => {
   const onStart = vi.fn();
-  render(
+  const { container } = render(
     <StartScreen
       options={options}
       onOptionsChange={() => {}}
@@ -26,6 +26,16 @@ test("presents instructions, persisted selections, and a native start CTA", () =
     }),
   ).toBeInTheDocument();
   expect(screen.getAllByRole("listitem")).toHaveLength(3);
+  expect(
+    screen.getByRole("heading", { name: "La prossima spedizione" }),
+  ).toBeInTheDocument();
+  expect(
+    screen.getByRole("heading", { name: "Configura il percorso" }),
+  ).toBeInTheDocument();
+  expect(container.querySelector(".start-screen__route")).toHaveAttribute(
+    "aria-hidden",
+    "true",
+  );
   expect(screen.getByLabelText("Riepilogo partita")).toHaveTextContent("4x4");
   expect(screen.getByLabelText("Riepilogo partita")).toHaveTextContent(
     "Kanto (tutti)",

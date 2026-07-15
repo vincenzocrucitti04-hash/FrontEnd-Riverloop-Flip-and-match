@@ -1,14 +1,26 @@
 body {
-  --surface-page: #fff8ea;
-  --surface-card: #fffdf7;
-  --surface-muted: #f4ead5;
-  --accent-primary: #d64a4a;
-  --accent-primary-strong: #c43b3b;
-  --accent-discovery: #c98a18;
-  --accent-nature: #3c8d64;
-  --text-primary: #1c2a39;
-  --color-focus: #8b4d00;
-  --on-primary: #ffffff;
+  --expedition-canvas: #f3ebd8;
+  --expedition-paper: #fffdf6;
+  --expedition-paper-soft: #f8f1df;
+  --expedition-ink: #18332b;
+  --expedition-ink-muted: #52675f;
+  --expedition-leaf: #3e7658;
+  --expedition-leaf-strong: #285a41;
+  --expedition-coral: #d95f4f;
+  --expedition-gold: #c88b2a;
+  --expedition-sky: #bfd9d0;
+  --expedition-line: #d8cdb6;
+  --surface-page: var(--expedition-canvas);
+  --surface-card: var(--expedition-paper);
+  --surface-muted: var(--expedition-paper-soft);
+  --accent-primary: var(--expedition-coral);
+  --accent-primary-strong: #b9473a;
+  --accent-discovery: #9b6818;
+  --accent-nature: var(--expedition-leaf);
+  --text-primary: var(--expedition-ink);
+  --color-focus: #8a4b00;
+  --on-primary: #fffdf6;
+  --shadow-panel: 0 1rem 2.6rem rgba(24, 51, 43, 0.1);
   --color-text: var(--text-primary);
   --color-surface: var(--surface-card);
   --color-surface-muted: var(--surface-muted);
@@ -24,16 +36,22 @@ body {
   margin: 0;
   background:
     radial-gradient(
-      circle at 12% 12%,
-      rgba(201, 138, 24, 0.14),
-      transparent 24rem
+      circle at 8% 7%,
+      rgba(200, 139, 42, 0.15),
+      transparent 23rem
     ),
     radial-gradient(
-      circle at 88% 24%,
-      rgba(60, 141, 100, 0.14),
-      transparent 22rem
+      circle at 94% 18%,
+      rgba(62, 118, 88, 0.16),
+      transparent 25rem
     ),
-    var(--surface-page);
+    linear-gradient(
+      115deg,
+      transparent 0 48%,
+      rgba(255, 253, 246, 0.2) 48% 52%,
+      transparent 52%
+    ),
+    var(--expedition-canvas);
   color: var(--color-text);
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   transition:
@@ -42,30 +60,36 @@ body {
 }
 
 body[data-theme="dark"] {
-  --surface-page: #122032;
-  --surface-card: #1d3147;
-  --surface-muted: #294159;
-  --accent-primary: #ff7b72;
-  --accent-primary-strong: #ff7b72;
-  --accent-discovery: #f4c95d;
-  --accent-nature: #83d6a6;
-  --text-primary: #f6f3ec;
-  --color-focus: #f4c95d;
-  --on-primary: #122032;
-  --color-primary-hover: #ff9c94;
+  --expedition-canvas: #13251f;
+  --expedition-paper: #1c342c;
+  --expedition-paper-soft: #29453b;
+  --expedition-ink: #f6f0df;
+  --expedition-ink-muted: #c7d3ca;
+  --expedition-leaf: #84c59c;
+  --expedition-leaf-strong: #69b587;
+  --expedition-coral: #ff8a78;
+  --expedition-gold: #f2c56b;
+  --expedition-sky: #4b7869;
+  --expedition-line: #476258;
+  --accent-primary-strong: #ff8a78;
+  --accent-discovery: #f2c56b;
+  --color-focus: #f2c56b;
+  --on-primary: #13251f;
+  --color-primary-hover: #ffa091;
+  --shadow-panel: 0 1rem 2.6rem rgba(3, 12, 9, 0.28);
 
   background:
     radial-gradient(
-      circle at 12% 12%,
-      rgba(244, 201, 93, 0.09),
-      transparent 24rem
+      circle at 8% 7%,
+      rgba(242, 197, 107, 0.09),
+      transparent 23rem
     ),
     radial-gradient(
-      circle at 88% 24%,
-      rgba(131, 214, 166, 0.1),
-      transparent 22rem
+      circle at 94% 18%,
+      rgba(132, 197, 156, 0.12),
+      transparent 25rem
     ),
-    var(--surface-page);
+    var(--expedition-canvas);
 }
 
 .App {

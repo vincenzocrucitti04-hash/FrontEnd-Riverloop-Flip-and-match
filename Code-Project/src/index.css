@@ -6,8 +6,11 @@
 
 html,
 body {
-  overflow-x: hidden;
-  max-width: 100vw;
+  overflow-x: clip;
+}
+
+html {
+  scroll-padding-top: 6rem;
 }
 
 body {
@@ -24,4 +27,13 @@ body {
 button,
 select {
   font: inherit;
+}
+
+button {
+  -webkit-tap-highlight-color: transparent;
+}
+
+::selection {
+  background: var(--expedition-gold, #c88b2a);
+  color: var(--expedition-ink, #18332b);
 }

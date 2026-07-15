@@ -49,9 +49,10 @@ test("does not mount the game before confirming persisted selections", () => {
   render(<App />);
 
   expect(screen.queryByTestId("game-board")).not.toBeInTheDocument();
-  expect(screen.getByLabelText("Riepilogo partita")).toHaveTextContent(
-    "2x2 · Locale offline · Anteprima nessuna",
-  );
+  const summary = screen.getByLabelText("Riepilogo partita");
+  expect(summary).toHaveTextContent("2x2");
+  expect(summary).toHaveTextContent("Locale offline");
+  expect(summary).toHaveTextContent("Nessuna");
 
   fireEvent.click(screen.getByRole("button", { name: "Inizia avventura" }));
   expect(screen.getByTestId("game-board")).toHaveTextContent(
