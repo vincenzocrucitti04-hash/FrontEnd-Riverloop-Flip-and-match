@@ -29,6 +29,15 @@
   font-weight: 750;
 }
 
+.game-stats__announcer {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+}
+
 @media (max-width: 640px) {
   .game-stats {
     top: 4.75rem;

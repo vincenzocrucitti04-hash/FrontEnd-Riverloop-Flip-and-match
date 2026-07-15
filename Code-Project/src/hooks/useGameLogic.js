@@ -319,6 +319,7 @@ export default function useGameLogic(
       setMoves?.(0);
       updatePreferences({ previewMs: nextPreviewMs });
       dispatch({ type: "SET_PREVIEW_DURATION", previewMs: nextPreviewMs });
+      generateCards();
     },
     setTrainingMode: (enabled) => {
       dispatch({ type: "SET_TRAINING_MODE", enabled });

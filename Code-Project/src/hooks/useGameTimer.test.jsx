@@ -29,3 +29,21 @@ test("counts only active play and resets on loading", () => {
   rerender({ phase: "loading" });
   expect(result.current).toBe(0);
 });
+
+test("preserves fractional time across rapid active phase changes", () => {
+  vi.useFakeTimers();
+  const { result, rerender } = renderHook(
+    ({ phase }) => timerHook.default(phase),
+    { initialProps: { phase: "playing" } },
+  );
+
+  act(() => vi.advanceTimersByTime(900));
+  rerender({ phase: "resolvingPair" });
+  act(() => vi.advanceTimersByTime(900));
+  rerender({ phase: "playing" });
+  act(() => vi.advanceTimersByTime(900));
+  rerender({ phase: "won" });
+
+  expect(result.current).toBe(2700);
+  vi.useRealTimers();
+});

@@ -7,6 +7,11 @@ test("manages dialog semantics, focus, Escape, and focus restoration", () => {
   const onClose = vi.fn();
   const trigger = document.createElement("button");
   trigger.textContent = "Carta finale";
+  const header = document.createElement("header");
+  const fallbackButton = document.createElement("button");
+  fallbackButton.textContent = "Profilo locale";
+  header.appendChild(fallbackButton);
+  document.body.appendChild(header);
   document.body.appendChild(trigger);
   trigger.focus();
 
@@ -45,6 +50,7 @@ test("manages dialog semantics, focus, Escape, and focus restoration", () => {
   fireEvent.keyDown(dialog, { key: "Escape" });
   expect(onClose).toHaveBeenCalledOnce();
 
+  trigger.remove();
   rerender(
     <VictoryModal
       isOpen={false}
@@ -56,6 +62,6 @@ test("manages dialog semantics, focus, Escape, and focus restoration", () => {
       discoveredPokemon={[{ id: 25, name: "Pikachu", image: "pikachu.png" }]}
     />,
   );
-  expect(trigger).toHaveFocus();
-  trigger.remove();
+  expect(fallbackButton).toHaveFocus();
+  header.remove();
 });

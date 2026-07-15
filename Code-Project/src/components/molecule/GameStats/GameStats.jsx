@@ -31,6 +31,14 @@ function GameStats({
           ? `Record: ${formatTime(bestRecord.timeMs)} · ${bestRecord.moves} mosse`
           : "Record: —"}
       </span>
+      <span
+        className="game-stats__announcer"
+        role="status"
+        aria-live="polite"
+        aria-atomic="true"
+      >
+        {moves} mosse. Combo {combo}.
+      </span>
     </div>
   );
 }

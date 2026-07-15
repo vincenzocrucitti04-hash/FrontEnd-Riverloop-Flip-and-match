@@ -175,3 +175,60 @@ test("updates a record only for a faster time or fewer moves at equal time", () 
     moves: 10,
   });
 });
+
+test("write failures degrade gracefully without throwing into the UI", () => {
+  const unavailableStorage = {
+    getItem: () => null,
+    setItem: () => {
+      throw new DOMException("Quota exceeded", "QuotaExceededError");
+    },
+  };
+
+  expect(() =>
+    storageService.updatePreferences({ theme: "dark" }, unavailableStorage),
+  ).not.toThrow();
+  expect(() =>
+    storageService.saveBestRecord(
+      "4x4",
+      { timeMs: 12000, moves: 8 },
+      unavailableStorage,
+    ),
+  ).not.toThrow();
+  expect(() =>
+    storageService.recordCompletedGame(
+      {
+        attempts: 8,
+        correctPairs: 8,
+        discoveredPokemon: [{ id: 1, name: "Bulbasaur" }],
+      },
+      unavailableStorage,
+    ),
+  ).not.toThrow();
+  expect(() => storageService.resetProfile(unavailableStorage)).not.toThrow();
+});
+
+test("malformed records are rejected during storage validation", () => {
+  localStorage.setItem(
+    "flip-and-match:user-data",
+    JSON.stringify({
+      version: 2,
+      preferences: {
+        theme: "system",
+        difficulty: "4x4",
+        deck: "kanto",
+        previewMs: 750,
+      },
+      records: { "4x4": { timeMs: "fast", moves: undefined } },
+      profile: {
+        gamesCompleted: 0,
+        totalAttempts: 0,
+        correctPairs: 0,
+        currentWinStreak: 0,
+        bestWinStreak: 0,
+        discoveredPokemon: [],
+      },
+    }),
+  );
+
+  expect(storageService.loadUserData().records).toEqual({});
+});

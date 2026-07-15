@@ -119,6 +119,26 @@ test("loads a 4x4 deck and ends its preview", async () => {
   expect(result.current.cards.every((card) => !card.flipped)).toBe(true);
 });
 
+test("reloads the deck after changing preview duration", async () => {
+  vi.useFakeTimers();
+  const { result } = renderHook(() => useGameLogic(vi.fn(), 0));
+  await act(async () => {
+    await Promise.resolve();
+  });
+  act(() => vi.advanceTimersByTime(750));
+  vi.mocked(fetchPokemon).mockClear();
+
+  await act(async () => {
+    result.current.setPreviewMs(1500);
+    await Promise.resolve();
+  });
+
+  expect(result.current.loading).toBe(false);
+  expect(result.current.cards).toHaveLength(16);
+  expect(result.current.cards.every(({ flipped }) => flipped)).toBe(true);
+  expect(fetchPokemon).toHaveBeenCalledTimes(8);
+});
+
 test("shows optional training information only after a matched pair", async () => {
   vi.useFakeTimers();
   const { result } = renderHook(() => useGameLogic(vi.fn(), 0));

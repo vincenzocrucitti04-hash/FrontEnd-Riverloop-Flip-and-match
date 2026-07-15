@@ -24,4 +24,5 @@ test("shows elapsed time, theoretical minimum, and best result", () => {
   expect(screen.getByRole("group", { name: "Statistiche partita" })).toBe(
     screen.getByText("Mosse: 10").parentElement,
   );
+  expect(screen.getByRole("status")).toHaveTextContent("10 mosse. Combo 3.");
 });

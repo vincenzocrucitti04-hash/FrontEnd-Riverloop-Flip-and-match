@@ -25,7 +25,14 @@ function VictoryModal({
     closeButtonRef.current?.focus();
 
     return () => {
-      previousFocusRef.current?.focus();
+      if (previousFocusRef.current?.isConnected) {
+        previousFocusRef.current.focus();
+        return;
+      }
+
+      document
+        .querySelector("header button, header select, main button")
+        ?.focus();
     };
   }, [isOpen]);
 

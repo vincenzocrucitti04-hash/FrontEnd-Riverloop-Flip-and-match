@@ -43,8 +43,26 @@ function hasValidPreferences(preferences) {
 
 function hasValidRecords(records) {
   return (
-    records !== null && typeof records === "object" && !Array.isArray(records)
+    records !== null &&
+    typeof records === "object" &&
+    !Array.isArray(records) &&
+    Object.values(records).every(
+      (record) =>
+        Number.isFinite(record?.timeMs) &&
+        record.timeMs >= 0 &&
+        Number.isInteger(record?.moves) &&
+        record.moves >= 0,
+    )
   );
+}
+
+function writeData(storage, data) {
+  try {
+    storage.setItem(STORAGE_KEY, JSON.stringify(data));
+    return true;
+  } catch {
+    return false;
+  }
 }
 
 function hasValidProfile(profile) {
@@ -115,7 +133,7 @@ export function updatePreferences(partialPreferences, storage = localStorage) {
     },
   };
   const validatedData = normalizeData(nextData);
-  storage.setItem(STORAGE_KEY, JSON.stringify(validatedData));
+  writeData(storage, validatedData);
   return validatedData;
 }
 
@@ -139,7 +157,7 @@ export function saveBestRecord(difficulty, result, storage = localStorage) {
       [difficulty]: result,
     },
   };
-  storage.setItem(STORAGE_KEY, JSON.stringify(nextData));
+  writeData(storage, nextData);
   return result;
 }
 
@@ -183,16 +201,13 @@ export function recordCompletedGame(result, storage = localStorage) {
     discoveredPokemon: [...discoveredById.values()].sort((a, b) => a.id - b.id),
   };
 
-  storage.setItem(STORAGE_KEY, JSON.stringify({ ...currentData, profile }));
+  writeData(storage, { ...currentData, profile });
   return profile;
 }
 
 export function resetProfile(storage = localStorage) {
   const currentData = loadUserData(storage);
   const profile = createDefaultProfile();
-  storage.setItem(
-    STORAGE_KEY,
-    JSON.stringify({ ...currentData, records: {}, profile }),
-  );
+  writeData(storage, { ...currentData, records: {}, profile });
   return profile;
 }
