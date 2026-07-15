@@ -23,6 +23,36 @@
   flex: 1;
 }
 
+.App__chrome {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.App__archive {
+  position: absolute;
+  top: 100%;
+  right: max(1rem, calc((100% - 90rem) / 2));
+  z-index: 900;
+}
+
+@media (max-width: 48rem) {
+  .App__chrome {
+    position: relative;
+    top: auto;
+    z-index: auto;
+  }
+
+  .App__archive {
+    position: relative;
+    top: auto;
+    right: auto;
+    z-index: auto;
+    width: min(100% - 1.5rem, 42rem);
+    margin: 1rem auto 0;
+  }
+}
+
 @media (max-width: 40rem) {
   .App {
     background-size:

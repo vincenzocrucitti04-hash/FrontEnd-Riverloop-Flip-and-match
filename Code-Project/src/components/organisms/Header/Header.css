@@ -1,6 +1,5 @@
 .system-header {
-  position: sticky;
-  top: 0;
+  position: relative;
   z-index: 1000;
   border-bottom: 0.45rem solid var(--ink);
   background: linear-gradient(180deg, var(--poke-red), var(--poke-red-dark));
@@ -150,10 +149,6 @@
 }
 
 @media (max-width: 48rem) {
-  .system-header {
-    position: relative;
-  }
-
   .system-header__content {
     grid-template-columns: 1fr auto;
     gap: 0.6rem;

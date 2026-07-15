@@ -83,9 +83,12 @@ test("opens and closes the trainer archive from the same header toggle", () => {
   expect(toggle).toHaveAttribute("aria-expanded", "false");
 
   fireEvent.click(toggle);
-  expect(
-    screen.getByRole("complementary", { name: "Archivio Allenatore" }),
-  ).toBeInTheDocument();
+  const archive = screen.getByRole("complementary", {
+    name: "Archivio Allenatore",
+  });
+  const chrome = toggle.closest(".App__chrome");
+  expect(chrome).toBeInTheDocument();
+  expect(chrome).toContainElement(archive.closest(".App__archive"));
   expect(toggle).toHaveAttribute("aria-expanded", "true");
 
   fireEvent.click(toggle);

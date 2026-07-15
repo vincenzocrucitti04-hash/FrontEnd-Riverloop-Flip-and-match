@@ -73,22 +73,24 @@ function App() {
 
   return (
     <div className={`App${gameStarted ? " App--game-active" : ""}`}>
-      <Header
-        theme={theme}
-        onThemeChange={handleThemeChange}
-        isGameActive={gameStarted}
-        onHome={requestHome}
-        profileOpen={profileOpen}
-        onProfileToggle={() => setProfileOpen((isOpen) => !isOpen)}
-      />
-      {profileOpen ? (
-        <section className="App__archive" aria-label="Pannello archivio">
-          <ProfilePanel
-            profile={profile}
-            onReset={() => setProfile(resetProfile())}
-          />
-        </section>
-      ) : null}
+      <div className="App__chrome">
+        <Header
+          theme={theme}
+          onThemeChange={handleThemeChange}
+          isGameActive={gameStarted}
+          onHome={requestHome}
+          profileOpen={profileOpen}
+          onProfileToggle={() => setProfileOpen((isOpen) => !isOpen)}
+        />
+        {profileOpen ? (
+          <section className="App__archive" aria-label="Pannello archivio">
+            <ProfilePanel
+              profile={profile}
+              onReset={() => setProfile(resetProfile())}
+            />
+          </section>
+        ) : null}
+      </div>
       {gameStarted ? (
         <GameBoard
           setMoves={setMoves}
