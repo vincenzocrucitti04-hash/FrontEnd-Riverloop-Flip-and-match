@@ -38,6 +38,8 @@ body.light {
   --border: #17191f;
   --border-subtle: #b9c4cf;
   --action-primary: #245f9e;
+  --data-text: #245f9e;
+  --focus-ring: #245f9e;
   --success-strong: #146c43;
   --danger-text: #a81820;
   --warning-text: #6d5100;
@@ -53,6 +55,8 @@ body.dark {
   --border: #080a0d;
   --border-subtle: #526071;
   --action-primary: #65aaf2;
+  --data-text: #65aaf2;
+  --focus-ring: #65aaf2;
   --success-strong: #63d6a2;
   --danger-text: #ff8f8a;
   --warning-text: #ffe27a;
@@ -69,7 +73,7 @@ body.dark {
   --accent-primary-strong: var(--poke-red-dark);
   --accent-discovery: var(--poke-yellow);
   --accent-nature: var(--poke-blue);
-  --color-focus: var(--poke-blue);
+  --color-focus: var(--focus-ring);
   --color-text: var(--text);
   --color-surface: var(--surface);
   --color-surface-muted: var(--surface-raised);

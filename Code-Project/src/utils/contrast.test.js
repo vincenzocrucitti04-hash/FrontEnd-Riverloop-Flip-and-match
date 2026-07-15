@@ -65,6 +65,53 @@ test("foreground consumers avoid invariant dark-red aliases", () => {
   });
 });
 
+test("Pokedex control-center data and focus blues meet contrast in both themes", () => {
+  const textPairs = [
+    ["#245F9E", "#F7FAFC"],
+    ["#65AAF2", "#29313D"],
+  ];
+  const focusPairs = [
+    ["#245F9E", "#FFFFFF"],
+    ["#65AAF2", "#202630"],
+  ];
+
+  textPairs.forEach(([foreground, background]) => {
+    expect(meetsAaContrast(foreground, background)).toBe(true);
+  });
+  focusPairs.forEach(([indicator, adjacentColor]) => {
+    expect(contrastRatio(indicator, adjacentColor)).toBeGreaterThanOrEqual(3);
+  });
+});
+
+test("Task 3 foreground and focus consumers use theme-aware blue tokens", () => {
+  const tokens = readFileSync(resolve("src/index.css"), "utf8");
+  const startScreen = readFileSync(
+    resolve("src/components/templates/StartScreen/StartScreen.css"),
+    "utf8",
+  );
+  const gridControls = readFileSync(
+    resolve("src/components/molecule/GridControls/GridControls.css"),
+    "utf8",
+  );
+  const taskThreeStyles = `${startScreen}\n${gridControls}`;
+
+  expect(tokens).toMatch(
+    /body\.light\s*{[^}]*--data-text:\s*#245f9e;[^}]*--focus-ring:\s*#245f9e;/s,
+  );
+  expect(tokens).toMatch(
+    /body\.dark\s*{[^}]*--data-text:\s*#65aaf2;[^}]*--focus-ring:\s*#65aaf2;/s,
+  );
+  expect(startScreen).toMatch(
+    /\.control-center__protocol li > span\s*{[^}]*color:\s*var\(--data-text\)/s,
+  );
+  expect(gridControls).toMatch(
+    /select:focus-visible\s*{[^}]*outline:\s*3px solid var\(--focus-ring\)/s,
+  );
+  expect(taskThreeStyles).not.toMatch(
+    /(?:^|\n)\s*(?:color|outline):[^;]*var\(--(?:poke|signal|color-focus)/,
+  );
+});
+
 test("contrastRatio is order independent", () => {
   expect(contrastRatio("#1C2A39", "#FFF8EA")).toBeCloseTo(
     contrastRatio("#FFF8EA", "#1C2A39"),
