@@ -1,13 +1,12 @@
 import "./Header.css";
-import SunIcon from "../../../assets/sun-regular-full.svg";
-import MoonIcon from "../../../assets/moon-regular-full.svg";
-import Button from "../../atoms/Button/Button";
 
-function Header({ theme, setTheme, moves }) {
-  const toggleTheme = () => {
-    setTheme(theme === "light" ? "dark" : "light");
-  };
-
+function Header({
+  theme,
+  onThemeChange,
+  moves,
+  profileOpen = false,
+  onProfileToggle = () => {},
+}) {
   return (
     <header className="header">
       <div className="header-content">
@@ -17,16 +16,26 @@ function Header({ theme, setTheme, moves }) {
         </div>
 
         <div className="header-controls">
-          <Button onClick={toggleTheme} className="theme-toggle">
-            <div className="theme-icon">
-              {theme === "light" ? (
-                <img src={MoonIcon} alt="enable dark mode" />
-              ) : (
-                <img src={SunIcon} alt="enable light mode" />
-              )}
-            </div>
-            <span>{theme === "light" ? "Dark" : "Light"}</span>
-          </Button>
+          <button
+            type="button"
+            className="profile-toggle"
+            onClick={onProfileToggle}
+            aria-expanded={profileOpen}
+          >
+            <span aria-hidden="true">👤</span>
+            <span className="profile-toggle__label">Profilo locale</span>
+          </button>
+          <label className="theme-selector">
+            <span className="theme-selector__label">Tema</span>
+            <select
+              value={theme}
+              onChange={(event) => onThemeChange(event.target.value)}
+            >
+              <option value="light">Chiaro</option>
+              <option value="dark">Scuro</option>
+              <option value="system">Sistema</option>
+            </select>
+          </label>
 
           <div className="moves-counter">
             <div className="moves-badge">

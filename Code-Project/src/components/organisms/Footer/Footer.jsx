@@ -1,49 +1,8 @@
-import { useEffect, useState } from "react";
 import "./Footer.css";
 
-const Footer = () => {
-  const [isVisible, setIsVisible] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrollTop =
-        window.pageYOffset || document.documentElement.scrollTop;
-      const scrollThreshold = 100;
-      const isMobile = window.innerWidth < 768;
-
-      if (isMobile) {
-        if (scrollTop > scrollThreshold) {
-          setIsVisible(true);
-        } else {
-          setIsVisible(false);
-        }
-      } else {
-        setIsVisible(true);
-      }
-    };
-
-    let scrollTimeout;
-    const debouncedScroll = () => {
-      clearTimeout(scrollTimeout);
-      scrollTimeout = setTimeout(handleScroll, 10);
-    };
-
-    if (window.innerWidth >= 768) {
-      setIsVisible(true);
-    }
-
-    window.addEventListener("scroll", debouncedScroll);
-    window.addEventListener("resize", handleScroll);
-
-    return () => {
-      window.removeEventListener("scroll", debouncedScroll);
-      window.removeEventListener("resize", handleScroll);
-      clearTimeout(scrollTimeout);
-    };
-  }, []);
-
+function Footer() {
   return (
-    <footer className={`app-footer ${isVisible ? "visible" : ""}`}>
+    <footer className="app-footer">
       <div className="footer-content">
         <p className="footer-title">FrontEnd - Riverloop - Flip & Match</p>
         <p className="footer-text">
@@ -67,7 +26,7 @@ const Footer = () => {
             rel="noopener noreferrer"
             aria-label="Seguimi su Instagram (si apre in una nuova finestra)"
           >
-            <img src="/instagram-brands-solid-full.svg" alt="Instagram" />
+            <img src="/instagram-brands-solid-full.svg" alt="" />
           </a>
           <a
             href="https://github.com/vincenzocrucitti04-hash"
@@ -75,7 +34,7 @@ const Footer = () => {
             rel="noopener noreferrer"
             aria-label="Visita il mio GitHub (si apre in una nuova finestra)"
           >
-            <img src="/github-brands-solid-full.svg" alt="GitHub" />
+            <img src="/github-brands-solid-full.svg" alt="" />
           </a>
           <a
             href="https://www.linkedin.com/in/vincenzo-crucitti-4b5428378/"
@@ -83,12 +42,12 @@ const Footer = () => {
             rel="noopener noreferrer"
             aria-label="Collegati su LinkedIn (si apre in una nuova finestra)"
           >
-            <img src="/linkedin-brands-solid-full.svg" alt="LinkedIn" />
+            <img src="/linkedin-brands-solid-full.svg" alt="" />
           </a>
         </div>
       </div>
     </footer>
   );
-};
+}
 
 export default Footer;

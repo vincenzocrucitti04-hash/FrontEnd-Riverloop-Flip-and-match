@@ -6,7 +6,7 @@ function RestartButton({ onRestart }) {
       <div className="btn-grid-border">
         <div className="btn-grid-base">
           <Button className="btn-grid" onClick={onRestart}>
-            Restart
+            Nuova avventura
           </Button>
         </div>
       </div>
