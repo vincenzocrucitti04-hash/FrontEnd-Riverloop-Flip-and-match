@@ -9,7 +9,12 @@ function TrainingInfo({ pokemonName, fact, onDismiss }) {
       aria-label="Scheda Pokédex"
       aria-live="polite"
     >
-      <div>
+      <div
+        className="training-info__content"
+        role="group"
+        tabIndex={0}
+        aria-label={`Informazioni su ${pokemonName}`}
+      >
         <header className="training-info__header">
           <span>ID Pokémon</span>
           <strong>{pokemonName}</strong>

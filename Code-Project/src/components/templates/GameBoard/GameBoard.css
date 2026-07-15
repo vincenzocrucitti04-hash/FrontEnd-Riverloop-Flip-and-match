@@ -60,7 +60,15 @@
 }
 
 .scan-console__feedback--training {
+  grid-template-rows: 3.4rem minmax(0, 1fr);
+  block-size: 10.75rem;
   min-block-size: 10.75rem;
+  overflow: hidden;
+}
+
+.scan-console__feedback--training .training-info {
+  block-size: 100%;
+  min-block-size: 0;
 }
 
 .scan-console__settings {
@@ -119,6 +127,7 @@
   }
 
   .scan-console__feedback--training {
+    block-size: 13.5rem;
     min-block-size: 13.5rem;
   }
 }

@@ -1,7 +1,14 @@
+import { readFileSync } from "node:fs";
+import { resolve } from "node:path";
 import { render, screen } from "@testing-library/react";
 import { beforeEach, expect, test, vi } from "vitest";
 
 import GameBoard from "./GameBoard";
+
+const gameBoardStyles = readFileSync(
+  resolve("src/components/templates/GameBoard/GameBoard.css"),
+  "utf8",
+);
 
 const { useGameLogicMock } = vi.hoisted(() => ({
   useGameLogicMock: vi.fn(),
@@ -139,4 +146,16 @@ test("reserves the training feedback area before and after a fact appears", () =
   expect(
     screen.getByRole("region", { name: "Scheda Pokédex" }),
   ).toHaveTextContent("Bulbasaur");
+});
+
+test("keeps training feedback in a fixed scroll-safe block", () => {
+  expect(gameBoardStyles).toMatch(
+    /\.scan-console__feedback--training\s*{[^}]*block-size:\s*10\.75rem;[^}]*overflow:\s*hidden;/s,
+  );
+  expect(gameBoardStyles).toMatch(
+    /\.scan-console__feedback--training\s+\.training-info\s*{[^}]*block-size:\s*100%;[^}]*min-block-size:\s*0;/s,
+  );
+  expect(gameBoardStyles).toMatch(
+    /@media \(max-width:\s*40rem\)[\s\S]*\.scan-console__feedback--training\s*{[^}]*block-size:\s*13\.5rem;/s,
+  );
 });
