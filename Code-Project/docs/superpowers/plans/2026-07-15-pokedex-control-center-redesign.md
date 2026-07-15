@@ -8,6 +8,79 @@
 
 **Tech Stack:** React 19, JavaScript JSX, CSS vanilla per componente, Vitest, React Testing Library, Vite.
 
+## Checkpoint di sospensione — 16 luglio 2026
+
+Il lavoro è stato sospeso su richiesta dell'utente dopo il completamento e la
+review del Task 4. Questo checkpoint è la fonte durevole per la ripresa: i file
+temporanei in `.superpowers/sdd/` possono non essere disponibili in una nuova
+sessione.
+
+### Stato Git
+
+- Branch di lavoro: `feature/pokedex-control-center`.
+- Worktree: `/home/vinz/project/FrontEnd-Riverloop-Flip-and-match/Code-Project/.worktrees/pokedex-control-center/Code-Project`.
+- Ultimo commit completato: `9c50f74 fix: eliminate console layout shifts`.
+- Il checkout risultava pulito al momento della sospensione.
+
+### Task completati e approvati
+
+- [x] Task 1 — Fondazioni visive e atomo Poké Ball
+      (`6ecb970..9554098`). Include migrazione completa dei token legacy e test di
+      contrasto chiaro/scuro.
+- [x] Task 2 — Shell globale, header, footer e archivio profilo
+      (`9554098..0676a4b`). Include archivio ancorato allo chrome sticky,
+      scrollabile su desktop e nel flusso su mobile.
+- [x] Task 3 — Home e console di configurazione
+      (`0676a4b..e17d8f3`). Include nuova gerarchia, fieldset accessibili, callback
+      esistenti e contrasto dei controlli verificato.
+- [x] Task 4 — Shell partita, HUD e stati operativi
+      (`e17d8f3..9c50f74`). Include rami loading/errore/griglia, training
+      scrollabile, skeleton dimensionato per difficoltà e assenza di layout shift.
+
+Ogni task completato ha superato una review separata senza finding Critical o
+Important aperti. All'ultimo checkpoint risultavano verdi:
+
+- `npm test`: 117 test su 117;
+- `npm run lint`;
+- `npm run build`;
+- `git diff --check`.
+
+Non è stata ancora eseguita la verifica visuale manuale completa nel browser.
+La review del Task 1 ha inoltre annotato come rilievo minore che alcuni valori
+esadecimali dei test di contrasto sono duplicati rispetto ai token CSS; questo
+non blocca la ripresa, ma va rivalutato nella review finale.
+
+### Punto esatto di ripartenza
+
+- [ ] Task 5 — Griglia e carte Poké Ball.
+- [ ] Task 6 — Dialoghi Pokédex e risultato finale.
+- [ ] Task 7 — Integrazione, documentazione e verifica completa.
+- [ ] Review finale dell'intero branch.
+
+Non rieseguire né reimplementare i Task 1–4. Riprendere dal Task 5 usando la
+relativa sezione di questo piano e il commit `9c50f74` come base della review
+del task.
+
+### Procedura di ripresa
+
+```bash
+cd /home/vinz/project/FrontEnd-Riverloop-Flip-and-match/Code-Project/.worktrees/pokedex-control-center/Code-Project
+git status --short
+git branch --show-current
+git rev-parse --short HEAD
+npm test
+```
+
+Risultato atteso prima di modificare codice: branch
+`feature/pokedex-control-center`, HEAD almeno `9c50f74`, worktree pulito e suite
+verde. Se `node_modules` non è più presente, eseguire prima `npm install`.
+
+Per continuare con agenti separati, usare
+`superpowers:subagent-driven-development`, generare un nuovo brief soltanto per
+il Task 5 e mantenere il ciclo implementazione → report → review → eventuale
+fix. Dopo i Task 5–7 eseguire la review completa del branch e la procedura di
+chiusura prevista dalle skill.
+
 ## Global Constraints
 
 - Conservare difficoltà, mazzi, anteprima, allenamento, timer, mosse, combo, record, punteggio, profilo, temi, fallback offline e vittoria.
@@ -34,9 +107,10 @@
 
 ---
 
-### Task 1: Fondazioni visive e atomo Poké Ball
+### Task 1: Fondazioni visive e atomo Poké Ball — completato
 
 **Files:**
+
 - Create: `src/components/atoms/PokeBall/PokeBall.jsx`
 - Create: `src/components/atoms/PokeBall/PokeBall.css`
 - Create: `src/components/atoms/PokeBall/PokeBall.test.jsx`
@@ -46,6 +120,7 @@
 - Modify: `src/App.css`
 
 **Interfaces:**
+
 - Produces: `PokeBall({ size = "medium", label = "" })`; `label=""` rende il simbolo decorativo con `aria-hidden="true"`, un label non vuoto produce `role="img"` e `aria-label`.
 - Produces: `Button` continua ad accettare tutte le props native e `className`, aggiungendo classi base senza cambiare i consumer.
 
@@ -88,10 +163,7 @@ function PokeBall({ size = "medium", label = "" }) {
     : { "aria-hidden": "true" };
 
   return (
-    <span
-      className={`poke-ball poke-ball--${size}`}
-      {...accessibilityProps}
-    >
+    <span className={`poke-ball poke-ball--${size}`} {...accessibilityProps}>
       <span className="poke-ball__button" />
     </span>
   );
@@ -156,9 +228,10 @@ git commit -m "style: establish pokedex visual foundations"
 
 ---
 
-### Task 2: Shell globale, header, footer e archivio profilo
+### Task 2: Shell globale, header, footer e archivio profilo — completato
 
 **Files:**
+
 - Modify: `src/App.jsx`
 - Modify: `src/App.test.jsx`
 - Modify: `src/components/organisms/Header/Header.jsx`
@@ -172,6 +245,7 @@ git commit -m "style: establish pokedex visual foundations"
 - Modify: `src/components/organisms/ProfilePanel/ProfilePanel.test.jsx`
 
 **Interfaces:**
+
 - Consumes: `PokeBall` dal Task 1.
 - Preserves: props pubbliche esistenti di `Header`, `Footer` e `ProfilePanel`.
 - Produces: landmarks header/footer, pulsante profilo con `aria-expanded`, selettore tema e archivio profilo richiudibile dalla stessa callback di `App`.
@@ -183,10 +257,12 @@ In `Header.test.jsx` verificare:
 ```jsx
 expect(screen.getByRole("banner")).toBeInTheDocument();
 expect(screen.getByText("Flip & Match")).toBeInTheDocument();
-expect(screen.getByRole("button", { name: /archivio allenatore/i }))
-  .toHaveAttribute("aria-expanded", "false");
-expect(screen.getByRole("combobox", { name: /tema interfaccia/i }))
-  .toBeInTheDocument();
+expect(
+  screen.getByRole("button", { name: /archivio allenatore/i }),
+).toHaveAttribute("aria-expanded", "false");
+expect(
+  screen.getByRole("combobox", { name: /tema interfaccia/i }),
+).toBeInTheDocument();
 ```
 
 In `ProfilePanel.test.jsx` verificare titolo “Archivio Allenatore”, privacy locale, accuratezza, scoperte e callback di reset. In `Footer.test.jsx` verificare il landmark `contentinfo` e il testo “Dati Pokémon forniti da PokéAPI”. In `App.test.jsx` verificare che il toggle apra `complementary` con nome “Archivio Allenatore”.
@@ -205,7 +281,9 @@ Il footer usa markup compatto:
 
 ```jsx
 <footer className="system-footer">
-  <p><span aria-hidden="true" className="system-footer__status" /> Sistema pronto</p>
+  <p>
+    <span aria-hidden="true" className="system-footer__status" /> Sistema pronto
+  </p>
   <p>Dati Pokémon forniti da PokéAPI</p>
   <nav aria-label="Collegamenti sociali">{/* link esistenti */}</nav>
 </footer>
@@ -248,9 +326,10 @@ git commit -m "style: rebuild global pokedex shell"
 
 ---
 
-### Task 3: Home e console di configurazione
+### Task 3: Home e console di configurazione — completato
 
 **Files:**
+
 - Modify: `src/components/templates/StartScreen/StartScreen.jsx`
 - Modify: `src/components/templates/StartScreen/StartScreen.css`
 - Modify: `src/components/templates/StartScreen/StartScreen.test.jsx`
@@ -259,6 +338,7 @@ git commit -m "style: rebuild global pokedex shell"
 - Modify: `src/components/molecule/GridControls/GridControls.test.jsx`
 
 **Interfaces:**
+
 - Consumes: `PokeBall`, `Button`, `GAME_CONFIG`, `DECK_CATALOG`, `isDeckCompatible`.
 - Preserves: tutte le props e callback correnti di `StartScreen` e `GridControls`.
 - Produces: configurazione primaria sempre visibile e parametri secondari in un pannello semanticamente raggruppato.
@@ -268,12 +348,15 @@ git commit -m "style: rebuild global pokedex shell"
 In `StartScreen.test.jsx` verificare:
 
 ```jsx
-expect(screen.getByRole("heading", { name: /centro di controllo/i }))
-  .toBeInTheDocument();
-expect(screen.getByRole("button", { name: /avvia sfida/i }))
-  .toBeInTheDocument();
-expect(screen.getByRole("region", { name: /configurazione sfida/i }))
-  .toBeInTheDocument();
+expect(
+  screen.getByRole("heading", { name: /centro di controllo/i }),
+).toBeInTheDocument();
+expect(
+  screen.getByRole("button", { name: /avvia sfida/i }),
+).toBeInTheDocument();
+expect(
+  screen.getByRole("region", { name: /configurazione sfida/i }),
+).toBeInTheDocument();
 expect(screen.getByText(/sistema memory pokémon/i)).toBeInTheDocument();
 ```
 
@@ -348,9 +431,10 @@ git commit -m "style: rebuild challenge control center"
 
 ---
 
-### Task 4: Shell della partita, HUD e stati operativi
+### Task 4: Shell della partita, HUD e stati operativi — completato
 
 **Files:**
+
 - Modify: `src/components/templates/GameBoard/GameBoard.jsx`
 - Modify: `src/components/templates/GameBoard/GameBoard.css`
 - Modify: `src/components/molecule/GameToolbar/GameToolbar.jsx`
@@ -369,6 +453,7 @@ git commit -m "style: rebuild challenge control center"
 - Modify: `src/components/organisms/GameSkeleton/GameSkeleton.css`
 
 **Interfaces:**
+
 - Preserves: props pubbliche di tutti i componenti e output di `useGameLogic`.
 - Produces: `main.scan-console`, toolbar, HUD `<dl>`, viewport stabile e pannello impostazioni nativo `<details>`.
 
@@ -379,7 +464,15 @@ Verificare che `GameToolbar` esponga pulsanti “Centro di controllo” e “Ria
 Test rappresentativo:
 
 ```jsx
-render(<GameStats elapsedMs={61000} moves={4} minimumMoves={8} combo={2} bestRecord={null} />);
+render(
+  <GameStats
+    elapsedMs={61000}
+    moves={4}
+    minimumMoves={8}
+    combo={2}
+    bestRecord={null}
+  />,
+);
 const telemetry = screen.getByRole("group", { name: /telemetria partita/i });
 expect(within(telemetry).getByText("01:01")).toBeInTheDocument();
 expect(within(telemetry).getByText("4")).toBeInTheDocument();
@@ -439,14 +532,16 @@ git commit -m "style: build pokedex game console"
 
 ---
 
-### Task 5: Griglia e carte Poké Ball
+### Task 5: Griglia e carte Poké Ball — prossimo task
 
 **Files:**
+
 - Modify: `src/components/organisms/GameGrid/GameGrid.jsx`
 - Modify: `src/components/organisms/GameGrid/GameGrid.css`
 - Modify: `src/components/organisms/GameGrid/GameGrid.test.jsx`
 
 **Interfaces:**
+
 - Preserves: `GameGrid({ cards, onFlip, gridSize, isInputLocked, feedback, feedbackCardIds })`.
 - Consumes: forma card `{ id, pairId, name, image, flipped, matched }`.
 - Produces: button card con dorso Poké Ball, fronte con sprite/nome/numero e stamp stato.
@@ -456,7 +551,9 @@ git commit -m "style: build pokedex game console"
 Estendere `GameGrid.test.jsx`:
 
 ```jsx
-const cardButton = screen.getByRole("button", { name: /carta 1 di 4: scoperta, bulbasaur/i });
+const cardButton = screen.getByRole("button", {
+  name: /carta 1 di 4: scoperta, bulbasaur/i,
+});
 expect(cardButton).toHaveAttribute("aria-pressed", "true");
 expect(within(cardButton).getByText("Bulbasaur")).toBeInTheDocument();
 expect(within(cardButton).getByText("#001")).toBeInTheDocument();
@@ -506,6 +603,7 @@ git commit -m "style: create classic pokeball memory cards"
 ### Task 6: Dialoghi Pokédex e risultato finale
 
 **Files:**
+
 - Modify: `src/components/molecule/VictoryModal/VictoryModal.jsx`
 - Modify: `src/components/molecule/VictoryModal/VictoryModal.css`
 - Modify: `src/components/molecule/VictoryModal/VictoryModal.test.jsx`
@@ -514,6 +612,7 @@ git commit -m "style: create classic pokeball memory cards"
 - Modify: `src/components/molecule/ConfirmHomeDialog/ConfirmHomeDialog.test.jsx`
 
 **Interfaces:**
+
 - Preserves: tutte le props, callback, focus trap, Escape, backdrop close e ripristino focus esistenti.
 - Produces: rapporto registrazione Pokédex e conferma uscita coerente con la console.
 
@@ -568,12 +667,14 @@ git commit -m "style: redesign pokedex result dialogs"
 ### Task 7: Integrazione, documentazione e verifica completa
 
 **Files:**
+
 - Modify: `src/App.test.jsx`
 - Modify: `README.md`
 - Modify: `docs/IDEA-E-MIGLIORAMENTI.md`
 - Modify only if required by failing presentation tests: files changed in Tasks 1–6.
 
 **Interfaces:**
+
 - Consumes: intero strato presentazionale dei Task 1–6.
 - Produces: flusso integrato verificato e documentazione coerente.
 
@@ -582,11 +683,17 @@ git commit -m "style: redesign pokedex result dialogs"
 In `App.test.jsx`, usando i mock di fetch/storage già presenti, verificare:
 
 ```jsx
-expect(screen.getByRole("heading", { name: /centro di controllo/i })).toBeInTheDocument();
+expect(
+  screen.getByRole("heading", { name: /centro di controllo/i }),
+).toBeInTheDocument();
 await user.click(screen.getByRole("button", { name: /avvia sfida/i }));
 expect(await screen.findByRole("main")).toHaveClass("scan-console");
-expect(screen.getByRole("group", { name: /telemetria partita/i })).toBeInTheDocument();
-expect(screen.getByRole("grid", { name: /griglia di gioco/i })).toBeInTheDocument();
+expect(
+  screen.getByRole("group", { name: /telemetria partita/i }),
+).toBeInTheDocument();
+expect(
+  screen.getByRole("grid", { name: /griglia di gioco/i }),
+).toBeInTheDocument();
 ```
 
 Se `GameGrid` oggi usa un `div`, aggiungere `role="grid"`; ogni card button riceve `role="gridcell"` solo se ciò non altera la semantica nativa del button, altrimenti racchiuderla in un elemento con ruolo `gridcell`.
