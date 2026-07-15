@@ -3,11 +3,18 @@ import { expect, test } from "vitest";
 
 import GameSkeleton from "./GameSkeleton";
 
-test("keeps the selected grid dimensions while loading", () => {
-  render(<GameSkeleton gridSize="6x6" />);
+test.each([
+  ["2x2", 4],
+  ["4x4", 16],
+  ["6x6", 36],
+])("matches the %s grid dimensions while loading", (gridSize, totalCards) => {
+  render(<GameSkeleton gridSize={gridSize} />);
 
   expect(screen.getByRole("status")).toHaveTextContent(
     "Sincronizzazione Pokémon in corso",
   );
-  expect(screen.getAllByTestId("skeleton-card")).toHaveLength(36);
+  expect(screen.getByRole("status")).toHaveClass(
+    `game-skeleton--${gridSize}`,
+  );
+  expect(screen.getAllByTestId("skeleton-card")).toHaveLength(totalCards);
 });

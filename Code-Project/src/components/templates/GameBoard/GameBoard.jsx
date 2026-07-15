@@ -92,7 +92,11 @@ function GameBoard({
             />
           )}
         </div>
-        <div className="scan-console__feedback">
+        <div
+          className={`scan-console__feedback ${
+            trainingMode ? "scan-console__feedback--training" : ""
+          }`}
+        >
           <GameStatus message={announcement} feedback={feedback} />
           {trainingInfo ? (
             <TrainingInfo

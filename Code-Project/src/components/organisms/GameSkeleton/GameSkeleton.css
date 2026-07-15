@@ -1,8 +1,19 @@
 .game-skeleton {
+  --skeleton-max-width: 28rem;
+
   display: grid;
   justify-items: center;
   gap: 0.65rem;
-  width: min(100%, 31rem);
+  width: min(100%, var(--skeleton-max-width));
+  min-width: 0;
+}
+
+.game-skeleton--2x2 {
+  --skeleton-max-width: 15rem;
+}
+
+.game-skeleton--6x6 {
+  --skeleton-max-width: 31rem;
 }
 
 .game-skeleton__label {
@@ -16,7 +27,7 @@
 .game-skeleton__grid {
   display: grid;
   grid-template-columns: repeat(var(--skeleton-columns), minmax(0, 1fr));
-  gap: clamp(4px, 1vw, 8px);
+  gap: clamp(0.3rem, 1vw, 0.55rem);
   width: 100%;
 }
 
@@ -43,5 +54,11 @@
 @media (prefers-reduced-motion: reduce) {
   .game-skeleton__grid span {
     animation: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .game-skeleton__grid {
+    gap: clamp(0.2rem, 1.3vw, 0.38rem);
   }
 }

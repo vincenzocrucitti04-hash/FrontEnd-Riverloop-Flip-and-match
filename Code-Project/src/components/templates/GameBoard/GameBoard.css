@@ -59,6 +59,10 @@
   min-block-size: 4.35rem;
 }
 
+.scan-console__feedback--training {
+  min-block-size: 10.75rem;
+}
+
 .scan-console__settings {
   width: 100%;
   border: 2px solid var(--ink);
@@ -112,5 +116,9 @@
   .scan-console__viewport {
     min-block-size: clamp(17rem, 105vw, 30rem);
     padding-inline: 0.35rem;
+  }
+
+  .scan-console__feedback--training {
+    min-block-size: 13.5rem;
   }
 }
