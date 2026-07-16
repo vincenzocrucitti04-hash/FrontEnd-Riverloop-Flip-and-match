@@ -61,7 +61,10 @@ function GameGrid({
               aria-pressed={isRevealed}
             >
               <span className="memory-card__inner">
-                <span className="memory-card__front" aria-hidden={!isRevealed}>
+                <span
+                  className={`memory-card__front ${isRevealed ? "memory-card__front--visible" : ""}`}
+                  aria-hidden={!isRevealed}
+                >
                   <span className="memory-card__index">#{pokemonNumber}</span>
                   <img
                     src={card.image}
@@ -69,7 +72,10 @@ function GameGrid({
                   />
                   <span className="memory-card__name">{card.name}</span>
                 </span>
-                <span className="memory-card__back" aria-hidden="true">
+                <span
+                  className={`memory-card__back ${isRevealed ? "memory-card__back--hidden" : ""}`}
+                  aria-hidden="true"
+                >
                   <span className="memory-card__ball">
                     <span className="memory-card__ball-button" />
                   </span>

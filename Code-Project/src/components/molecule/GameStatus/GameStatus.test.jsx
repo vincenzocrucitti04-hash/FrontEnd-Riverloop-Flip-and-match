@@ -1,3 +1,6 @@
+import { readFileSync } from "node:fs";
+import { resolve } from "node:path";
+
 import { render, screen } from "@testing-library/react";
 import { expect, test } from "vitest";
 
@@ -11,4 +14,14 @@ test("announces a message through one polite live region", () => {
   expect(status).toHaveAttribute("aria-atomic", "true");
   expect(status).toHaveTextContent("Coppia trovata: Pikachu.");
   expect(status).toHaveClass("game-status--match");
+});
+
+test("uses the in-progress message when no announcement is active", () => {
+  const styles = readFileSync(
+    resolve("src/components/molecule/GameStatus/GameStatus.css"),
+    "utf8",
+  );
+  expect(styles).toContain(
+    'content: "Partita in corso: trova tutte le coppie.";',
+  );
 });

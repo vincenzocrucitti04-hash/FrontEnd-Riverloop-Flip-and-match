@@ -15,7 +15,7 @@
 }
 
 .game-status:empty::before {
-  content: "Sistema pronto: seleziona due carte.";
+  content: "Partita in corso: trova tutte le coppie.";
   color: var(--text-muted);
   font-weight: 650;
 }

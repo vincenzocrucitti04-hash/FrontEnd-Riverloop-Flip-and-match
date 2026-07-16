@@ -53,6 +53,37 @@ test("cards are buttons with position, state, and descriptive image text", () =>
   expect(onFlip).toHaveBeenCalledWith("1-1");
 });
 
+test("shows the artwork above the hidden back for a revealed card", () => {
+  const { container } = render(
+    <GameGrid
+      cards={[
+        {
+          id: "25-1",
+          pairId: 25,
+          name: "Pikachu",
+          image: "pikachu.png",
+          flipped: true,
+          matched: false,
+        },
+      ]}
+      onFlip={() => {}}
+      gridSize="2x2"
+      isInputLocked={false}
+    />,
+  );
+
+  const image = screen.getByRole("img", {
+    name: /Pikachu, Pokémon registrato/i,
+  });
+  expect(image).toHaveAttribute("src", "pikachu.png");
+  expect(image.closest(".memory-card__front")).toHaveClass(
+    "memory-card__front--visible",
+  );
+  expect(container.querySelector(".memory-card__back")).toHaveClass(
+    "memory-card__back--hidden",
+  );
+});
+
 test("exposes grid semantics without replacing the card button role", () => {
   render(
     <GameGrid
