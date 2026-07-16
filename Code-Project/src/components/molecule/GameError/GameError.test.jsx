@@ -18,6 +18,9 @@ test("renders an announced error and invokes retry", () => {
   expect(screen.getByRole("alert")).toHaveTextContent(
     "PokeAPI non è disponibile.",
   );
+  expect(
+    screen.getByRole("heading", { name: "Anomalia collegamento" }),
+  ).toBeInTheDocument();
   fireEvent.click(screen.getByRole("button", { name: "Riprova" }));
   expect(onRetry).toHaveBeenCalledOnce();
   fireEvent.click(screen.getByRole("button", { name: "Usa mazzo offline" }));

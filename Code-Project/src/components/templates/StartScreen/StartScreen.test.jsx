@@ -10,7 +10,7 @@ const options = {
   trainingMode: false,
 };
 
-test("presents instructions, persisted selections, and a native start CTA", () => {
+test("presents the control center hierarchy and a native start CTA", () => {
   const onStart = vi.fn();
   const { container } = render(
     <StartScreen
@@ -21,34 +21,49 @@ test("presents instructions, persisted selections, and a native start CTA", () =
   );
 
   expect(
-    screen.getByRole("heading", {
-      name: "La tua prossima scoperta ti aspetta",
-    }),
+    screen.getByRole("heading", { name: /centro di controllo/i }),
   ).toBeInTheDocument();
+  expect(screen.getByText(/sistema memory pokémon/i)).toBeInTheDocument();
   expect(screen.getAllByRole("listitem")).toHaveLength(3);
   expect(
-    screen.getByRole("heading", { name: "La prossima spedizione" }),
+    screen.getByRole("region", { name: /configurazione sfida/i }),
   ).toBeInTheDocument();
-  expect(
-    screen.getByRole("heading", { name: "Configura il percorso" }),
-  ).toBeInTheDocument();
-  expect(container.querySelector(".start-screen__route")).toHaveAttribute(
-    "aria-hidden",
-    "true",
+  expect(container.querySelector(".control-center")).not.toBeNull();
+  expect(screen.getByLabelText("Riepilogo configurazione")).toHaveTextContent(
+    "4x4",
   );
-  expect(screen.getByLabelText("Riepilogo partita")).toHaveTextContent("4x4");
-  expect(screen.getByLabelText("Riepilogo partita")).toHaveTextContent(
+  expect(screen.getByLabelText("Riepilogo configurazione")).toHaveTextContent(
     "Kanto (tutti)",
   );
 
   const startButton = screen.getByRole("button", {
-    name: "Inizia avventura",
+    name: /avvia sfida/i,
   });
-  expect(startButton.closest(".start-screen__hero")).not.toBeNull();
+  expect(startButton.closest(".control-center__hero")).not.toBeNull();
   startButton.focus();
   expect(startButton).toHaveFocus();
   fireEvent.click(startButton);
   expect(onStart).toHaveBeenCalledOnce();
+});
+
+test("shows profile metrics in the local register without changing them", () => {
+  render(
+    <StartScreen
+      options={options}
+      profile={{
+        gamesCompleted: 7,
+        discoveredPokemon: [1, 4, 7],
+        bestWinStreak: 2,
+      }}
+      onOptionsChange={() => {}}
+      onStart={() => {}}
+    />,
+  );
+
+  const register = screen.getByRole("region", { name: /registro locale/i });
+  expect(register).toHaveTextContent("7");
+  expect(register).toHaveTextContent("3");
+  expect(register).toHaveTextContent("2");
 });
 
 test("updates selections and resolves an incompatible deck", () => {

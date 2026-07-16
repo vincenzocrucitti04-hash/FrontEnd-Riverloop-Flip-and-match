@@ -6,7 +6,7 @@ import ConfirmHomeDialog from "./ConfirmHomeDialog";
 test("focuses the safe action and cancels with Escape", () => {
   const onCancel = vi.fn();
   const trigger = document.createElement("button");
-  trigger.textContent = "Torna alla base";
+  trigger.textContent = "Centro di controllo";
   document.body.appendChild(trigger);
   trigger.focus();
 
@@ -15,10 +15,10 @@ test("focuses the safe action and cancels with Escape", () => {
   );
 
   const dialog = screen.getByRole("dialog", {
-    name: "Abbandonare la spedizione?",
+    name: "Interrompere la scansione?",
   });
   expect(
-    screen.getByRole("button", { name: "Continua a giocare" }),
+    screen.getByRole("button", { name: "Continua partita" }),
   ).toHaveFocus();
 
   fireEvent.keyDown(dialog, { key: "Escape" });
@@ -40,13 +40,13 @@ test("traps focus and confirms the return home", () => {
   render(<ConfirmHomeDialog isOpen onCancel={vi.fn()} onConfirm={onConfirm} />);
 
   const dialog = screen.getByRole("dialog", {
-    name: "Abbandonare la spedizione?",
+    name: "Interrompere la scansione?",
   });
   const safeAction = screen.getByRole("button", {
-    name: "Continua a giocare",
+    name: "Continua partita",
   });
   const confirmAction = screen.getByRole("button", {
-    name: "Conferma ritorno alla base",
+    name: "Esci al centro",
   });
 
   safeAction.focus();

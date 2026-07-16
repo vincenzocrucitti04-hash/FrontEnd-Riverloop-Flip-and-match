@@ -15,37 +15,39 @@ function GameStats({
   moves = 0,
 }) {
   return (
-    <div className="game-stats" role="group" aria-label="Statistiche partita">
-      <span className="game-stats__item">
-        <span className="game-stats__label">Tempo</span>
-        <span className="game-stats__value game-stats__value--time">
-          {formatTime(elapsedMs)}
-        </span>
-      </span>
-      <span className="game-stats__item">
-        <span className="game-stats__label">Mosse</span>
-        <span className="game-stats__value">{moves}</span>
-      </span>
-      <span className="game-stats__item">
-        <span className="game-stats__label">Minimo</span>
-        <span className="game-stats__value">{minimumMoves}</span>
-      </span>
-      <span className="game-stats__item">
-        <span className="game-stats__label">Combo</span>
-        <span
-          className={`game-stats__value ${combo > 1 ? "game-stats__combo--active" : ""}`}
-        >
-          ×{combo}
-        </span>
-      </span>
-      <span className="game-stats__item game-stats__item--record">
-        <span className="game-stats__label">Record</span>
-        <span className="game-stats__value">
-          {bestRecord
-            ? `${formatTime(bestRecord.timeMs)} · ${bestRecord.moves} mosse`
-            : "—"}
-        </span>
-      </span>
+    <>
+      <dl className="game-stats" role="group" aria-label="Telemetria partita">
+        <div className="game-stats__item">
+          <dt className="game-stats__label">Tempo</dt>
+          <dd className="game-stats__value game-stats__value--time">
+            {formatTime(elapsedMs)}
+          </dd>
+        </div>
+        <div className="game-stats__item">
+          <dt className="game-stats__label">Mosse</dt>
+          <dd className="game-stats__value">{moves}</dd>
+        </div>
+        <div className="game-stats__item">
+          <dt className="game-stats__label">Minimo</dt>
+          <dd className="game-stats__value">{minimumMoves}</dd>
+        </div>
+        <div className="game-stats__item">
+          <dt className="game-stats__label">Combo</dt>
+          <dd
+            className={`game-stats__value ${combo > 1 ? "game-stats__combo--active" : ""}`}
+          >
+            ×{combo}
+          </dd>
+        </div>
+        <div className="game-stats__item game-stats__item--record">
+          <dt className="game-stats__label">Record</dt>
+          <dd className="game-stats__value">
+            {bestRecord
+              ? `${formatTime(bestRecord.timeMs)} · ${bestRecord.moves} mosse`
+              : "—"}
+          </dd>
+        </div>
+      </dl>
       <span
         className="game-stats__announcer"
         role="status"
@@ -54,7 +56,7 @@ function GameStats({
       >
         {moves} mosse. Combo {combo}.
       </span>
-    </div>
+    </>
   );
 }
 

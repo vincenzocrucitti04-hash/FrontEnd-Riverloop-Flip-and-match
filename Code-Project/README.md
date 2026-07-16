@@ -92,11 +92,14 @@ nessun dato lascia il browser.
 
 ## Direzione visuale
 
-L'interfaccia segue la direzione "Pokémon Adventure": superfici crema o blu
-notte, accenti corallo/oro/verde, home da taccuino d'avventura, carte morbide e
-una cartolina finale. Le decorazioni sono forme e gradienti CSS originali e non
-imitano interfacce ufficiali. Le coppie principali di token hanno un test
-automatico di contrasto WCAG AA.
+L'interfaccia segue la direzione "Pokédex Control Center": una console
+rossa e grafite racchiude il centro di configurazione, la HUD di partita,
+l'archivio allenatore e il rapporto finale. Le carte hanno un dorso ispirato
+alla geometria classica della Poké Ball e un fronte tecnico con sprite, nome,
+numero e stato di registrazione. Le decorazioni sono costruite con CSS locale e
+non imitano interfacce software ufficiali. I token semantici supportano tema
+chiaro e scuro e le coppie principali hanno un test automatico di contrasto
+WCAG AA.
 
 ## PokeAPI e gestione degli errori
 

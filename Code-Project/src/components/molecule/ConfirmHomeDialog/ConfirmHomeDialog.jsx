@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import Button from "../../atoms/Button/Button";
+import PokeBall from "../../atoms/PokeBall/PokeBall";
 import "./ConfirmHomeDialog.css";
 
 function ConfirmHomeDialog({ isOpen, onCancel, onConfirm }) {
@@ -70,12 +71,16 @@ function ConfirmHomeDialog({ isOpen, onCancel, onConfirm }) {
         aria-describedby="confirm-home-description"
         onKeyDown={handleKeyDown}
       >
-        <span className="confirm-home__stamp" aria-hidden="true">
-          Pausa percorso
-        </span>
-        <h2 id="confirm-home-title">Abbandonare la spedizione?</h2>
+        <span className="confirm-home__indicator-bar" aria-hidden="true" />
+        <header className="confirm-home__header" role="presentation">
+          <PokeBall size="medium" />
+          <div>
+            <p>Scansione in corso</p>
+            <h2 id="confirm-home-title">Interrompere la scansione?</h2>
+          </div>
+        </header>
         <p id="confirm-home-description">
-          I progressi di questa partita non verranno salvati.
+          I dati della partita corrente non verranno registrati.
         </p>
         <div className="confirm-home__actions">
           <Button
@@ -84,15 +89,14 @@ function ConfirmHomeDialog({ isOpen, onCancel, onConfirm }) {
             className="confirm-home__continue"
             onClick={onCancel}
           >
-            Continua a giocare
+            Continua partita
           </Button>
           <Button
             type="button"
             className="confirm-home__leave"
             onClick={onConfirm}
-            aria-label="Conferma ritorno alla base"
           >
-            Torna alla base
+            Esci al centro
           </Button>
         </div>
       </div>

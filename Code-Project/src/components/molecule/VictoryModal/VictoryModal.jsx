@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
 import "./VictoryModal.css";
 import Button from "../../atoms/Button/Button";
+import PokeBall from "../../atoms/PokeBall/PokeBall";
 import { GAME_CONFIG } from "../../../config/gameConfig";
 
 function formatTime(timeMs) {
@@ -78,7 +79,7 @@ function VictoryModal({
 
   return (
     <div
-      className="modal-overlay"
+      className="scan-result-overlay"
       onClick={(event) => {
         if (event.target === event.currentTarget) {
           onClose();
@@ -87,82 +88,98 @@ function VictoryModal({
     >
       <div
         ref={dialogRef}
-        className="modal-content"
+        className="scan-result"
         role="dialog"
         aria-modal="true"
         aria-labelledby="victory-title"
         aria-describedby="victory-description"
         onKeyDown={handleKeyDown}
       >
-        <span className="victory-postmark" aria-hidden="true">
-          Percorso completo
-        </span>
-        <div className="modal-header">
-          <p className="victory-kicker">Cartolina dal campo</p>
-          <h2 id="victory-title">Spedizione completata</h2>
-        </div>
-        <div className="modal-body">
-          <p id="victory-description" className="victory-message">
-            Hai ritrovato tutte le coppie e completato il percorso.
+        <span className="scan-result__indicator-bar" aria-hidden="true" />
+        <header className="scan-result__header" role="presentation">
+          <PokeBall size="medium" />
+          <div>
+            <p>Registrazione completata</p>
+            <h2 id="victory-title">Scansione completata</h2>
+          </div>
+        </header>
+        <p id="victory-description" className="scan-result__message">
+          Tutte le coppie sono state identificate e registrate.
+        </p>
+        <section className="scan-result__score" aria-label="Valutazione finale">
+          <p>{scoreResult.score} punti</p>
+          <p
+            className="scan-result__stars"
+            aria-label={`${scoreResult.stars} stelle su 3`}
+          >
+            {Array.from({ length: 3 }, (_, index) =>
+              index < scoreResult.stars ? "★" : "☆",
+            ).join(" ")}
           </p>
-          <div className="victory-result">
-            <p className="victory-score">{scoreResult.score} punti</p>
-            <p
-              className="victory-stars"
-              aria-label={`${scoreResult.stars} stelle su 3`}
-            >
-              {Array.from({ length: 3 }, (_, index) =>
-                index < scoreResult.stars ? "★" : "☆",
-              ).join(" ")}
-            </p>
+        </section>
+        {discoveredPokemon.length > 0 ? (
+          <section
+            className="scan-result__pokemon"
+            aria-label="Pokémon registrati"
+          >
+            {discoveredPokemon.map((pokemon) => (
+              <img
+                key={pokemon.id}
+                src={pokemon.image}
+                alt={`${pokemon.name} registrato`}
+              />
+            ))}
+          </section>
+        ) : null}
+        <dl
+          className="scan-result__telemetry"
+          role="group"
+          aria-label="Telemetria finale"
+        >
+          <div>
+            <dt>Tempo</dt>
+            <dd>{formatTime(elapsedMs)}</dd>
           </div>
-          {discoveredPokemon.length > 0 ? (
-            <div className="victory-discoveries" aria-label="Pokémon scoperti">
-              {discoveredPokemon.map((pokemon) => (
-                <img
-                  key={pokemon.id}
-                  src={pokemon.image}
-                  alt={`${pokemon.name} scoperto`}
-                />
-              ))}
-            </div>
-          ) : null}
-          <div className="victory-stats">
-            <p className="victory-metric">
-              <span>Tempo</span>
-              <strong>{formatTime(elapsedMs)}</strong>
-            </p>
-            <p className="victory-metric moves-info">
-              <span>Mosse</span>
-              <strong>{moves}</strong>
-            </p>
-            <p className="victory-metric">
-              <span>Combo massima</span>
-              <strong>×{maxCombo}</strong>
-            </p>
+          <div>
+            <dt>Mosse</dt>
+            <dd>{moves}</dd>
           </div>
-          <div className="victory-notes">
-            <p className="victory-formula">
+          <div>
+            <dt>Combo massima</dt>
+            <dd>×{maxCombo}</dd>
+          </div>
+        </dl>
+        <details
+          className="scan-result__formula"
+          aria-label="Dettagli punteggio"
+        >
+          <summary>Dettagli punteggio</summary>
+          <div>
+            <p>
               Formula v{scoreResult.version ?? GAME_CONFIG.scoring.version}: +
               {GAME_CONFIG.scoring.pointsPerPair} per coppia, bonus combo +
               {GAME_CONFIG.scoring.comboStepBonus} progressivo, −
               {GAME_CONFIG.scoring.extraMovePenalty} per mossa extra, −
               {GAME_CONFIG.scoring.secondsPenalty} al secondo.
             </p>
-            <p className="victory-thresholds">
+            <p>
               Soglie {difficulty}: 2 stelle da {starThresholds.two}, 3 stelle da{" "}
               {starThresholds.three}.
             </p>
           </div>
-        </div>
-        <div className="modal-footer">
-          <Button ref={closeButtonRef} className="btn-close" onClick={onClose}>
-            Nuova spedizione
+        </details>
+        <footer className="scan-result__actions" role="presentation">
+          <Button
+            ref={closeButtonRef}
+            className="scan-result__primary"
+            onClick={onClose}
+          >
+            Nuova scansione
           </Button>
-          <Button className="btn-home" onClick={onHome}>
-            Torna alla base
+          <Button className="scan-result__secondary" onClick={onHome}>
+            Centro di controllo
           </Button>
-        </div>
+        </footer>
       </div>
     </div>
   );

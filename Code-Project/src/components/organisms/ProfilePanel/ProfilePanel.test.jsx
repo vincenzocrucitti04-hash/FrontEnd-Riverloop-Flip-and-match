@@ -1,4 +1,4 @@
-import { fireEvent, render, screen } from "@testing-library/react";
+import { fireEvent, render, screen, within } from "@testing-library/react";
 import { expect, test, vi } from "vitest";
 
 import ProfilePanel from "./ProfilePanel";
@@ -15,13 +15,25 @@ const profile = {
   ],
 };
 
-test("shows local metrics and explains the accuracy formula", () => {
+test("presents the local trainer archive, metrics, and discoveries", () => {
   render(<ProfilePanel profile={profile} onReset={() => {}} />);
 
-  expect(screen.getByText("Partite concluse: 3")).toBeInTheDocument();
-  expect(screen.getByText("Accuratezza: 60%")).toBeInTheDocument();
+  expect(
+    screen.getByRole("complementary", { name: "Archivio Allenatore" }),
+  ).toBeInTheDocument();
+  expect(
+    screen.getByRole("heading", { name: "Archivio Allenatore" }),
+  ).toBeInTheDocument();
+  expect(screen.getByText(/dati.*questo browser/i)).toBeInTheDocument();
+  const completedMetric = screen.getByText("Partite concluse").closest("div");
+  expect(within(completedMetric).getByText("3")).toBeInTheDocument();
+  const accuracyMetric = screen.getByText("Accuratezza").closest("div");
+  expect(within(accuracyMetric).getByText("60%")).toBeInTheDocument();
   expect(screen.getByText(/coppie corrette ÷ tentativi/i)).toBeInTheDocument();
-  expect(screen.getByText("Serie attuale: 3")).toBeInTheDocument();
+  expect(screen.getByText("Serie attuale")).toBeInTheDocument();
+  expect(
+    screen.getByRole("heading", { name: "Pokémon scoperti: 2" }),
+  ).toBeInTheDocument();
   expect(screen.getByText(/Bulbasaur/)).toBeInTheDocument();
 });
 
@@ -36,7 +48,7 @@ test("resets only after explicit confirmation", () => {
   );
 
   const resetButton = screen.getByRole("button", {
-    name: "Azzera statistiche",
+    name: "Azzera archivio",
   });
   fireEvent.click(resetButton);
   expect(onReset).not.toHaveBeenCalled();

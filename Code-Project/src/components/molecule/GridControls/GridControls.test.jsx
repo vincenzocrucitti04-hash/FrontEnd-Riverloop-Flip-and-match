@@ -23,6 +23,12 @@ test("shows one active difficulty and an accessible preview selector", () => {
     />,
   );
 
+  expect(
+    screen.getByRole("group", { name: "Livello memoria" }),
+  ).toBeInTheDocument();
+  expect(
+    screen.getByRole("group", { name: "Parametri di scansione" }),
+  ).toBeInTheDocument();
   expect(screen.getByRole("button", { name: "4x4" })).toHaveAttribute(
     "aria-pressed",
     "true",
@@ -39,13 +45,41 @@ test("shows one active difficulty and an accessible preview selector", () => {
   });
   expect(onPreviewChange).toHaveBeenCalledWith(0);
 
-  fireEvent.click(screen.getByRole("button", { name: "Modalità allenamento" }));
+  const trainingButton = screen.getByRole("button", {
+    name: "Modalità allenamento",
+  });
+  expect(trainingButton).toHaveAttribute("aria-pressed", "false");
+  fireEvent.click(trainingButton);
   expect(onTrainingModeChange).toHaveBeenCalledWith(true);
 
   fireEvent.change(screen.getByLabelText("Mazzo Pokémon"), {
     target: { value: "water" },
   });
   expect(onDeckChange).toHaveBeenCalledWith("water");
+});
+
+test("marks incompatible decks as unavailable for the selected difficulty", () => {
+  render(
+    <GridControls
+      gridSize="6x6"
+      previewMs={750}
+      disabled={false}
+      onGridSizeChange={() => {}}
+      onPreviewChange={() => {}}
+      trainingMode
+      onTrainingModeChange={() => {}}
+      deckId="kanto"
+      onDeckChange={() => {}}
+    />,
+  );
+
+  expect(
+    screen.getByRole("button", { name: "Modalità allenamento" }),
+  ).toHaveAttribute("aria-pressed", "true");
+  expect(
+    screen.getByRole("option", { name: "Starter e evoluzioni" }),
+  ).toBeDisabled();
+  expect(screen.getByRole("option", { name: "Kanto (tutti)" })).toBeEnabled();
 });
 
 test("disables all settings while a deck is loading", () => {

@@ -1,9 +1,9 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, within } from "@testing-library/react";
 import { expect, test } from "vitest";
 
 import GameStats from "./GameStats";
 
-test("shows elapsed time, theoretical minimum, and best result", () => {
+test("shows five game metrics in the telemetry description list", () => {
   render(
     <GameStats
       elapsedMs={65000}
@@ -15,16 +15,24 @@ test("shows elapsed time, theoretical minimum, and best result", () => {
     />,
   );
 
-  expect(screen.getByText("01:05")).toHaveClass("game-stats__value");
-  expect(screen.getByText("8")).toHaveClass("game-stats__value");
-  expect(screen.getByText("00:59 · 10 mosse")).toHaveClass("game-stats__value");
-  expect(screen.getByText("×3")).toHaveClass(
+  const telemetry = screen.getByRole("group", {
+    name: "Telemetria partita",
+  });
+
+  expect(telemetry.tagName).toBe("DL");
+  expect(within(telemetry).getByText("01:05")).toHaveClass(
+    "game-stats__value",
+  );
+  expect(within(telemetry).getByText("8")).toHaveClass("game-stats__value");
+  expect(within(telemetry).getByText("00:59 · 10 mosse")).toHaveClass(
+    "game-stats__value",
+  );
+  expect(within(telemetry).getByText("×3")).toHaveClass(
     "game-stats__value",
     "game-stats__combo--active",
   );
-  expect(screen.getByText("10")).toHaveClass("game-stats__value");
-  expect(
-    screen.getByRole("group", { name: "Statistiche partita" }),
-  ).toContainElement(screen.getByText("Mosse"));
+  expect(within(telemetry).getByText("10")).toHaveClass("game-stats__value");
+  expect(within(telemetry).getAllByRole("term")).toHaveLength(5);
+  expect(within(telemetry).getAllByRole("definition")).toHaveLength(5);
   expect(screen.getByRole("status")).toHaveTextContent("10 mosse. Combo 3.");
 });

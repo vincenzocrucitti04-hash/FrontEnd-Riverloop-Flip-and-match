@@ -1,0 +1,39 @@
+.poke-ball {
+  position: relative;
+  display: inline-grid;
+  flex: none;
+  place-items: center;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  border: max(2px, 0.08em) solid var(--ink);
+  border-radius: 50%;
+  background: linear-gradient(
+    to bottom,
+    var(--poke-red) 0 44%,
+    var(--ink) 44% 56%,
+    var(--surface) 56% 100%
+  );
+}
+
+.poke-ball--small {
+  width: clamp(1.25rem, 2.5vw, 1.75rem);
+}
+
+.poke-ball--medium {
+  width: clamp(2rem, 4vw, 3rem);
+}
+
+.poke-ball--large {
+  width: clamp(3rem, 7vw, 5rem);
+}
+
+.poke-ball__button {
+  width: 28%;
+  aspect-ratio: 1 / 1;
+  border: max(2px, 0.08em) solid var(--ink);
+  border-radius: 50%;
+  background: var(--surface);
+  box-shadow:
+    0 0 0 max(2px, 0.06em) var(--surface),
+    0 0 0 max(4px, 0.14em) var(--ink);
+}
