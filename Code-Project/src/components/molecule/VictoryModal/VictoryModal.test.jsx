@@ -35,8 +35,13 @@ test("manages dialog semantics, focus, Escape, and focus restoration", () => {
     description: "Tutte le coppie sono state identificate e registrate.",
   });
   const closeButton = screen.getByRole("button", {
-    name: "Nuova scansione",
+    name: "Nuova partita",
   });
+  const summary = screen.getByText("Dettagli punteggio").closest("summary");
+  expect(summary.querySelector(".scan-result__formula-chevron")).toHaveAttribute(
+    "aria-hidden",
+    "true",
+  );
   expect(dialog).toHaveAttribute("aria-modal", "true");
   expect(closeButton).toHaveFocus();
   expect(screen.getByText("1040 punti")).toBeInTheDocument();

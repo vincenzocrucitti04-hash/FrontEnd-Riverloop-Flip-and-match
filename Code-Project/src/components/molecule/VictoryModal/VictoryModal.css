@@ -177,11 +177,30 @@
 .scan-result__formula summary {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   min-height: 44px;
   padding: 0.65rem 0.8rem;
   color: var(--text);
   cursor: pointer;
   font-weight: 850;
+  list-style: none;
+}
+
+.scan-result__formula summary::-webkit-details-marker {
+  display: none;
+}
+
+.scan-result__formula summary::marker {
+  content: "";
+}
+
+.scan-result__formula-chevron {
+  display: inline-block;
+  transition: transform 160ms ease-out;
+}
+
+.scan-result__formula[open] .scan-result__formula-chevron {
+  transform: rotate(180deg);
 }
 
 .scan-result__formula summary:focus-visible {
@@ -261,5 +280,9 @@
   .scan-result-overlay,
   .scan-result {
     animation: none;
+  }
+
+  .scan-result__formula-chevron {
+    transition: none;
   }
 }

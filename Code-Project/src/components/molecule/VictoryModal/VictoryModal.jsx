@@ -153,7 +153,12 @@ function VictoryModal({
           className="scan-result__formula"
           aria-label="Dettagli punteggio"
         >
-          <summary>Dettagli punteggio</summary>
+          <summary>
+            <span>Dettagli punteggio</span>
+            <span className="scan-result__formula-chevron" aria-hidden="true">
+              ⌄
+            </span>
+          </summary>
           <div>
             <p>
               Formula v{scoreResult.version ?? GAME_CONFIG.scoring.version}: +
@@ -174,7 +179,7 @@ function VictoryModal({
             className="scan-result__primary"
             onClick={onClose}
           >
-            Nuova scansione
+            Nuova partita
           </Button>
           <Button className="scan-result__secondary" onClick={onHome}>
             Centro di controllo

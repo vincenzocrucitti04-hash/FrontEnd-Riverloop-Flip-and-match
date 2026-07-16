@@ -88,7 +88,7 @@ Le proposte e le correzioni di questo documento sono ora spezzate in attività i
 ### Esperienza e design
 
 - Schermata iniziale con istruzioni concise e selezione difficoltà/deck.
-- Stato di rete curato: skeleton delle carte, errore con retry e fallback a immagini locali.
+- Stato di rete curato: spinner accessibile, errore con retry e fallback a immagini locali.
 - Feedback visivo e testuale su match/errore; contatore mosse e timer sempre leggibili.
 - Migliore contrasto dei colori, outline tastiera e supporto completo light/dark/system.
 - PWA: installazione, asset cache e deck locale per una partita offline.
