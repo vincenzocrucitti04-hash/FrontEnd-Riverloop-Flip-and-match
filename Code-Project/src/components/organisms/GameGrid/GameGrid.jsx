@@ -27,19 +27,29 @@ function GameGrid({
   feedbackCardIds = [],
 }) {
   return (
-    <div className={`grid grid-${gridSize}`} aria-label="Griglia di gioco">
+    <div
+      className={`memory-grid memory-grid--${gridSize}`}
+      aria-label="Griglia di gioco"
+    >
       {cards.map((card, index) => {
         const isRevealed = card.flipped || card.matched;
         const cardFeedback = feedbackCardIds.includes(card.id)
           ? feedback
           : null;
+        const pokemonNumber = String(card.pairId).padStart(3, "0");
+
+        const handleCardFlip = () => {
+          if (!isInputLocked && !isRevealed) {
+            onFlip(card.id);
+          }
+        };
 
         return (
           <button
             type="button"
             key={card.id}
-            className={`card ${isRevealed ? "flipped" : ""} ${card.matched ? "card--matched" : ""} ${cardFeedback ? `card--${cardFeedback}` : ""}`}
-            onClick={() => onFlip(card.id)}
+            className={`memory-card ${isRevealed ? "memory-card--revealed" : ""} ${card.matched ? "memory-card--matched" : ""} ${cardFeedback ? `memory-card--${cardFeedback}` : ""}`}
+            onClick={handleCardFlip}
             disabled={isInputLocked || isRevealed}
             aria-label={getCardLabel(
               card,
@@ -49,20 +59,30 @@ function GameGrid({
             )}
             aria-pressed={isRevealed}
           >
-            <span className="card-inner">
-              <span className="card-front">
+            <span className="memory-card__inner">
+              <span
+                className="memory-card__front"
+                aria-hidden={!isRevealed}
+              >
+                <span className="memory-card__index">#{pokemonNumber}</span>
                 <img
                   src={card.image}
-                  alt={isRevealed ? `Carta scoperta: ${card.name}` : ""}
+                  alt={
+                    isRevealed ? `${card.name}, Pokémon registrato` : ""
+                  }
                 />
+                <span className="memory-card__name">{card.name}</span>
               </span>
-              <span className="card-back" aria-hidden="true">
-                <span className="card-back__mark" />
+              <span className="memory-card__back" aria-hidden="true">
+                <span className="memory-card__ball">
+                  <span className="memory-card__ball-button" />
+                </span>
               </span>
             </span>
             {card.matched ? (
-              <span className="card__stamp" aria-hidden="true">
-                Trovato
+              <span className="memory-card__matched" aria-hidden="true">
+                <span className="memory-card__matched-icon">✓</span>
+                <span>Registrato</span>
               </span>
             ) : null}
           </button>
