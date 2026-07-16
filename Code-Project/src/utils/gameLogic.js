@@ -103,6 +103,27 @@ export function createLatestRequestManager() {
   };
 }
 
+export function waitForDelay(delayMs, signal) {
+  return new Promise((resolve, reject) => {
+    if (signal?.aborted) {
+      reject(new DOMException("Aborted", "AbortError"));
+      return;
+    }
+
+    const timeoutId = setTimeout(() => {
+      signal?.removeEventListener("abort", handleAbort);
+      resolve();
+    }, delayMs);
+
+    function handleAbort() {
+      clearTimeout(timeoutId);
+      reject(new DOMException("Aborted", "AbortError"));
+    }
+
+    signal?.addEventListener("abort", handleAbort, { once: true });
+  });
+}
+
 export function createTimeoutManager(
   setTimeoutFn = setTimeout,
   clearTimeoutFn = clearTimeout,

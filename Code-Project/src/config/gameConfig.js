@@ -27,7 +27,7 @@ export function validateGameConfig(config) {
         pairs * 2 === totalCards,
     );
   const hasValidTimings =
-    timings.length === 3 &&
+    timings.length === 4 &&
     timings.every((duration) => Number.isFinite(duration) && duration >= 0);
   const hasValidApiConfig =
     Number.isInteger(apiConfig?.minId) &&
@@ -110,6 +110,7 @@ const gameConfig = {
     },
   },
   timings: {
+    minimumLoadingMs: 1000,
     previewMs: 750,
     mismatchMs: 1000,
     victoryMs: 500,

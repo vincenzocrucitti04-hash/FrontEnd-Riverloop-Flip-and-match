@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { test } from "vitest";
+import { test, vi } from "vitest";
 
 import {
   createDeck,
@@ -143,6 +143,32 @@ test("clearing pending timeouts prevents callbacks from an old game", () => {
   pendingCallbacks.forEach((callback) => callback());
 
   assert.equal(result, "new game");
+});
+
+test("waitForDelay resolves after the requested duration and aborts cleanly", async () => {
+  vi.useFakeTimers();
+
+  try {
+    const controller = new AbortController();
+    const completed = vi.fn();
+    const waiting = gameLogic
+      .waitForDelay(1000, controller.signal)
+      .then(completed);
+
+    await vi.advanceTimersByTimeAsync(999);
+    assert.equal(completed.mock.calls.length, 0);
+    await vi.advanceTimersByTimeAsync(1);
+    await waiting;
+    assert.equal(completed.mock.calls.length, 1);
+
+    const abortedController = new AbortController();
+    const aborted = gameLogic.waitForDelay(1000, abortedController.signal);
+    abortedController.abort();
+
+    await assert.rejects(aborted, { name: "AbortError" });
+  } finally {
+    vi.useRealTimers();
+  }
 });
 
 test("shuffle returns a deterministic permutation without mutating its input", () => {

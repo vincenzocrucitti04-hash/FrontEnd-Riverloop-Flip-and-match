@@ -22,6 +22,7 @@ import {
   getGridConfig,
   isMatch,
   selectUniquePokemonIds,
+  waitForDelay,
 } from "../utils/gameLogic";
 import { calculateScore } from "../utils/scoring";
 import { classifyPokemonLoadError } from "../utils/networkError";
@@ -201,21 +202,34 @@ export default function useGameLogic(
         Math.random,
         deck.pokemonIds,
       );
-      const responses = deck.offline
-        ? pokemonIds.map((id) =>
-            getDeckPokemon(deckId).find((pokemon) => pokemon.id === id),
+      const responsesPromise = deck.offline
+        ? Promise.resolve(
+            pokemonIds.map((id) =>
+              getDeckPokemon(deckId).find((pokemon) => pokemon.id === id),
+            ),
           )
-        : await Promise.all(
+        : Promise.all(
             pokemonIds.map((id) =>
               fetchPokemon(id, { signal: request.signal }),
             ),
           );
+      const [loadResult] = await Promise.all([
+        responsesPromise.then(
+          (responses) => ({ responses, error: null }),
+          (loadError) => ({ responses: null, error: loadError }),
+        ),
+        waitForDelay(GAME_CONFIG.timings.minimumLoadingMs, request.signal),
+      ]);
+
+      if (loadResult.error) {
+        throw loadResult.error;
+      }
 
       if (!request.isCurrent()) {
         return;
       }
 
-      const gameCards = createDeck(responses);
+      const gameCards = createDeck(loadResult.responses);
 
       dispatch({ type: "LOAD_SUCCESS", cards: gameCards });
     } catch (err) {

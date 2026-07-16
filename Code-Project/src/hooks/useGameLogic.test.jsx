@@ -29,7 +29,111 @@ afterEach(() => {
   }));
 });
 
+test("keeps loading visible for one second when Pokemon load immediately", async () => {
+  vi.useFakeTimers();
+  const { result } = renderHook(() => useGameLogic(vi.fn(), 0));
+
+  await act(async () => {
+    await Promise.resolve();
+  });
+  expect(result.current.loading).toBe(true);
+
+  await act(async () => {
+    await vi.advanceTimersByTimeAsync(999);
+  });
+  expect(result.current.loading).toBe(true);
+
+  await act(async () => {
+    await vi.advanceTimersByTimeAsync(1);
+  });
+  expect(result.current.loading).toBe(false);
+  expect(result.current.cards).toHaveLength(16);
+});
+
+test("keeps loading visible after one second until a slow Pokemon load completes", async () => {
+  vi.useFakeTimers();
+  let resolvePokemon;
+  const pokemonResponse = new Promise((resolve) => {
+    resolvePokemon = resolve;
+  });
+  vi.mocked(fetchPokemon).mockImplementation((id) =>
+    pokemonResponse.then(() => ({
+      id,
+      name: `pokemon-${id}`,
+      image: `pokemon-${id}.png`,
+    })),
+  );
+  const { result } = renderHook(() => useGameLogic(vi.fn(), 0));
+
+  await act(async () => {
+    await vi.advanceTimersByTimeAsync(1000);
+  });
+  expect(result.current.loading).toBe(true);
+
+  await act(async () => {
+    resolvePokemon();
+    await pokemonResponse;
+  });
+  expect(result.current.loading).toBe(false);
+  expect(result.current.cards).toHaveLength(16);
+});
+
+test("keeps an early load error behind the minimum loading interval", async () => {
+  vi.useFakeTimers();
+  vi.mocked(fetchPokemon).mockRejectedValue(new TypeError("offline"));
+  const { result } = renderHook(() => useGameLogic(vi.fn(), 0));
+
+  await act(async () => {
+    await vi.advanceTimersByTimeAsync(999);
+  });
+  expect(result.current.loading).toBe(true);
+  expect(result.current.error).toBeNull();
+
+  await act(async () => {
+    await vi.advanceTimersByTimeAsync(1);
+  });
+  expect(result.current.loading).toBe(false);
+  expect(result.current.errorKind).toBe("network");
+});
+
+test("aborts obsolete loading and gives the replacement request a full interval", async () => {
+  vi.useFakeTimers();
+  const { result } = renderHook(() => useGameLogic(vi.fn(), 0));
+  const firstSignal = vi.mocked(fetchPokemon).mock.calls[0][1].signal;
+
+  await act(async () => {
+    await vi.advanceTimersByTimeAsync(500);
+    result.current.setDeckId("water");
+    await Promise.resolve();
+  });
+  expect(firstSignal.aborted).toBe(true);
+
+  await act(async () => {
+    await vi.advanceTimersByTimeAsync(500);
+  });
+  expect(result.current.loading).toBe(true);
+
+  await act(async () => {
+    await vi.advanceTimersByTimeAsync(500);
+  });
+  expect(result.current.loading).toBe(false);
+  expect(result.current.deckId).toBe("water");
+});
+
+test("aborts loading and clears its delay when the hook unmounts", () => {
+  vi.useFakeTimers();
+  const { unmount } = renderHook(() => useGameLogic(vi.fn(), 0));
+  const signal = vi.mocked(fetchPokemon).mock.calls[0][1].signal;
+
+  expect(vi.getTimerCount()).toBe(2);
+  unmount();
+
+  expect(signal.aborted).toBe(true);
+  expect(vi.getTimerCount()).toBe(0);
+});
+
 test("starts a complete local deck without network requests", async () => {
+  vi.useFakeTimers();
   localStorage.setItem(
     "flip-and-match:user-data",
     JSON.stringify({
@@ -47,7 +151,7 @@ test("starts a complete local deck without network requests", async () => {
 
   const { result } = renderHook(() => useGameLogic(vi.fn(), 0));
   await act(async () => {
-    await Promise.resolve();
+    await vi.advanceTimersByTimeAsync(1000);
   });
 
   expect(result.current.cards).toHaveLength(36);
@@ -60,12 +164,13 @@ test("starts a complete local deck without network requests", async () => {
 });
 
 test("a thematic deck only requests Pokemon from its catalog", async () => {
+  vi.useFakeTimers();
   const waterIds = new Set([
     7, 8, 9, 54, 55, 60, 61, 62, 72, 73, 79, 80, 86, 87, 90, 91, 98, 99,
   ]);
   const { result } = renderHook(() => useGameLogic(vi.fn(), 0));
   await act(async () => {
-    await Promise.resolve();
+    await vi.advanceTimersByTimeAsync(1000);
   });
   vi.mocked(fetchPokemon).mockClear();
 
@@ -80,17 +185,21 @@ test("a thematic deck only requests Pokemon from its catalog", async () => {
 });
 
 test("recovers from a network error by switching explicitly to the local deck", async () => {
+  vi.useFakeTimers();
   vi.mocked(fetchPokemon).mockRejectedValue(new TypeError("offline"));
   const { result } = renderHook(() => useGameLogic(vi.fn(), 0));
 
   await act(async () => {
-    await Promise.resolve();
+    await vi.advanceTimersByTimeAsync(1000);
   });
   expect(result.current.errorKind).toBe("network");
 
   await act(async () => {
     result.current.handleUseOfflineDeck();
     await Promise.resolve();
+  });
+  await act(async () => {
+    await vi.advanceTimersByTimeAsync(1000);
   });
 
   expect(result.current.error).toBeNull();
@@ -106,7 +215,7 @@ test("loads a 4x4 deck and ends its preview", async () => {
 
   expect(result.current.loading).toBe(true);
   await act(async () => {
-    await Promise.resolve();
+    await vi.advanceTimersByTimeAsync(1000);
   });
   expect(result.current.cards).toHaveLength(16);
   expect(result.current.cards.every((card) => card.flipped)).toBe(true);
@@ -123,14 +232,14 @@ test("reloads the deck after changing preview duration", async () => {
   vi.useFakeTimers();
   const { result } = renderHook(() => useGameLogic(vi.fn(), 0));
   await act(async () => {
-    await Promise.resolve();
+    await vi.advanceTimersByTimeAsync(1000);
   });
   act(() => vi.advanceTimersByTime(750));
   vi.mocked(fetchPokemon).mockClear();
 
   await act(async () => {
     result.current.setPreviewMs(1500);
-    await Promise.resolve();
+    await vi.advanceTimersByTimeAsync(1000);
   });
 
   expect(result.current.loading).toBe(false);
@@ -144,7 +253,7 @@ test("shows optional training information only after a matched pair", async () =
   const { result } = renderHook(() => useGameLogic(vi.fn(), 0));
 
   await act(async () => {
-    await Promise.resolve();
+    await vi.advanceTimersByTimeAsync(1000);
   });
   act(() => {
     vi.advanceTimersByTime(750);
@@ -193,7 +302,7 @@ test("updates the local profile once and only after a valid victory", async () =
   });
 
   await act(async () => {
-    await Promise.resolve();
+    await vi.advanceTimersByTimeAsync(1000);
   });
   expect(onProfileUpdate).not.toHaveBeenCalled();
 
