@@ -113,6 +113,10 @@
   border: 2px solid var(--surface);
   border-radius: inherit;
   backface-visibility: hidden;
+  transition:
+    opacity 0s linear 110ms,
+    visibility 0s linear 110ms,
+    z-index 0s linear 110ms;
 }
 
 .memory-card__front {
@@ -317,6 +321,11 @@
   .memory-card__front {
     visibility: hidden;
     transform: none;
+  }
+
+  .memory-card__front,
+  .memory-card__back {
+    transition: none;
   }
 
   .memory-card__front--visible {

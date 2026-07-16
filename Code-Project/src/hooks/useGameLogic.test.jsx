@@ -120,6 +120,61 @@ test("aborts obsolete loading and gives the replacement request a full interval"
   expect(result.current.deckId).toBe("water");
 });
 
+test("ignores an obsolete Pokemon load that settles after its replacement", async () => {
+  vi.useFakeTimers();
+  let resolveObsoleteLoad;
+  const obsoleteLoad = new Promise((resolve) => {
+    resolveObsoleteLoad = resolve;
+  });
+  let requestCount = 0;
+
+  vi.mocked(fetchPokemon).mockImplementation((id) => {
+    requestCount += 1;
+    const response = {
+      id,
+      name: `${requestCount <= 8 ? "obsolete" : "current"}-${id}`,
+      image: `pokemon-${id}.png`,
+    };
+
+    return requestCount <= 8
+      ? obsoleteLoad.then(() => response)
+      : Promise.resolve(response);
+  });
+
+  const { result } = renderHook(() => useGameLogic(vi.fn(), 0));
+  const obsoleteSignal = vi.mocked(fetchPokemon).mock.calls[0][1].signal;
+
+  await act(async () => {
+    result.current.setDeckId("water");
+    await Promise.resolve();
+  });
+  await act(async () => {
+    await vi.advanceTimersByTimeAsync(1000);
+  });
+
+  expect(obsoleteSignal.aborted).toBe(true);
+  expect(result.current.deckId).toBe("water");
+  expect(result.current.cards).toHaveLength(16);
+  expect(
+    result.current.cards.every(({ name }) => name.startsWith("current-")),
+  ).toBe(true);
+
+  const currentCards = result.current.cards;
+  const currentAnnouncement = result.current.announcement;
+
+  await act(async () => {
+    resolveObsoleteLoad();
+    await obsoleteLoad;
+    await Promise.resolve();
+  });
+
+  expect(result.current.cards).toBe(currentCards);
+  expect(result.current.deckId).toBe("water");
+  expect(result.current.loading).toBe(false);
+  expect(result.current.error).toBeNull();
+  expect(result.current.announcement).toBe(currentAnnouncement);
+});
+
 test("aborts loading and clears its delay when the hook unmounts", () => {
   vi.useFakeTimers();
   const { unmount } = renderHook(() => useGameLogic(vi.fn(), 0));

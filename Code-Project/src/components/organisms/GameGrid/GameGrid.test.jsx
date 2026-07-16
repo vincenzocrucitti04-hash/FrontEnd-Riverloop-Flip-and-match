@@ -1,7 +1,14 @@
+import { readFileSync } from "node:fs";
+import { resolve } from "node:path";
 import { fireEvent, render, screen, within } from "@testing-library/react";
 import { expect, test, vi } from "vitest";
 
 import GameGrid from "./GameGrid";
+
+const gameGridStyles = readFileSync(
+  resolve("src/components/organisms/GameGrid/GameGrid.css"),
+  "utf8",
+);
 
 const cards = [
   {
@@ -81,6 +88,21 @@ test("shows the artwork above the hidden back for a revealed card", () => {
   );
   expect(container.querySelector(".memory-card__back")).toHaveClass(
     "memory-card__back--hidden",
+  );
+});
+
+test("switches card layers at the flip midpoint and immediately for reduced motion", () => {
+  expect(gameGridStyles).toMatch(
+    /\.memory-card__front,\s*\.memory-card__back\s*{[^}]*transition:\s*opacity 0s linear 110ms,\s*visibility 0s linear 110ms,\s*z-index 0s linear 110ms;/s,
+  );
+  expect(gameGridStyles).toMatch(
+    /\.memory-card__front--visible\s*{[^}]*z-index:\s*2;[^}]*opacity:\s*1;[^}]*visibility:\s*visible;/s,
+  );
+  expect(gameGridStyles).toMatch(
+    /\.memory-card__back--hidden\s*{[^}]*z-index:\s*1;[^}]*opacity:\s*0;[^}]*visibility:\s*hidden;/s,
+  );
+  expect(gameGridStyles).toMatch(
+    /@media \(prefers-reduced-motion: reduce\)[\s\S]*\.memory-card__front,\s*\.memory-card__back\s*{[^}]*transition:\s*none;/,
   );
 });
 
