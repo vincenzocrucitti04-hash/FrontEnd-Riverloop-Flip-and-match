@@ -89,3 +89,32 @@ test("manages dialog semantics, focus, Escape, and focus restoration", () => {
   expect(fallbackButton).toHaveFocus();
   header.remove();
 });
+
+test("traps keyboard focus across the score summary and dialog actions", () => {
+  render(
+    <VictoryModal
+      isOpen
+      onClose={vi.fn()}
+      moves={12}
+      elapsedMs={42000}
+      maxCombo={4}
+      difficulty="4x4"
+      scoreResult={{ score: 1040, stars: 2 }}
+    />,
+  );
+
+  const dialog = screen.getByRole("dialog", {
+    name: "Scansione completata",
+  });
+  const summary = screen.getByText("Dettagli punteggio").closest("summary");
+  const lastButton = screen.getByRole("button", {
+    name: "Centro di controllo",
+  });
+
+  summary.focus();
+  fireEvent.keyDown(dialog, { key: "Tab", shiftKey: true });
+  expect(lastButton).toHaveFocus();
+
+  fireEvent.keyDown(dialog, { key: "Tab" });
+  expect(summary).toHaveFocus();
+});
