@@ -34,8 +34,16 @@
   border: 2px solid var(--ink);
   border-radius: 999px;
   background:
-    radial-gradient(circle at 0.55rem 50%, var(--signal-cyan) 0 0.2rem, transparent 0.22rem),
-    radial-gradient(circle at 1.35rem 50%, var(--danger) 0 0.2rem, transparent 0.22rem),
+    radial-gradient(
+      circle at 0.55rem 50%,
+      var(--signal-cyan) 0 0.2rem,
+      transparent 0.22rem
+    ),
+    radial-gradient(
+      circle at 1.35rem 50%,
+      var(--danger) 0 0.2rem,
+      transparent 0.22rem
+    ),
     linear-gradient(90deg, var(--ink) 0 2rem, var(--poke-red-dark) 2rem 100%);
 }
 

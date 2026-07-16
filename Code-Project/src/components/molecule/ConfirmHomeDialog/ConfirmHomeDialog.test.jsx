@@ -6,7 +6,7 @@ import ConfirmHomeDialog from "./ConfirmHomeDialog";
 test("focuses the safe action and cancels with Escape", () => {
   const onCancel = vi.fn();
   const trigger = document.createElement("button");
-  trigger.textContent = "Torna alla base";
+  trigger.textContent = "Centro di controllo";
   document.body.appendChild(trigger);
   trigger.focus();
 

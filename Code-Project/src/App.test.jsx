@@ -25,18 +25,20 @@ vi.mock("./components/organisms/Footer/Footer", () => ({
 }));
 vi.mock("./components/templates/GameBoard/GameBoard", () => ({
   default: ({ initialOptions, onHome, onCompletedHome, setMoves }) => (
-    <div data-testid="game-board">
+    <main className="scan-console" data-testid="game-board">
       {JSON.stringify(initialOptions)}
+      <dl role="group" aria-label="Telemetria partita" />
+      <div role="grid" aria-label="Griglia di gioco" />
       <button type="button" onClick={onHome}>
-        Torna alla base
+        Centro di controllo
       </button>
       <button type="button" onClick={() => setMoves(1)}>
         Registra una mossa
       </button>
       <button type="button" onClick={onCompletedHome}>
-        Torna dopo la vittoria
+        Rientro dopo la vittoria
       </button>
-    </div>
+    </main>
   ),
 }));
 
@@ -46,6 +48,24 @@ beforeEach(() => {
     addEventListener: vi.fn(),
     removeEventListener: vi.fn(),
   }));
+});
+
+test("moves from the control center to the game console", () => {
+  render(<App />);
+
+  expect(
+    screen.getByRole("heading", { name: "Centro di controllo" }),
+  ).toBeInTheDocument();
+
+  fireEvent.click(screen.getByRole("button", { name: "Avvia sfida" }));
+
+  expect(screen.getByRole("main")).toHaveClass("scan-console");
+  expect(
+    screen.getByRole("group", { name: "Telemetria partita" }),
+  ).toBeInTheDocument();
+  expect(
+    screen.getByRole("grid", { name: "Griglia di gioco" }),
+  ).toBeInTheDocument();
 });
 
 test("does not mount the game before confirming persisted selections", () => {
@@ -110,11 +130,11 @@ test("bounds the desktop archive to the viewport and restores mobile flow", () =
   );
 });
 
-test("returns home immediately when the expedition has no moves", () => {
+test("returns to the control center immediately when the scan has no moves", () => {
   render(<App />);
 
   fireEvent.click(screen.getByRole("button", { name: "Avvia sfida" }));
-  fireEvent.click(screen.getByRole("button", { name: "Torna alla base" }));
+  fireEvent.click(screen.getByRole("button", { name: "Centro di controllo" }));
 
   expect(screen.queryByTestId("game-board")).not.toBeInTheDocument();
   expect(
@@ -122,24 +142,22 @@ test("returns home immediately when the expedition has no moves", () => {
   ).toBeInTheDocument();
 });
 
-test("asks for confirmation before abandoning an expedition with moves", () => {
+test("asks for confirmation before interrupting a scan with moves", () => {
   render(<App />);
 
   fireEvent.click(screen.getByRole("button", { name: "Avvia sfida" }));
   fireEvent.click(screen.getByRole("button", { name: "Registra una mossa" }));
-  fireEvent.click(screen.getByRole("button", { name: "Torna alla base" }));
+  fireEvent.click(screen.getByRole("button", { name: "Centro di controllo" }));
 
   expect(
-    screen.getByRole("dialog", { name: "Abbandonare la spedizione?" }),
+    screen.getByRole("dialog", { name: "Interrompere la scansione?" }),
   ).toBeInTheDocument();
 
-  fireEvent.click(screen.getByRole("button", { name: "Continua a giocare" }));
+  fireEvent.click(screen.getByRole("button", { name: "Continua partita" }));
   expect(screen.getByTestId("game-board")).toBeInTheDocument();
 
-  fireEvent.click(screen.getByRole("button", { name: "Torna alla base" }));
-  fireEvent.click(
-    screen.getByRole("button", { name: "Conferma ritorno alla base" }),
-  );
+  fireEvent.click(screen.getByRole("button", { name: "Centro di controllo" }));
+  fireEvent.click(screen.getByRole("button", { name: "Esci al centro" }));
 
   expect(screen.queryByTestId("game-board")).not.toBeInTheDocument();
 });
@@ -150,11 +168,11 @@ test("returns home without an abandonment prompt after victory", () => {
   fireEvent.click(screen.getByRole("button", { name: "Avvia sfida" }));
   fireEvent.click(screen.getByRole("button", { name: "Registra una mossa" }));
   fireEvent.click(
-    screen.getByRole("button", { name: "Torna dopo la vittoria" }),
+    screen.getByRole("button", { name: "Rientro dopo la vittoria" }),
   );
 
   expect(
-    screen.queryByRole("dialog", { name: "Abbandonare la spedizione?" }),
+    screen.queryByRole("dialog", { name: "Interrompere la scansione?" }),
   ).not.toBeInTheDocument();
   expect(screen.queryByTestId("game-board")).not.toBeInTheDocument();
 });

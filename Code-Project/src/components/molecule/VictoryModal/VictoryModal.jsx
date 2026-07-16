@@ -106,10 +106,7 @@ function VictoryModal({
         <p id="victory-description" className="scan-result__message">
           Tutte le coppie sono state identificate e registrate.
         </p>
-        <section
-          className="scan-result__score"
-          aria-label="Valutazione finale"
-        >
+        <section className="scan-result__score" aria-label="Valutazione finale">
           <p>{scoreResult.score} punti</p>
           <p
             className="scan-result__stars"

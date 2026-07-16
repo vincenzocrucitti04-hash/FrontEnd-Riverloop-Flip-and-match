@@ -59,9 +59,7 @@ test("manages dialog semantics, focus, Escape, and focus restoration", () => {
     screen.getByText("Soglie 4x4: 2 stelle da 800, 3 stelle da 1200."),
   ).toBeInTheDocument();
 
-  fireEvent.click(
-    screen.getByRole("button", { name: "Centro di controllo" }),
-  );
+  fireEvent.click(screen.getByRole("button", { name: "Centro di controllo" }));
   expect(onHome).toHaveBeenCalledOnce();
 
   fireEvent.keyDown(dialog, { key: "Tab" });

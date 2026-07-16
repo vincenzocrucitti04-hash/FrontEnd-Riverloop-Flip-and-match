@@ -53,6 +53,21 @@ test("cards are buttons with position, state, and descriptive image text", () =>
   expect(onFlip).toHaveBeenCalledWith("1-1");
 });
 
+test("exposes grid semantics without replacing the card button role", () => {
+  render(
+    <GameGrid
+      cards={cards}
+      onFlip={() => {}}
+      gridSize="4x4"
+      isInputLocked={false}
+    />,
+  );
+
+  const grid = screen.getByRole("grid", { name: "Griglia di gioco" });
+  expect(within(grid).getAllByRole("gridcell")).toHaveLength(2);
+  expect(within(grid).getAllByRole("button")).toHaveLength(2);
+});
+
 test("keeps the identity on a covered card hidden from assistive technology", () => {
   render(
     <GameGrid
