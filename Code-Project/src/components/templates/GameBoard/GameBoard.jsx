@@ -6,7 +6,7 @@ import GameToolbar from "../../molecule/GameToolbar/GameToolbar";
 import GameGrid from "../../organisms/GameGrid/GameGrid";
 import VictoryModal from "../../molecule/VictoryModal/VictoryModal";
 import TrainingInfo from "../../molecule/TrainingInfo/TrainingInfo";
-import GameSkeleton from "../../organisms/GameSkeleton/GameSkeleton";
+import GameLoader from "../../organisms/GameLoader/GameLoader";
 import useGameLogic from "../../../hooks/useGameLogic";
 import { DECK_CATALOG } from "../../../config/deckCatalog";
 import "./GameBoard.css";
@@ -71,7 +71,7 @@ function GameBoard({
         />
         <div className="scan-console__viewport">
           {loading ? (
-            <GameSkeleton gridSize={gridSize} />
+            <GameLoader />
           ) : error ? (
             <GameError
               message={error}

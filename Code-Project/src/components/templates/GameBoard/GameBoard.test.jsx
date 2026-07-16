@@ -67,8 +67,9 @@ test("shows only the loading branch inside the game viewport", () => {
   render(<GameBoard />);
 
   expect(
-    screen.getByText("Sincronizzazione Pokémon in corso…").closest('[role="status"]'),
-  ).toHaveTextContent("Sincronizzazione Pokémon in corso");
+    screen.getByRole("status", { name: "Caricamento Pokémon in corso" }),
+  ).toBeInTheDocument();
+  expect(screen.queryByText(/Sincronizzazione/i)).not.toBeInTheDocument();
   expect(screen.queryByRole("alert")).not.toBeInTheDocument();
   expect(
     screen.queryByLabelText("Griglia di gioco"),
@@ -86,7 +87,7 @@ test("shows only the error branch when loading has ended", () => {
     "PokeAPI non disponibile",
   );
   expect(
-    screen.queryByText("Sincronizzazione Pokémon in corso…"),
+    screen.queryByRole("status", { name: "Caricamento Pokémon in corso" }),
   ).not.toBeInTheDocument();
   expect(
     screen.queryByLabelText("Griglia di gioco"),
