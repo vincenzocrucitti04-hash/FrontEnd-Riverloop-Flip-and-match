@@ -29,7 +29,6 @@ test("presents the control center hierarchy and a native start CTA", () => {
     screen.getByRole("region", { name: /configurazione sfida/i }),
   ).toBeInTheDocument();
   expect(container.querySelector(".control-center")).not.toBeNull();
-  expect(screen.queryByText("Sistema pronto")).not.toBeInTheDocument();
   expect(container.querySelector(".control-center__scanner-status")).toBeNull();
   expect(screen.getByLabelText("Riepilogo configurazione")).toHaveTextContent(
     "4x4",

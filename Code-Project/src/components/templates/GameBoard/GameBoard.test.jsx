@@ -21,7 +21,7 @@ vi.mock("../../../hooks/useGameLogic", () => ({
 function createGameState(overrides = {}) {
   return {
     cards: [],
-    announcement: "Sistema pronto.",
+    announcement: "Partita iniziata.",
     elapsedMs: 0,
     bestRecord: null,
     minimumMoves: 8,
