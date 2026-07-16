@@ -11,7 +11,7 @@
     to bottom,
     var(--poke-red) 0 44%,
     var(--ink) 44% 56%,
-    var(--surface) 56% 100%
+    #ffffff 56% 100%
   );
 }
 
@@ -32,8 +32,8 @@
   aspect-ratio: 1 / 1;
   border: max(2px, 0.08em) solid var(--ink);
   border-radius: 50%;
-  background: var(--surface);
+  background: #ffffff;
   box-shadow:
-    0 0 0 max(2px, 0.06em) var(--surface),
+    0 0 0 max(2px, 0.06em) #ffffff,
     0 0 0 max(4px, 0.14em) var(--ink);
 }

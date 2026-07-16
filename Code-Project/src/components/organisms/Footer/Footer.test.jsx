@@ -6,7 +6,7 @@ import Footer from "./Footer";
 test("renders in document flow without scroll or resize listeners", () => {
   const addEventListener = vi.spyOn(window, "addEventListener");
 
-  render(<Footer />);
+  const { container } = render(<Footer />);
 
   expect(screen.getByRole("contentinfo")).toBeInTheDocument();
   expect(
@@ -15,6 +15,8 @@ test("renders in document flow without scroll or resize listeners", () => {
   expect(
     screen.getByRole("navigation", { name: "Collegamenti sociali" }),
   ).toBeInTheDocument();
+  expect(screen.queryByText("Sistema pronto")).not.toBeInTheDocument();
+  expect(container.querySelector(".system-footer__status")).toBeNull();
   expect(addEventListener).not.toHaveBeenCalledWith(
     "scroll",
     expect.any(Function),

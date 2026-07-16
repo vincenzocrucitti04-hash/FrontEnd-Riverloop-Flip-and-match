@@ -16,22 +16,6 @@
   margin: 0;
 }
 
-.system-footer__ready {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.45rem;
-  font-weight: 800;
-  text-transform: uppercase;
-}
-
-.system-footer__status {
-  width: 0.65rem;
-  aspect-ratio: 1;
-  border-radius: 50%;
-  background: #48d58b;
-  box-shadow: 0 0 0.55rem #48d58b;
-}
-
 .system-footer__socials {
   display: flex;
   gap: 0.45rem;
@@ -84,7 +68,6 @@
     text-align: center;
   }
 
-  .system-footer__ready,
   .system-footer__socials {
     justify-self: center;
   }

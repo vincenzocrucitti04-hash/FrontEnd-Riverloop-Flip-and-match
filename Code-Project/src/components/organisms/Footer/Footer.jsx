@@ -3,10 +3,6 @@ import "./Footer.css";
 function Footer() {
   return (
     <footer className="system-footer">
-      <p className="system-footer__ready">
-        <span aria-hidden="true" className="system-footer__status" /> Sistema
-        pronto
-      </p>
       <p>Dati Pokémon forniti da PokéAPI</p>
       <nav
         className="system-footer__socials"

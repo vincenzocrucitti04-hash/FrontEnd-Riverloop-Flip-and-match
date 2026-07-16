@@ -34,7 +34,6 @@ function StartScreen({ options, profile = null, onOptionsChange, onStart }) {
         <div className="control-center__scanner" aria-hidden="true">
           <span className="control-center__scanner-ring" />
           <PokeBall size="large" />
-          <span className="control-center__scanner-status">Sistema pronto</span>
         </div>
       </section>
 

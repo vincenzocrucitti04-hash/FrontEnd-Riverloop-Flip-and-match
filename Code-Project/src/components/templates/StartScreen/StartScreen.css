@@ -112,30 +112,6 @@
   box-shadow: 0 1rem 2rem rgb(21 23 28 / 22%);
 }
 
-.control-center__scanner-status {
-  position: absolute;
-  bottom: 0;
-  border: 1px solid var(--border-subtle);
-  border-radius: 999px;
-  padding: 0.35rem 0.7rem;
-  background: var(--surface-raised);
-  color: var(--success-strong);
-  font-size: 0.65rem;
-  font-weight: 850;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
-.control-center__scanner-status::before {
-  content: "";
-  display: inline-block;
-  width: 0.45rem;
-  aspect-ratio: 1;
-  margin-right: 0.4rem;
-  border-radius: 50%;
-  background: var(--success-strong);
-}
-
 .control-center__setup {
   grid-area: setup;
   padding: clamp(1.25rem, 3vw, 1.75rem);
