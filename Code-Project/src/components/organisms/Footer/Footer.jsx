@@ -3,7 +3,6 @@ import "./Footer.css";
 function Footer() {
   return (
     <footer className="system-footer">
-      <p>Dati Pokémon forniti da PokéAPI</p>
       <nav
         className="system-footer__socials"
         aria-label="Collegamenti sociali"
