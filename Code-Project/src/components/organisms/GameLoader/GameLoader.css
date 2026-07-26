@@ -1,0 +1,29 @@
+.game-loader {
+  display: grid;
+  place-items: center;
+  align-self: stretch;
+  justify-self: stretch;
+  width: 100%;
+  min-block-size: clamp(16rem, 48vw, 32rem);
+}
+
+.game-loader__spinner {
+  width: clamp(3rem, 10vw, 4.5rem);
+  aspect-ratio: 1;
+  border: 0.4rem solid var(--border-subtle);
+  border-top-color: var(--poke-red);
+  border-radius: 50%;
+  animation: game-loader-spin 0.8s linear infinite;
+}
+
+@keyframes game-loader-spin {
+  to {
+    transform: rotate(1turn);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .game-loader__spinner {
+    animation: none;
+  }
+}

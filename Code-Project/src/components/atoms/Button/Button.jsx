@@ -1,7 +1,13 @@
 import "./Button.css";
 
-function Button({ children, ...props }) {
-  return <button {...props}>{children}</button>;
+function Button({ children, className = "", ...props }) {
+  const buttonClassName = ["button", className].filter(Boolean).join(" ");
+
+  return (
+    <button className={buttonClassName} {...props}>
+      {children}
+    </button>
+  );
 }
 
 export default Button;

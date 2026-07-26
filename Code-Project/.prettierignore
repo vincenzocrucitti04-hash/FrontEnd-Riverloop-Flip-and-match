@@ -1,0 +1,11 @@
+AGENTS.md
+coverage/
+dist/
+docs/backlog/
+docs/IDEA-E-MIGLIORAMENTI.md
+node_modules/
+package-lock.json
+public/
+.dockerignore
+Dockerfile
+compose.yaml

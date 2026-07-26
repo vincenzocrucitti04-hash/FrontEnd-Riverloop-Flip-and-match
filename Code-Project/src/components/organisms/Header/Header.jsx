@@ -1,39 +1,66 @@
+import PokeBall from "../../atoms/PokeBall/PokeBall";
 import "./Header.css";
-import SunIcon from "../../../assets/sun-regular-full.svg";
-import MoonIcon from "../../../assets/moon-regular-full.svg";
-import Button from "../../atoms/Button/Button";
 
-function Header({ theme, setTheme, moves }) {
-  const toggleTheme = () => {
-    setTheme(theme === "light" ? "dark" : "light");
-  };
-
+function Header({
+  theme,
+  onThemeChange,
+  isGameActive = false,
+  onHome = () => {},
+  profileOpen = false,
+  onProfileToggle = () => {},
+}) {
   return (
-    <header className="header">
-      <div className="header-content">
-        <div className="header-title">
-          <h1>Flip & Match</h1>
-          <span className="subtitle">Memory Game</span>
+    <header className="system-header">
+      <div className="system-header__content">
+        {isGameActive ? (
+          <button
+            type="button"
+            className="system-header__brand system-header__brand--button"
+            onClick={onHome}
+            aria-label="Torna al centro di controllo"
+          >
+            <PokeBall size="small" />
+            <span className="system-header__brand-copy">
+              <strong>Flip &amp; Match</strong>
+              <span>Pokédex Memory System</span>
+            </span>
+          </button>
+        ) : (
+          <div className="system-header__brand">
+            <PokeBall size="small" />
+            <span className="system-header__brand-copy">
+              <strong>Flip &amp; Match</strong>
+              <span>Pokédex Memory System</span>
+            </span>
+          </div>
+        )}
+
+        <div className="system-header__indicators" aria-hidden="true">
+          <span className="system-header__indicator system-header__indicator--blue" />
+          <span className="system-header__indicator system-header__indicator--yellow" />
         </div>
 
-        <div className="header-controls">
-          <Button onClick={toggleTheme} className="theme-toggle">
-            <div className="theme-icon">
-              {theme === "light" ? (
-                <img src={MoonIcon} alt="enable dark mode" />
-              ) : (
-                <img src={SunIcon} alt="enable light mode" />
-              )}
-            </div>
-            <span>{theme === "light" ? "Dark" : "Light"}</span>
-          </Button>
-
-          <div className="moves-counter">
-            <div className="moves-badge">
-              <span className="moves-label">Mosse</span>
-              <span className="moves-number">{moves}</span>
-            </div>
-          </div>
+        <div className="system-header__controls">
+          <button
+            type="button"
+            className="system-header__archive-toggle"
+            onClick={onProfileToggle}
+            aria-expanded={profileOpen}
+          >
+            <span className="system-header__archive-icon" aria-hidden="true" />
+            <span>Archivio Allenatore</span>
+          </button>
+          <label className="system-header__theme">
+            <span>Tema interfaccia</span>
+            <select
+              value={theme}
+              onChange={(event) => onThemeChange(event.target.value)}
+            >
+              <option value="light">Chiaro</option>
+              <option value="dark">Scuro</option>
+              <option value="system">Sistema</option>
+            </select>
+          </label>
         </div>
       </div>
     </header>

@@ -1,0 +1,126 @@
+.trainer-archive {
+  display: grid;
+  gap: 0.85rem;
+  width: min(28rem, calc(100vw - 2rem));
+  border: 2px solid var(--border);
+  border-top: 0.45rem solid var(--poke-red);
+  border-radius: 0 0 0.85rem 0.85rem;
+  padding: 1rem;
+  background: var(--surface);
+  color: var(--text);
+  box-shadow: 0 1rem 2.5rem rgb(21 23 28 / 28%);
+}
+
+.trainer-archive h2,
+.trainer-archive h3,
+.trainer-archive p,
+.trainer-archive dl,
+.trainer-archive dd {
+  margin: 0;
+}
+
+.trainer-archive__header {
+  border-bottom: 2px solid var(--border);
+  padding-bottom: 0.65rem;
+}
+
+.trainer-archive__header p {
+  color: var(--danger-text);
+  font-size: 0.7rem;
+  font-weight: 850;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.trainer-archive__header h2 {
+  font-size: clamp(1.2rem, 3vw, 1.65rem);
+}
+
+.trainer-archive__privacy,
+.trainer-archive__formula {
+  color: var(--text-muted);
+  font-size: 0.82rem;
+  line-height: 1.45;
+}
+
+.trainer-archive__metrics {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.55rem;
+}
+
+.trainer-archive__metrics > div {
+  min-width: 0;
+  border: 1px solid var(--border-subtle);
+  border-left: 0.3rem solid var(--poke-blue);
+  border-radius: 0.4rem;
+  padding: 0.55rem;
+  background: var(--surface-raised);
+}
+
+.trainer-archive__metrics dt {
+  color: var(--text-muted);
+  font-size: 0.7rem;
+  font-weight: 750;
+  text-transform: uppercase;
+}
+
+.trainer-archive__metrics dd {
+  font-size: 1.35rem;
+  font-weight: 850;
+}
+
+.trainer-archive__discoveries {
+  display: grid;
+  gap: 0.5rem;
+  border-top: 1px solid var(--border-subtle);
+  padding-top: 0.75rem;
+}
+
+.trainer-archive__discoveries h3 {
+  font-size: 0.95rem;
+}
+
+.trainer-archive__discoveries ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  padding: 0;
+  list-style: none;
+}
+
+.trainer-archive__discoveries li {
+  border: 1px solid var(--border-subtle);
+  border-radius: 999px;
+  padding: 0.3rem 0.6rem;
+  background: color-mix(in srgb, var(--poke-yellow) 24%, var(--surface));
+  font-size: 0.8rem;
+  font-weight: 750;
+}
+
+.trainer-archive__reset {
+  justify-self: start;
+  border-color: var(--danger-text);
+  background: transparent;
+  color: var(--danger-text);
+}
+
+.trainer-archive__reset:hover:not(:disabled) {
+  border-color: var(--danger-text);
+  background: color-mix(in srgb, var(--danger-text) 10%, var(--surface));
+}
+
+@media (max-width: 48rem) {
+  .trainer-archive {
+    width: min(100%, 42rem);
+    margin-inline: auto;
+    border-radius: 0.85rem;
+    box-shadow: 0 0.7rem 1.6rem rgb(21 23 28 / 18%);
+  }
+}
+
+@media (max-width: 30rem) {
+  .trainer-archive__metrics {
+    grid-template-columns: 1fr;
+  }
+}
